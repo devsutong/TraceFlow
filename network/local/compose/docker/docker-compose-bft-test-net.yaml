@@ -1,0 +1,209 @@
+# Copyright IBM Corp. All Rights Reserved.
+#
+# SPDX-License-Identifier: Apache-2.0
+#
+
+version: '3.7'
+services:
+  peer0.producers:
+    container_name: peer0.producers
+    image: hyperledger/fabric-peer:latest
+    labels:
+      service: hyperledger-fabric
+    environment:
+      #Generic peer variables
+      - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=traceflow
+    volumes:
+      - ./docker/peercfg:/etc/hyperledger/peercfg
+      - ${DOCKER_SOCK}:/host/var/run/docker.sock
+
+  peer1.producers:
+    container_name: peer1.producers
+    image: hyperledger/fabric-peer:latest
+    labels:
+      service: hyperledger-fabric
+    environment:
+      #Generic peer variables
+      - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=traceflow
+    volumes:
+      - ./docker/peercfg:/etc/hyperledger/peercfg
+      - ${DOCKER_SOCK}:/host/var/run/docker.sock
+
+  peer2.producers:
+    container_name: peer2.producers
+    image: hyperledger/fabric-peer:latest
+    labels:
+      service: hyperledger-fabric
+    environment:
+      #Generic peer variables
+      - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=traceflow
+    volumes:
+      - ./docker/peercfg:/etc/hyperledger/peercfg
+      - ${DOCKER_SOCK}:/host/var/run/docker.sock
+
+  peer0.distributors:
+    container_name: peer0.distributors
+    image: hyperledger/fabric-peer:latest
+    labels:
+      service: hyperledger-fabric
+    environment:
+      #Generic peer variables
+      - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=traceflow
+    volumes:
+      - ./docker/peercfg:/etc/hyperledger/peercfg
+      - ${DOCKER_SOCK}:/host/var/run/docker.sock
+
+  peer1.distributors:
+    container_name: peer1.distributors
+    image: hyperledger/fabric-peer:latest
+    labels:
+      service: hyperledger-fabric
+    environment:
+      #Generic peer variables
+      - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=traceflow
+    volumes:
+      - ./docker/peercfg:/etc/hyperledger/peercfg
+      - ${DOCKER_SOCK}:/host/var/run/docker.sock
+
+  peer2.distributors:
+    container_name: peer2.distributors
+    image: hyperledger/fabric-peer:latest
+    labels:
+      service: hyperledger-fabric
+    environment:
+      #Generic peer variables
+      - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=traceflow
+    volumes:
+      - ./docker/peercfg:/etc/hyperledger/peercfg
+      - ${DOCKER_SOCK}:/host/var/run/docker.sock
+
+  peer0.retailers:
+    container_name: peer0.retailers
+    image: hyperledger/fabric-peer:latest
+    labels:
+      service: hyperledger-fabric
+    environment:
+      #Generic peer variables
+      - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=traceflow
+    volumes:
+      - ./docker/peercfg:/etc/hyperledger/peercfg
+      - ${DOCKER_SOCK}:/host/var/run/docker.sock
+
+  peer1.retailers:
+    container_name: peer1.retailers
+    image: hyperledger/fabric-peer:latest
+    labels:
+      service: hyperledger-fabric
+    environment:
+      #Generic peer variables
+      - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=traceflow
+    volumes:
+      - ./docker/peercfg:/etc/hyperledger/peercfg
+      - ${DOCKER_SOCK}:/host/var/run/docker.sock
+
+  peer2.retailers:
+    container_name: peer2.retailers
+    image: hyperledger/fabric-peer:latest
+    labels:
+      service: hyperledger-fabric
+    environment:
+      #Generic peer variables
+      - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=traceflow
+    volumes:
+      - ./docker/peercfg:/etc/hyperledger/peercfg
+      - ${DOCKER_SOCK}:/host/var/run/docker.sock
+
+  peer0.customers:
+    container_name: peer0.customers
+    image: hyperledger/fabric-peer:latest
+    labels:
+      service: hyperledger-fabric
+    environment:
+      #Generic peer variables
+      - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=traceflow
+    volumes:
+      - ./docker/peercfg:/etc/hyperledger/peercfg
+      - ${DOCKER_SOCK}:/host/var/run/docker.sock
+
+  peer1.customers:
+    container_name: peer1.customers
+    image: hyperledger/fabric-peer:latest
+    labels:
+      service: hyperledger-fabric
+    environment:
+      #Generic peer variables
+      - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=traceflow
+    volumes:
+      - ./docker/peercfg:/etc/hyperledger/peercfg
+      - ${DOCKER_SOCK}:/host/var/run/docker.sock
+
+  peer2.customers:
+    container_name: peer2.customers
+    image: hyperledger/fabric-peer:latest
+    labels:
+      service: hyperledger-fabric
+    environment:
+      #Generic peer variables
+      - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=traceflow
+    volumes:
+      - ./docker/peercfg:/etc/hyperledger/peercfg
+      - ${DOCKER_SOCK}:/host/var/run/docker.sock
+
+  peer0.suppliers:
+    container_name: peer0.suppliers
+    image: hyperledger/fabric-peer:latest
+    labels:
+      service: hyperledger-fabric
+    environment:
+      #Generic peer variables
+      - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=traceflow
+    volumes:
+      - ./docker/peercfg:/etc/hyperledger/peercfg
+      - ${DOCKER_SOCK}:/host/var/run/docker.sock
+
+  peer1.suppliers:
+    container_name: peer1.suppliers
+    image: hyperledger/fabric-peer:latest
+    labels:
+      service: hyperledger-fabric
+    environment:
+      #Generic peer variables
+      - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=traceflow
+    volumes:
+      - ./docker/peercfg:/etc/hyperledger/peercfg
+      - ${DOCKER_SOCK}:/host/var/run/docker.sock
+
+  peer2.suppliers:
+    container_name: peer2.suppliers
+    image: hyperledger/fabric-peer:latest
+    labels:
+      service: hyperledger-fabric
+    environment:
+      #Generic peer variables
+      - CORE_VM_ENDPOINT=unix:///host/var/run/docker.sock
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=traceflow
+    volumes:
+      - ./docker/peercfg:/etc/hyperledger/peercfg
+      - ${DOCKER_SOCK}:/host/var/run/docker.sock
+
+
+  cli:
+    container_name: cli
+    image: hyperledger/fabric-tools:latest
+    volumes:
+      - ./docker/peercfg:/etc/hyperledger/peercfg
+
