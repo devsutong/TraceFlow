@@ -33,6 +33,7 @@ module.export = {
             'age',
             'firstName',
             'lastName',
-        ]
+        ], 
+        additionalProperties: false
     }
 }

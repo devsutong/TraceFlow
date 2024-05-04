@@ -21,5 +21,5 @@ app.listen(PORT, () => {
 });
 
 app.get("/status", () => {
-    comsole
+    console.log("running!")
 })
