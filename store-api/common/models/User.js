@@ -1,4 +1,4 @@
-const { DataTypes } = require("sequelize")
+const { DataTypes, where } = require("sequelize")
 const { roles } = require("../../config")
 
 const UserModel = {
@@ -40,7 +40,31 @@ const UserModel = {
 };
 
 module.exports = {
-    intialize: (sequealize) => {
-        this.model = sequealize.define("user": UserModel);
+    initialise: (sequelize) => {
+        this.model = sequelize.define("user", UserModel);
+    },
+    
+    createUser: (user) => {
+        return this.model.create(user);
+    }, 
+    findUser: (query) => {
+        return this.model.findOne({
+            where: query,
+        });
+    },
+    updateUser: (query, updatedValues) => {
+        return this.model.update(updatedValues, {
+            where: query
+        });
+    },
+    findAllUsers: (query) => {
+        return this.model.findAll({
+            where: query
+        });
+    },
+    deleteUser: (query) => {
+        return this.model.destroy({
+            where: query
+        });
     }
-}
+};
