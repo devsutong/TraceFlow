@@ -2,24 +2,32 @@
 const express = require("express");
 
 const app = express();
-
+const config = require("./config");
 app.use(express.json)
 
-const PORT = process.env.PORT || 3000;
+const PORT = config.port || 3000;
 
 // Route Inports
-const AuthorizationRoutes = require("");
-const UserRotes = require("");
-const ProductRoutes = require("");
+const AuthorizationRoutes = require("./authorization/routes");
+// const UserRoutes = require("");
+// const ProductRoutes = require("");
 
-//Sequealize model imports
-const UserModel = require("");
-const ProductModel = require("");
+//Sequelize model imports
+const UserModel = require("./common/models/User");
+// const ProductModel = require("./common/models/ProductModel");
 
-app.listen(PORT, () => {
+app.listen(PORT, '0.0.0.0', () => {
     console.log("Server Listening on PORT:", PORT)
+});
+
+
+app.use("/", AuthorizationRoutes);
+
+app.get("/", (req, res) => {
+    console.log("running!")
+    res.send("Hello");
 });
 
 app.get("/status", () => {
     console.log("running!")
-})
+});

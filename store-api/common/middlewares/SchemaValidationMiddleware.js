@@ -14,6 +14,7 @@ module.exports = {
         if(!schema) {
             throw new Error('Schema is required');
         }
+        console.log('SchemaValidationMiddleware.verify');
         return (req, res, next) => {
             const ajv = new Ajv(AJV_OPTS);
             const validate = ajv.compile(schema);
