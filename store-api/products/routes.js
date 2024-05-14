@@ -16,35 +16,35 @@ const { roles } = require('../config');
 
 router.get(
     "/",
-    isAuthenticatedMiddleware,
+    isAuthenticatedMiddleware.check,
     ProductController.getProducts
 )
 
 router.get(
     "/:id",
-    isAuthenticatedMiddleware,
+    isAuthenticatedMiddleware.check,
     ProductController.getProduct
 )
 
 router.post(
     "/",
-    isAuthenticatedMiddleware,
+    isAuthenticatedMiddleware.check,
     CheckPermissionMiddleware.has(roles.ADMIN),
-    SchemaValidationMiddleware(createProductPayload),
+    SchemaValidationMiddleware.verify(createProductPayload),
     ProductController.createProduct
 )
 
 router.patch(
     "/:id",
-    isAuthenticatedMiddleware,
+    isAuthenticatedMiddleware.check,
     CheckPermissionMiddleware.has(roles.ADMIN),
-    SchemaValidationMiddleware(updateProductPayload),
+    SchemaValidationMiddleware.verify(updateProductPayload),
     ProductController.updateProduct
 )
 
 router.delete(
     "/:id",
-    isAuthenticatedMiddleware,
+    isAuthenticatedMiddleware.check,
     CheckPermissionMiddleware.has(roles.ADMIN),
     ProductController.deleteProduct
 )
