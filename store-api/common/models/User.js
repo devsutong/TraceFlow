@@ -1,4 +1,4 @@
-const { DataTypes, where } = require("sequelize")
+const { DataTypes } = require("sequelize")
 const { roles } = require("../../config")
 
 const UserModel = {

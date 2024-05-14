@@ -23,13 +23,11 @@ const encryptPassword = (password) => {
 module.exports = {
     register: (req, res) => {
         const payload = req.body;
-        let encryptPassword = encryptPassword(payload.password);
+        let encryptedPassword = encryptPassword(payload.password);
         let role = payload.role || roles.USER;
-        UserModel.createUser({ 
-            ...payload,
-            password: encryptPassword,
-            role
-        })
+        UserModel.createUser(
+            Object.assign(payload, { password: encryptedPassword, role })
+        )
         // The object being passed to createUser 
         // is constructed using the spread operator 
         // (...) to take all properties from the 
