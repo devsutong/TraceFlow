@@ -1,4 +1,4 @@
-const UserModel = require("./common/models/User");
+const UserModel = require("../models/User");
 
 module.exports = {
     has: (role) => {

@@ -7,16 +7,19 @@ const morgan = require("morgan"); // For logging
 const { port } = require("./config");
 const PORT = port || 3000;
 
-app.use(express.json())
-
 // Route Inports
-const AuthorizationRoutes = require("./authorization/routes").default;
-// const UserRoutes = require("");
-// const ProductRoutes = require("");
+const AuthorizationRoutes = require("./authorization/routes");
+const UserRoutes = require("./users/routes");
+const ProductRoutes = require("./products/routes");
 
 //Sequelize model imports
 const UserModel = require("./common/models/User");
-// const ProductModel = require("./common/models/ProductModel");
+const ProductModel = require("./common/models/Product");
+
+app.use(morgan("tiny"));
+app.use(cors());
+
+app.use(express.json())
 
 app.get("/", (req, res) => {
     res.send("This is the root route!");
@@ -47,6 +50,8 @@ sequelize
 
     // Attaching the Authentication and User Routes to the app.
     app.use("/", AuthorizationRoutes);
+    app.use("/user", UserRoutes);
+    app.use("/product", ProductRoutes);
 
     app.listen(PORT, () => {
       console.log("Server Listening on PORT:", port);

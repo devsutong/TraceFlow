@@ -1,4 +1,4 @@
-import { UserModel } from '../common/models/User';
+const UserModel = require("../../common/models/User");
 
 module.exports = {
     getUser: (req, res) => {

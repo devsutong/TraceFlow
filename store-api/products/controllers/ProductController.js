@@ -1,4 +1,4 @@
-import { ProductModel } from '../common/models/Product';
+const ProductModel  = require("../../common/models/Product");
 
 module.exports = {
     createProduct: (req, res) => {

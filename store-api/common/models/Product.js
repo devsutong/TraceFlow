@@ -1,5 +1,5 @@
-import { DataTypes } from 'sequelize';
-import { productPriceUnits } from '../../config';
+const DataTypes = require('sequelize');
+const productPriceUnits = require("../../config")
 
 const ProductModel = {
     id: {
