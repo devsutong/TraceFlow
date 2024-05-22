@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const { jwtSecret } = require("../../config");
+const jwtSecret = process.env.JWT_SECRET;
 
 module.exports = { 
     check: (req, res, next) => {
@@ -16,7 +16,6 @@ module.exports = {
         }
 
         const token = authHeader.split(" ")[1];
-
         if(!token){
             return res.status(401)
             .json({
@@ -41,6 +40,5 @@ module.exports = {
             req.user = user;
             next();
         });
-
     }
 }
