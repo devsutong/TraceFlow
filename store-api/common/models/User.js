@@ -36,7 +36,11 @@ const UserModel = {
         type: DataTypes.STRING,
         allowNull: false,
         defaultValue: roles.USER
-    } 
+    },
+    gstin: {
+        type: DataTypes.STRING,
+        allowNull: true
+    }     
 };
 
 module.exports = {
