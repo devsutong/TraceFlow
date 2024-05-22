@@ -17,6 +17,7 @@ module.exports = {
         console.log('SchemaValidationMiddleware.verify');
         return (req, res, next) => {
             const ajv = new Ajv(AJV_OPTS);
+            console.log(req.body)
             const validate = ajv.compile(schema);
             const valid = validate(req.body);
 
