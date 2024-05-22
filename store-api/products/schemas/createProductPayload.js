@@ -1,4 +1,5 @@
-const { productPriceUnits } = require("../../config");
+const { productPriceUnits }  = require("../../config");
+
 module.exports = {
   type: "object",
   properties: {
@@ -18,7 +19,13 @@ module.exports = {
       type: "string",
       enum: Object.values(productPriceUnits),
     },
+    categoryIds: {
+      type: "array",
+      items: {
+        type: "number",
+      },
+    }
   },
-  required: ["name", "description", "image", "price"],
+  required: ["name", "description", "image", "price", "categoryIds"],
   additionalProperties: false,
 };

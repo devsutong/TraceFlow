@@ -18,6 +18,12 @@ module.exports = {
       type: "string",
       enum: Object.values(productPriceUnits),
     },
+    categoryIds: {
+      type: "array",
+      items: {
+        type: "number",
+      },
+    }
   },
   additionalProperties: false,
 };
