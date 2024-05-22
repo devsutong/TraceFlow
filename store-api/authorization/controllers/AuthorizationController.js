@@ -1,8 +1,12 @@
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
 
+require('dotenv').config();
+
 const UserModel = require('../../common/models/User');
-const { roles, jwtSecret, jwtExpirationInSeconds } = require('../../config');
+const { roles, jwtExpirationInSeconds } = require('../../config');
+
+const jwtSecret = process.env.JWT_SECRET
 
 const generateAccessToken = (username, userId) => {
     return jwt.sign({ 
