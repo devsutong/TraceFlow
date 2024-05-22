@@ -1,5 +1,10 @@
 const DataTypes = require('sequelize');
 const productPriceUnits = require("../../config")
+const CategoryModel = require('./Category');
+
+const sequelize = require('./SequelizeInstance');
+
+const Category = CategoryModel.initialise(sequelize);
 
 const ProductModel = {
     id: {
@@ -30,31 +35,30 @@ const ProductModel = {
     },
   };
 
-    module.exports = {
-        initialise: (sequelize) => {
-        this.model = sequelize.define('product', ProductModel);
-        },
-        createProduct: (product) => {
-            return this.model.create(product);
-        },
-        findProduct: (query) => {
-            return this.model.findOne({
-                where: query,
-            });
-        },
-        updateProduct: (query, updatedValues) => {
-            return this.model.update(updatedValues, {
-                where: query,
-            });
-        },
-        findAllProducts: (query) => {
-            return this.model.findAll({
-                where: query,
-            });
-        },
-        deleteProduct: (query) => {
-            return this.model.destroy({
-              where: query
-            });
-        }
-    };  
+module.exports = {
+  initialise: (sequelize) => {
+    const Product = sequelize.define('Product', ProductModel);
+    // const Category = sequelize.define('Category', CategoryModel);
+
+    Product.belongsToMany(Category, { through: 'ProductCategory' });
+    Category.belongsToMany(Product, { through: 'ProductCategory' });
+
+    this.Product = Product;
+    this.Category = Category;
+  },
+  createProduct: (product) => {
+    return this.Product.create(product);
+  },
+  findProduct: (query) => {
+      return this.Product.findOne({ where: query });
+  },
+  updateProduct: (query, updatedValues) => {
+      return this.Product.update(updatedValues, { where: query });
+  },
+  findAllProducts: (query) => {
+      return this.Product.findAll({ where: query });
+  },
+  deleteProduct: (query) => {
+      return this.Product.destroy({ where: query });
+  },
+};  
