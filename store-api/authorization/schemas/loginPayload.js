@@ -6,11 +6,11 @@ module.exports = {
         },
         password: {
             type: 'string'
-        },
-        required: [
-            'username',
-            'password'
-        ],
-        additionalProperties: false
-    }
+        }
+    },
+    required: [
+        'username',
+        'password'
+    ],
+    additionalProperties: false
 };
