@@ -1,145 +1,121 @@
 import React, { useState } from 'react';
-import isEmail from 'validator/lib/isEmail'; // Import the specific function
-import './Signup.css'; // Import the CSS file
-//import encryptPassword from '../../../store-api/authorization/controllers/AuthorizationController'
+import './Signup.css';
+import validator from 'validator';
 
-function Signup() {
-  const [userName, setUserName] = useState('');
-  const [firstName, setfirstName] = useState('');
-  const [lastName, setlastName] = useState('');
-  const [age, setAge] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [errorMessage, setErrorMessage] = useState(''); // For error handling
+const SignupForm = () => {
+  const [formData, setFormData] = useState({
+    username: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+    age: '',
+    firstName: '',
+    lastName: '',
+    role: '', // set default role if applicable
+  });
+
+  const [errorMessage, setErrorMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
+
+  const handleChange = (event) => {
+    setFormData({
+      ...formData,
+      [event.target.name]: event.target.value,
+    });
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    function validateEmail(email) {
-      return isEmail(email);
-    }
-
-    // Validation (optional but recommended)
-    if (!validateEmail(email)) {
-      setErrorMessage('Invalid email format');
-      return;
-    }
-    if (password.length < 8) {
-      setErrorMessage('Password must be at least 8 characters long');
-      return;
-    }
-    if (password !== confirmPassword) {
-      setErrorMessage('Passwords do not match');
+    // Basic client-side validation
+    if (!formData.username || !formData.email || !formData.password || !formData.confirmPassword || !formData.age || !formData.firstName || !formData.lastName) {
+      setErrorMessage('All fields are required!');
       return;
     }
 
-    // Prepare data to send with hashed password
-    const data = {
-      firstName,
-      lastName,
-      age,
-      email,
-      //password: encryptPassword(password), // Use the imported function
-    };
+    if (!validator.isEmail(formData.email)) {
+      setErrorMessage('Invalid email format!');
+      return;
+    }
+
+    if (formData.password !== formData.confirmPassword) {
+      setErrorMessage('Passwords do not match!');
+      return;
+    }
 
     try {
-      const response = await fetch('/api/signup', {
+      const response = await fetch("http://localhost:3001/api/auth/signup", {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
       });
 
       if (!response.ok) {
-        throw new Error(`Error: ${response.statusText}`);
+        const errorData = await response.json();
+        setErrorMessage(errorData.error);
+        return;
       }
 
-      const responseData = await response.json();
-      if (responseData.status) {
-        console.log('Signup successful!', responseData.data);
-        // Handle successful signup (e.g., redirect to login page or display success message)
-        // Potentially store the received token securely (explained later)
-      } else {
-        setErrorMessage(responseData.error);
-      }
+      // Successful Signup Logic
+      setSuccessMessage('Signup successful! Please login.');
+      setFormData({
+        username: '',
+        email: '',
+        password: '',
+        confirmPassword: '',
+        age: '',
+        firstName: '',
+        lastName: '',
+        role: '',
+      });
+
+      // Redirect to Login Page after successful signup
+      handleSuccessfulSignup();
+
     } catch (error) {
-      console.error('Error during signup:', error);
+      console.error('Signup error:', error);
       setErrorMessage('Signup failed. Please try again.');
-    } finally {
-      // Clear form fields (optional)
-      setfirstName('');
-      setEmail('');
-      setPassword('');
-      setConfirmPassword('');
     }
   };
+
+  // Function to handle successful signup and redirect
+  function handleSuccessfulSignup() {
+    window.location.href = '/login';
+  }
+
   return (
     <div className="signup-container">
       <form onSubmit={handleSubmit} className="signup-form">
-        <h1>Sign Up</h1>
+      <h2>Signup</h2>
         {errorMessage && <p className="error-message">{errorMessage}</p>}
+        {successMessage && <p className="success-message">{successMessage}</p>}
         <label htmlFor="username">Username:</label>
-        <input
-          type="text"
-          id="userName"
-          value={userName}
-          onChange={(e) => setUserName(e.target.value)}
-          required // Mark username field as required
-        />
-        <label htmlFor="firstname">First Name:</label>
-        <input
-          type="text"
-          id="firstName"
-          value={firstName}
-          onChange={(e) => setfirstName(e.target.value)}
-          required // Mark username field as required
-        />
-        <label htmlFor="lastname">Last Name:</label>
-        <input
-          type="text"
-          id="lastName"
-          value={lastName}
-          onChange={(e) => setlastName(e.target.value)}
-          required // Mark username field as required
-        />
-        <label htmlFor="age">Age:</label>
-        <input
-          type="number"
-          id="age"
-          value={age}
-          onChange={(e) => setAge(e.target.value)}
-          required // Mark username field as required
-        />
+        <input type="text" id="username" name="username" value={formData.username} onChange={handleChange} />
         <label htmlFor="email">Email:</label>
-        <input
-          type="email"
-          id="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required // Mark email field as required
-        />
+        <input type="email" id="email" name="email" value={formData.email} onChange={handleChange} />
         <label htmlFor="password">Password:</label>
-        <input
-          type="password"
-          id="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required // Mark password field as required
-        />
+        <input type="password" id="password" name="password" value={formData.password} onChange={handleChange} />
         <label htmlFor="confirmPassword">Confirm Password:</label>
-        <input
-          type="password"
-          id="confirmPassword"
-          value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
-          required // Mark confirm password field as required
-        />
-        <button type="submit">Sign Up</button>
+        <input type="password" id="confirmPassword" name="confirmPassword" value={formData.confirmPassword} onChange={handleChange} />
+        <label htmlFor="age">Age:</label>
+        <input type="number" id="age" name="age" value={formData.age} onChange={handleChange} />
+        <label htmlFor="firstName">First Name:</label>
+        <input type="text" id="firstName" name="firstName" value={formData.firstName} onChange={handleChange} />
+        <label htmlFor="lastName">Last Name:</label>
+        <input type="text" id="lastName" name="lastName" value={formData.lastName} onChange={handleChange} />
+        {/* Role dropdown if applicable */}
+        <label htmlFor="role">Role:</label>
+        <select id="role" name="role" value={formData.role} onChange={handleChange}>
+          <option value="admin">Admin</option>
+          <option value="user">User</option>
+          {/* Add option elements for each role */}
+        </select>
+        <div className="submit my-3">
+            <button type="submit">Signup</button>
+        </div>
       </form>
     </div>
   );
-}
+};
 
-export default Signup;
+export default SignupForm;

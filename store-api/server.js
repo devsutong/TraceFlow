@@ -5,7 +5,7 @@ const Sequelize = require("sequelize"); // For ORM
 const morgan = require("morgan"); // For logging
 
 const { port } = require("./config");
-const PORT = port || 3000;
+const PORT = port || 3001;
 
 // Route Inports
 const AuthorizationRoutes = require("./authorization/routes");

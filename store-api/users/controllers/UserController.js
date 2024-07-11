@@ -77,6 +77,9 @@ module.exports = {
             });
     },
 
+
+    
+
     getUsers: (req, res) => {
         UserModel.findAllUsers(req.query)
             .then((users) => {
