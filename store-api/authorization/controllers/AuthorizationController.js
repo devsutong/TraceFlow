@@ -1,21 +1,6 @@
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
 
-const mysql = require('mysql');
-
-const pool = mysql.createPool({
-  host: process.env.DB_HOST || 'localhost',
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME,
-  connectionLimit: 10 // Optional connection pool limit
-});
-
-// Use the pool object to execute queries
-
-
-require('dotenv').config();
-
 const UserModel = require('../../common/models/User');
 const { roles, jwtExpirationInSeconds } = require('../../config');
 

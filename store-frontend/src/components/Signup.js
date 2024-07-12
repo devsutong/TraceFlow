@@ -37,6 +37,7 @@ const SignupForm = () => {
       setErrorMessage('Invalid email format!');
       return;
     }
+    else(console.log(formData.email))
 
     if (formData.password !== formData.confirmPassword) {
       setErrorMessage('Passwords do not match!');
@@ -55,7 +56,7 @@ const SignupForm = () => {
         setErrorMessage(errorData.error);
         return;
       }
-
+      
       // Successful Signup Logic
       setSuccessMessage('Signup successful! Please login.');
       setFormData({
@@ -97,19 +98,22 @@ const SignupForm = () => {
         <input type="password" id="password" name="password" value={formData.password} onChange={handleChange} />
         <label htmlFor="confirmPassword">Confirm Password:</label>
         <input type="password" id="confirmPassword" name="confirmPassword" value={formData.confirmPassword} onChange={handleChange} />
-        <label htmlFor="age">Age:</label>
-        <input type="number" id="age" name="age" value={formData.age} onChange={handleChange} />
+        
         <label htmlFor="firstName">First Name:</label>
         <input type="text" id="firstName" name="firstName" value={formData.firstName} onChange={handleChange} />
         <label htmlFor="lastName">Last Name:</label>
         <input type="text" id="lastName" name="lastName" value={formData.lastName} onChange={handleChange} />
-        {/* Role dropdown if applicable */}
-        <label htmlFor="role">Role:</label>
-        <select id="role" name="role" value={formData.role} onChange={handleChange}>
-          <option value="admin">Admin</option>
-          <option value="user">User</option>
-          {/* Add option elements for each role */}
-        </select>
+
+        <label htmlFor="age">Age:</label>
+        <input type="number" id="age" name="age" value={formData.age} onChange={handleChange} />
+        
+        <label>Role:</label>
+        <div className="role-radio-buttons">
+          <input type="radio" id="role-user" name="role" value="user" onChange={handleChange} />
+          <label htmlFor="role-user">User</label>
+          <input type="radio" id="role-admin" name="role" value="admin" onChange={handleChange} />
+          <label htmlFor="role-admin">Admin</label>
+        </div>
         <div className="submit my-3">
             <button type="submit">Signup</button>
         </div>

@@ -51,4 +51,18 @@
     font-weight: bold;
     margin-bottom: 10px;
   }
+
+  .role-radio-buttons {
+    display: flex;
+    flex-direction: column; /* Stack buttons vertically */
+    margin-left: 10px; /* Adjust margin for spacing from label */
+  }
+  
+  .role-radio-buttons label {
+    margin-bottom: 5px; /* Adjust spacing between label and buttons */
+  }
+  
+  .role-radio-buttons input[type="radio"] {
+    margin-right: 0; /* Remove right margin for compact layout */
+  }
   
