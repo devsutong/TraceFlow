@@ -1,6 +1,31 @@
-import React from 'react'
-import {Link} from 'react-router-dom'
-function Navbar() {
+import React , { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import './styles/navbar.css';
+
+export default function Navbar() {
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const [isAuthenticated, setIsAuthenticated] = useState(false); // Replace with actual authentication logic
+    const navigate = useNavigate();
+    const handleProfileClick = () => {
+        setIsDropdownOpen(!isDropdownOpen);
+    };
+    const handleProfileHover = () => {
+        setIsDropdownOpen(!isDropdownOpen);
+      };
+
+    const handleLogin = () => {
+        // Handle login logic
+        navigate('/login');
+        setIsAuthenticated(true);
+        setIsDropdownOpen(false);
+    };
+
+    const handleSignup = () => {
+        // Handle signup logic
+        navigate('/signup');
+        setIsAuthenticated(true);
+        setIsDropdownOpen(false);
+    };
   return (
     <div>
         <nav className="navbar navbar-expand-lg bg-body-tertiary">
@@ -12,21 +37,41 @@ function Navbar() {
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                     <li className="nav-item">
-                    <a className="nav-link active" aria-current="page" href="/">Home</a>
+                    <a className="nav-link" aria-current="page" href="/">Home</a>
                     </li>
                     <li className="nav-item">
-                    <a className="nav-link" href="/">About</a>
+                    <a className="nav-link" href="/about">About</a>
                     </li>
                 </ul>
-                <form className="d-flex" role="search">
-                    <Link className="btn btn-primary  mx-1" to="/signup" role="button" aria-disabled="true">Signup</Link>
-                    <Link className="btn btn-primary mx-1" to="/login" role="button" aria-disabled="true">Login</Link>
-                </form>
+                    <div className="navbar-center">
+                        <form className="d-flex" role="search">
+                            <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
+                            <button className="btn btn-outline-success" type="submit">Search</button>
+                        </form>
+                    </div>
+                    <div className="navbar-right">
+                        <i className="cart-icon fs-2">🛒</i>
+                        <span className="mx-2"></span> {/* Add space between icons */}
+                        <i className="profile-icon fs-2" onClick={handleProfileClick} onMouseEnter={handleProfileHover}>👤</i>
+                        {isDropdownOpen && (
+                        <div className="profile-dropdown">
+                            {isAuthenticated ? (
+                            <div>
+                                {/* Display user information or profile options */}
+                            </div>
+                            ) : (
+                            <div className="dropdown-content">
+                                <button onClick={handleLogin}>Login</button>
+                                <button onClick={handleSignup}>Signup</button>
+                            </div>
+                            )}
+                        </div>
+                        )}
+                    </div>
+    
                 </div>
             </div>
         </nav>
     </div>
   )
 }
-
-export default Navbar

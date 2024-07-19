@@ -1,5 +1,5 @@
 module.exports = {
-    port: 3001,
+    port: 3000,
     jwtSecret: 'pass',
     jwtExpirationInSeconds: 60 * 60,
     roles: {

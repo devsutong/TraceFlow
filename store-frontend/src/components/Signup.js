@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './Signup.css';
+import './styles/Signup.css';
 import validator from 'validator';
 
 const SignupForm = () => {
@@ -45,7 +45,7 @@ const SignupForm = () => {
     }
 
     try {
-      const response = await fetch("http://localhost:3001/api/auth/signup", {
+      const response = await fetch("http://localhost:3000/signup", {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
@@ -116,6 +116,9 @@ const SignupForm = () => {
         </div>
         <div className="submit my-3">
             <button type="submit">Signup</button>
+        </div>
+        <div className="login-link">
+          Already registered? <a href="/login">Login instead</a>
         </div>
       </form>
     </div>
