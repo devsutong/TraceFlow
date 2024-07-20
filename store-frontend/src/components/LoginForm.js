@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import './styles/login.css'; // Import CSS for styling (optional)
+import React, { useState} from 'react';
+import './styles/login.css'; 
+import UserRedirect from './Pages/userRedirect'; // Import the UserRedirect component
 
 const LoginForm = () => {
   const [formData, setFormData] = useState({
@@ -37,17 +38,14 @@ const LoginForm = () => {
         return;
       }
 
-      // Successful Login Logic (handle response data or redirect)
       console.log('Login successful!');
       setIsLoggedIn(true);
-      const data = await response.json();
-      // Assuming the server returns a token in the response
-      localStorage.setItem('authToken', data.token); // Store token for further use
-      // Redirect to a protected area of the application
-      window.location.href = '/protected-route'; 
 
-    }
-      catch (error) {
+      const data = await response.json();
+      localStorage.setItem('authToken', data.token);
+      // Call the UserRedirect component
+      <UserRedirect token={data.token} />;
+    } catch (error) {
       console.error('Login error:', error);
       setErrorMessage('Login failed. Please try again.');
     }
@@ -77,10 +75,8 @@ const LoginForm = () => {
         <div className="submit my-3">
           <button type="submit">Login</button>
           {isLoggedIn && (
-              <div className="success-message">
-                Login successful!
-              </div>
-            )}
+            <div className="success-message">Login successful!</div>
+          )}
         </div>
         <div className="signup-link">
           Not registered? <a href="/signup">Register now</a>
@@ -91,3 +87,4 @@ const LoginForm = () => {
 };
 
 export default LoginForm;
+

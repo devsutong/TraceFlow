@@ -109,10 +109,10 @@ const SignupForm = () => {
         
         <label>Role:</label>
         <div className="role-radio-buttons">
-          <input type="radio" id="role-user" name="role" value="user" onChange={handleChange} />
-          <label htmlFor="role-user">User</label>
-          <input type="radio" id="role-admin" name="role" value="admin" onChange={handleChange} />
-          <label htmlFor="role-admin">Admin</label>
+          <input type="radio" id="role-seller" name="role" value="seller" onChange={handleChange} />
+          <label htmlFor="role-seller">Seller</label>
+          <input type="radio" id="role-buyer" name="role" value="buyer" onChange={handleChange} />
+          <label htmlFor="role-buyer">Buyer</label>
         </div>
         <div className="submit my-3">
             <button type="submit">Signup</button>

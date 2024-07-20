@@ -5,3 +5,4 @@ store-frontend/node_modules/
 helper_json.json
 store-api/uploads
 config
+.env

@@ -26,6 +26,17 @@ export default function Navbar() {
         setIsAuthenticated(true);
         setIsDropdownOpen(false);
     };
+    const handleLogout = () => {
+        // Clear authentication state (replace with your actual logic)
+        localStorage.removeItem('authToken'); // Or use other storage methods
+      
+        // Redirect to login page
+        navigate('/login');
+      
+        // Update authentication state
+        setIsAuthenticated(false);
+        setIsDropdownOpen(false);
+      };
   return (
     <div>
         <nav className="navbar navbar-expand-lg bg-body-tertiary">
@@ -56,8 +67,8 @@ export default function Navbar() {
                         {isDropdownOpen && (
                         <div className="profile-dropdown">
                             {isAuthenticated ? (
-                            <div>
-                                {/* Display user information or profile options */}
+                            <div className="dropdown-content">
+                                <button onClick={handleLogout}>Logout</button>
                             </div>
                             ) : (
                             <div className="dropdown-content">
