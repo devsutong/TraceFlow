@@ -4,10 +4,7 @@ const crypto = require('crypto');
 const UserModel = require('../../common/models/User');
 const { roles, jwtExpirationInSeconds } = require('../../config');
 
-// const jwtSecret = process.env.JWT_SECRET
-const jwtSecret = "fsdtgfhjk"
-
-
+const jwtSecret = process.env.JWT_SECRET
 
 const generateAccessToken = (username, userId) => {
     return jwt.sign({ 
