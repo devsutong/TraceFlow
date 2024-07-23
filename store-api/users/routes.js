@@ -15,7 +15,7 @@ const changeRolePayload = require("./schemas/changeRolePayload");
 const { roles } = require("../config");
 
 router.get(
-    "/user", 
+    "/", 
     [isAuthenticatedMiddleware.check], 
     UserController.getUser
 );

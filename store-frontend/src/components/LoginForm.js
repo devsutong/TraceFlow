@@ -1,5 +1,5 @@
-import React, { useState} from 'react';
-import './styles/login.css'; 
+import React, { useState } from 'react';
+import './styles/login.css';
 import UserRedirect from './Pages/userRedirect'; // Import the UserRedirect component
 
 const LoginForm = () => {
@@ -9,6 +9,7 @@ const LoginForm = () => {
   });
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const [authToken, setAuthToken] = useState('');
 
   const handleChange = (event) => {
     setFormData({
@@ -41,10 +42,18 @@ const LoginForm = () => {
       console.log('Login successful!');
       setIsLoggedIn(true);
 
-      const data = await response.json();
-      localStorage.setItem('authToken', data.token);
-      // Call the UserRedirect component
-      <UserRedirect token={data.token} />;
+      const Responsedata = await response.json();
+      const token = Responsedata.data?.token;
+
+      if (token) {
+        sessionStorage.setItem('authToken', token);
+        setAuthToken(token);
+        setIsLoggedIn(true);
+      } else {
+        setErrorMessage('Login failed: Token is missing in the response.');
+      } // Log the token value
+        setIsLoggedIn(true);
+
     } catch (error) {
       console.error('Login error:', error);
       setErrorMessage('Login failed. Please try again.');
@@ -82,9 +91,10 @@ const LoginForm = () => {
           Not registered? <a href="/signup">Register now</a>
         </div>
       </form>
+      
+      {isLoggedIn && authToken && <UserRedirect token={authToken} />}
     </div>
   );
 };
 
 export default LoginForm;
-

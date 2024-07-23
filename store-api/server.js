@@ -3,6 +3,7 @@ const app = express();
 const cors = require("cors"); // For Cross Origin Resource Sharing
 const Sequelize = require("sequelize"); // For ORM
 const morgan = require("morgan"); // For logging
+require('dotenv').config();
 
 const { port } = require("./config");
 const PORT = port || 3000;
