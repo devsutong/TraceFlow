@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import './styles/login.css';
+import { useNavigate } from 'react-router-dom';
 import UserRedirect from './Pages/userRedirect'; // Import the UserRedirect component
 
-const LoginForm = () => {
+const LoginForm = ({ onLogin }) => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     username: '',
     password: '',
@@ -35,25 +37,22 @@ const LoginForm = () => {
 
       if (!response.ok) {
         const errorData = await response.json();
-        setErrorMessage(errorData.error);
+        setErrorMessage(errorData.error || 'Login failed');
         return;
       }
 
-      console.log('Login successful!');
-      setIsLoggedIn(true);
+      const responseData = await response.json();
+      const token = responseData.data?.token;
+      const userData = responseData.data?.user;
 
-      const Responsedata = await response.json();
-      const token = Responsedata.data?.token;
-
-      if (token) {
-        sessionStorage.setItem('authToken', token);
+      if (token && userData) {
+        onLogin(token, userData);
         setAuthToken(token);
         setIsLoggedIn(true);
+        navigate('/', { state: { message: 'Login successful!' } });
       } else {
-        setErrorMessage('Login failed: Token is missing in the response.');
-      } // Log the token value
-        setIsLoggedIn(true);
-
+        setErrorMessage('Login failed: Token or user information is missing in the response.');
+      }
     } catch (error) {
       console.error('Login error:', error);
       setErrorMessage('Login failed. Please try again.');
@@ -72,6 +71,7 @@ const LoginForm = () => {
           name="username"
           value={formData.username}
           onChange={handleChange}
+          autoComplete="username"
         />
         <label htmlFor="password">Password:</label>
         <input
@@ -80,18 +80,13 @@ const LoginForm = () => {
           name="password"
           value={formData.password}
           onChange={handleChange}
+          autoComplete="current-password"
         />
-        <div className="submit my-3">
-          <button type="submit">Login</button>
-          {isLoggedIn && (
-            <div className="success-message">Login successful!</div>
-          )}
-        </div>
+        <button type="submit">Login</button>
         <div className="signup-link">
           Not registered? <a href="/signup">Register now</a>
         </div>
       </form>
-      
       {isLoggedIn && authToken && <UserRedirect token={authToken} />}
     </div>
   );

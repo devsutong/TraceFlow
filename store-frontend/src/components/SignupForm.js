@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import './styles/Signup.css';
 import validator from 'validator';
+import { useNavigate } from 'react-router-dom';
 
 const SignupForm = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     username: '',
     email: '',
@@ -11,7 +13,7 @@ const SignupForm = () => {
     age: '',
     firstName: '',
     lastName: '',
-    role: '', // set default role if applicable
+    role: '',
   });
 
   const [errorMessage, setErrorMessage] = useState('');
@@ -27,7 +29,6 @@ const SignupForm = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    // Basic client-side validation
     if (!formData.username || !formData.email || !formData.password || !formData.confirmPassword || !formData.age || !formData.firstName || !formData.lastName) {
       setErrorMessage('All fields are required!');
       return;
@@ -37,7 +38,6 @@ const SignupForm = () => {
       setErrorMessage('Invalid email format!');
       return;
     }
-    else(console.log(formData.email))
 
     if (formData.password !== formData.confirmPassword) {
       setErrorMessage('Passwords do not match!');
@@ -57,7 +57,6 @@ const SignupForm = () => {
         return;
       }
       
-      // Successful Signup Logic
       setSuccessMessage('Signup successful! Please login.');
       setFormData({
         username: '',
@@ -70,8 +69,7 @@ const SignupForm = () => {
         role: '',
       });
 
-      // Redirect to Login Page after successful signup
-      handleSuccessfulSignup();
+      navigate('/login', { state: { message: 'Signup successful! Please login.' } });
 
     } catch (error) {
       console.error('Signup error:', error);
@@ -79,44 +77,103 @@ const SignupForm = () => {
     }
   };
 
-  // Function to handle successful signup and redirect
-  function handleSuccessfulSignup() {
-    window.location.href = '/login';
-  }
-
   return (
     <div className="signup-container">
       <form onSubmit={handleSubmit} className="signup-form">
-      <h2>Signup</h2>
+        <h2>Signup</h2>
         {errorMessage && <p className="error-message">{errorMessage}</p>}
         {successMessage && <p className="success-message">{successMessage}</p>}
-        <label htmlFor="username">Username:</label>
-        <input type="text" id="username" name="username" value={formData.username} onChange={handleChange} />
-        <label htmlFor="email">Email:</label>
-        <input type="email" id="email" name="email" value={formData.email} onChange={handleChange} />
-        <label htmlFor="password">Password:</label>
-        <input type="password" id="password" name="password" value={formData.password} onChange={handleChange} />
-        <label htmlFor="confirmPassword">Confirm Password:</label>
-        <input type="password" id="confirmPassword" name="confirmPassword" value={formData.confirmPassword} onChange={handleChange} />
         
+        <label htmlFor="username">Username:</label>
+        <input
+          type="text"
+          id="username"
+          name="username"
+          value={formData.username}
+          onChange={handleChange}
+          autoComplete="username"
+        />
+
+        <label htmlFor="email">Email:</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          value={formData.email}
+          onChange={handleChange}
+          autoComplete="email"
+        />
+
+        <label htmlFor="password">Password:</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          value={formData.password}
+          onChange={handleChange}
+          autoComplete="new-password"
+        />
+
+        <label htmlFor="confirmPassword">Confirm Password:</label>
+        <input
+          type="password"
+          id="confirmPassword"
+          name="confirmPassword"
+          value={formData.confirmPassword}
+          onChange={handleChange}
+          autoComplete="new-password"
+        />
+
         <label htmlFor="firstName">First Name:</label>
-        <input type="text" id="firstName" name="firstName" value={formData.firstName} onChange={handleChange} />
+        <input
+          type="text"
+          id="firstName"
+          name="firstName"
+          value={formData.firstName}
+          onChange={handleChange}
+        />
+
         <label htmlFor="lastName">Last Name:</label>
-        <input type="text" id="lastName" name="lastName" value={formData.lastName} onChange={handleChange} />
+        <input
+          type="text"
+          id="lastName"
+          name="lastName"
+          value={formData.lastName}
+          onChange={handleChange}
+        />
 
         <label htmlFor="age">Age:</label>
-        <input type="number" id="age" name="age" value={formData.age} onChange={handleChange} />
+        <input
+          type="number"
+          id="age"
+          name="age"
+          value={formData.age}
+          onChange={handleChange}
+        />
         
         <label>Role:</label>
         <div className="role-radio-buttons">
-          <input type="radio" id="role-seller" name="role" value="seller" onChange={handleChange} />
+          <input
+            type="radio"
+            id="role-seller"
+            name="role"
+            value="seller"
+            onChange={handleChange}
+          />
           <label htmlFor="role-seller">Seller</label>
-          <input type="radio" id="role-buyer" name="role" value="buyer" onChange={handleChange} />
+
+          <input
+            type="radio"
+            id="role-buyer"
+            name="role"
+            value="buyer"
+            onChange={handleChange}
+          />
           <label htmlFor="role-buyer">Buyer</label>
         </div>
-        <div className="submit my-3">
-            <button type="submit">Signup</button>
-        </div>
+
+        <button type="submit">Signup</button>
+
         <div className="login-link">
           Already registered? <a href="/login">Login instead</a>
         </div>
