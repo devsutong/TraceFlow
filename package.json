@@ -1,9 +1,11 @@
 {
   "dependencies": {
+    "bootstrap": "^5.3.3",
     "concurrently": "^8.2.2",
     "lru-cache": "^11.0.0",
     "mysql": "^2.18.1",
     "mysql2": "^3.10.3",
+    "react-bootstrap": "^2.10.4",
     "validator": "^13.12.0"
   }
 }

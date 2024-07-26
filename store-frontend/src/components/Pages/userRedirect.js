@@ -28,17 +28,14 @@ export default function UserRedirect({ token }) {
               navigate('/buyer-dashboard');
               break;
             default:
-              // Handle unexpected role
               console.error('Unexpected user role:', userRole);
               break;
           }
         } else {
           console.error('Failed to fetch user data');
-          // Handle error, e.g., show an error message
         }
       } catch (error) {
         console.error('Error fetching user data:', error);
-        // Handle error, e.g., show an error message
       }
     };
 

@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
 import './styles/login.css';
-import { useNavigate } from 'react-router-dom';
 import UserRedirect from './Pages/userRedirect'; // Import the UserRedirect component
 
 const LoginForm = ({ onLogin }) => {
-  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     username: '',
     password: '',
@@ -49,7 +47,6 @@ const LoginForm = ({ onLogin }) => {
         onLogin(token, userData);
         setAuthToken(token);
         setIsLoggedIn(true);
-        navigate('/', { state: { message: 'Login successful!' } });
       } else {
         setErrorMessage('Login failed: Token or user information is missing in the response.');
       }

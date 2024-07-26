@@ -5,6 +5,7 @@ import Home from './components/Home';
 import About from './components/About';
 import Signup from './components/SignupForm';
 import Login from './components/LoginForm';
+import AdminDashboard from './components/Pages/Dashboards/AdminDashboard';
 import React, { useState, useEffect } from 'react';
 
 function App() {
@@ -24,8 +25,12 @@ function App() {
     sessionStorage.setItem('authToken', token);
     setIsAuthenticated(true);
     setUserInfo(user);
+    console.log(user.role);
+    if (user.role === 'admin') {
+      navigate('/admin-dashboard',{ state: { message: 'Login successful!' } });
+    }
   };
-
+  
   const handleLogout = () => {
     sessionStorage.removeItem('authToken');
     setIsAuthenticated(false);
@@ -38,12 +43,15 @@ function App() {
     <div className="App">
       <Navbar isAuthenticated={isAuthenticated} userInfo={userInfo} onLogout={handleLogout} />
       <div className="container">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/login" element={<Login onLogin={handleLogin} />} />
-        </Routes>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/login" element={<Login onLogin={handleLogin} />} />
+        <Route path="/admin-dashboard" element={<AdminDashboard />} />
+        {/* Other routes */}
+      </Routes>
+
       </div>
     </div>
   );
