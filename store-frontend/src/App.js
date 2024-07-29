@@ -6,6 +6,7 @@ import About from './components/About';
 import Signup from './components/SignupForm';
 import Login from './components/LoginForm';
 import AdminDashboard from './components/Pages/Dashboards/AdminDashboard';
+import SellerDashboard from './components/Pages/Dashboards/SellerDashboard';
 import React, { useState, useEffect } from 'react';
 
 function App() {
@@ -49,6 +50,7 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login onLogin={handleLogin} />} />
         <Route path="/admin-dashboard" element={<AdminDashboard />} />
+        <Route path="/seller-dashboard" element={<SellerDashboard />} />
         {/* Other routes */}
       </Routes>
 
