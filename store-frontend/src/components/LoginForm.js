@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './styles/login.css';
-import UserRedirect from './Pages/userRedirect'; // Import the UserRedirect component
+import Spinner from './Spinner'; // Import Spinner component
+import UserRedirect from './Pages/userRedirect';
 
 const LoginForm = ({ onLogin }) => {
   const [formData, setFormData] = useState({
@@ -10,6 +11,7 @@ const LoginForm = ({ onLogin }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [authToken, setAuthToken] = useState('');
+  const [loading, setLoading] = useState(false); // Add loading state
 
   const handleChange = (event) => {
     setFormData({
@@ -20,9 +22,11 @@ const LoginForm = ({ onLogin }) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setLoading(true); // Show spinner when form is submitting
 
     if (!formData.username || !formData.password) {
       setErrorMessage('Username and Password are required!');
+      setLoading(false);
       return;
     }
 
@@ -36,6 +40,7 @@ const LoginForm = ({ onLogin }) => {
       if (!response.ok) {
         const errorData = await response.json();
         setErrorMessage(errorData.error || 'Login failed');
+        setLoading(false);
         return;
       }
 
@@ -53,11 +58,14 @@ const LoginForm = ({ onLogin }) => {
     } catch (error) {
       console.error('Login error:', error);
       setErrorMessage('Login failed. Please try again.');
+    } finally {
+      setLoading(false); // Hide spinner when submission is done
     }
   };
 
   return (
     <div className="login-container">
+      {loading && <Spinner />} {/* Show spinner while loading */}
       <form onSubmit={handleSubmit} className="login-form">
         <h2>Login</h2>
         {errorMessage && <p className="error-message">{errorMessage}</p>}

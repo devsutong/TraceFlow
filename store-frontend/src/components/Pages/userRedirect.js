@@ -1,8 +1,10 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Spinner from '../Spinner'; // Import Spinner component
 
 export default function UserRedirect({ token }) {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(true); // Add loading state
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -36,11 +38,13 @@ export default function UserRedirect({ token }) {
         }
       } catch (error) {
         console.error('Error fetching user data:', error);
+      } finally {
+        setLoading(false); // Set loading to false once fetching is done
       }
     };
 
     fetchUserData();
   }, [token, navigate]);
 
-  return null;
+  return loading ? <Spinner /> : null; // Show spinner while loading
 }
