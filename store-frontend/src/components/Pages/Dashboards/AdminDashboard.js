@@ -1,7 +1,9 @@
-// AdminDashboard.js
 import React from 'react';
 import { Button, Container, Row, Col, Card } from 'react-bootstrap';
-import '../../styles/admindashboard.css'
+import '../../styles/admindashboard.css';
+
+// Import UserManagement Component
+import UserManagement from './components/UserManagement';
 
 const AdminDashboard = () => {
   return (
@@ -15,7 +17,7 @@ const AdminDashboard = () => {
       <Container className="d-flex flex-grow-1">
         <Row className="m-auto text-center">
           <Col md={4} className="mb-3">
-            <Button variant="primary" size="lg" className="w-100">Users</Button>
+            <UserManagement />
           </Col>
           <Col md={4} className="mb-3">
             <Button variant="success" size="lg" className="w-100">Products</Button>
