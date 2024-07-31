@@ -71,17 +71,23 @@ const ViewUsersModal = ({ show, onHide }) => {
               </tr>
             </thead>
             <tbody>
-              {users.map(user => (
-                <tr key={user.id}>
-                  <td>{user.id}</td>
-                  <td>{user.username}</td>
-                  <td>{user.email}</td>
-                  <td>{user.firstName}</td>
-                  <td>{user.lastName}</td>
-                  <td>{user.age}</td>
-                  <td>{user.role}</td>
+              {users.length > 0 ? (
+                users.map(user => (
+                  <tr key={user.id}>
+                    <td>{user.id}</td>
+                    <td>{user.username}</td>
+                    <td>{user.email}</td>
+                    <td>{user.firstName}</td>
+                    <td>{user.lastName}</td>
+                    <td>{user.age}</td>
+                    <td>{user.role}</td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="7">No users found</td>
                 </tr>
-              ))}
+              )}
             </tbody>
           </Table>
         )}

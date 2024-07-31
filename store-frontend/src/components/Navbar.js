@@ -1,27 +1,16 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import ProfileModal from './ProfileModal'; // Import the ProfileModal component
 import './styles/navbar.css';
 
-export default function Navbar({ isAuthenticated, userInfo, onLogout }) {
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const navigate = useNavigate();
+export default function Navbar({ isAuthenticated, userInfo, onLogout, onUpdateProfile, onDeleteAccount }) {
+  const [showModal, setShowModal] = useState(false);
 
   const handleProfileClick = () => {
-    setIsDropdownOpen(!isDropdownOpen);
+    setShowModal(true);
   };
 
-  const handleProfileHover = () => {
-    setIsDropdownOpen(!isDropdownOpen);
-  };
-
-  const handleLogin = () => {
-    navigate('/login');
-    setIsDropdownOpen(false);
-  };
-
-  const handleSignup = () => {
-    navigate('/signup');
-    setIsDropdownOpen(false);
+  const handleCloseModal = () => {
+    setShowModal(false);
   };
 
   return (
@@ -50,26 +39,21 @@ export default function Navbar({ isAuthenticated, userInfo, onLogout }) {
             <div className="navbar-right">
               <i className="cart-icon fs-2">🛒</i>
               <span className="mx-2"></span> {/* Add space between icons */}
-              <i className="profile-icon fs-2" onClick={handleProfileClick} onMouseEnter={handleProfileHover}>👤</i>
-              {isDropdownOpen && (
-                <div className="profile-dropdown">
-                  {isAuthenticated ? (
-                    <div className="dropdown-content">
-                      {userInfo && <div className="user-info"><p>{userInfo.username}</p></div>}
-                      <button onClick={onLogout}>Logout</button>
-                    </div>
-                  ) : (
-                    <div className="dropdown-content">
-                      <button onClick={handleLogin}>Login</button>
-                      <button onClick={handleSignup}>Signup</button>
-                    </div>
-                  )}
-                </div>
-              )}
+              <i className="profile-icon fs-2" onClick={handleProfileClick}>👤</i>
             </div>
           </div>
         </div>
       </nav>
+
+      <ProfileModal
+        show={showModal}
+        handleClose={handleCloseModal}
+        isAuthenticated={isAuthenticated}
+        userInfo={userInfo}
+        onLogout={onLogout}
+        onUpdateProfile={onUpdateProfile}
+        onDeleteAccount={onDeleteAccount}
+      />
     </div>
   );
 }
