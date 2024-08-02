@@ -32,7 +32,6 @@ module.exports = {
             user: { userId },
             body: payload,  // const payload = req.body
         } = req;
-
         if (!Object.keys(payload).length) {
             return res.status(400).json({
               status: false,

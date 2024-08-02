@@ -123,7 +123,7 @@ const SellerDashboard = () => {
       ) : (
         <Row>
           <Col md={8} lg={6} className="mx-auto">
-            <h2 className="dashboard-title">Traceflow Product</h2>
+            <h2 className="dashboard-title">Traceflow</h2>
             {message && <Alert variant="info">{message}</Alert>}
             <Form onSubmit={handleSubmit} className="dashboard-form">
               <Form.Group controlId="formProductName">

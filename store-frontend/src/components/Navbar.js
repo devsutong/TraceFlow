@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import ProfileModal from './ProfileModal'; // Import the ProfileModal component
-import './styles/navbar.css';
+import './styles/navbar.css'; // Ensure this path is correct
 
 export default function Navbar({ isAuthenticated, userInfo, onLogout, onUpdateProfile, onDeleteAccount }) {
   const [showModal, setShowModal] = useState(false);
 
   const handleProfileClick = () => {
-    setShowModal(true);
+    setShowModal(!showModal); // Toggle modal visibility
   };
 
   const handleCloseModal = () => {
@@ -14,10 +14,10 @@ export default function Navbar({ isAuthenticated, userInfo, onLogout, onUpdatePr
   };
 
   return (
-    <div>
+    <div className="navbar-container">
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
         <div className="container-fluid">
-          <a className="navbar-brand" href="/">Traceflow</a>
+          <a className="navbar-brand navbar-title" href="/">Traceflow</a>
           <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
           </button>
@@ -38,22 +38,24 @@ export default function Navbar({ isAuthenticated, userInfo, onLogout, onUpdatePr
             </div>
             <div className="navbar-right">
               <i className="cart-icon fs-2">🛒</i>
-              <span className="mx-2"></span> {/* Add space between icons */}
-              <i className="profile-icon fs-2" onClick={handleProfileClick}>👤</i>
+              <span className="mx-2"></span>
+                <i className="profile-icon fs-2" onClick={handleProfileClick}>👤</i>
+                {showModal && (
+                  <ProfileModal
+                    show={showModal}
+                    handleClose={handleCloseModal}
+                    isAuthenticated={isAuthenticated}
+                    userInfo={userInfo}
+                    onLogout={onLogout}
+                    onUpdateProfile={onUpdateProfile}
+                    onDeleteAccount={onDeleteAccount}
+                  />
+                )}
+            
             </div>
           </div>
         </div>
       </nav>
-
-      <ProfileModal
-        show={showModal}
-        handleClose={handleCloseModal}
-        isAuthenticated={isAuthenticated}
-        userInfo={userInfo}
-        onLogout={onLogout}
-        onUpdateProfile={onUpdateProfile}
-        onDeleteAccount={onDeleteAccount}
-      />
     </div>
   );
 }
