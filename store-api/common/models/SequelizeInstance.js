@@ -10,4 +10,5 @@ const sequelize = new Sequelize(dbName, dbUser, dbPass,{
     dialect: "mysql"
   });
 
+console.log("Sequelize Initialized!")
 module.exports = sequelize;

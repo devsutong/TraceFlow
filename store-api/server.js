@@ -1,43 +1,46 @@
 const express = require("express");
 const app = express();
 const cors = require("cors"); // For Cross Origin Resource Sharing
-const Sequelize = require("sequelize"); // For ORM
+// const Sequelize = require("sequelize"); // For ORM
 const morgan = require("morgan"); // For logging
+require('dotenv').config();
+
+
+// const dbHost = process.env.DB_HOST;
+// const dbUser = process.env.DB_USER;
+// const dbPass = process.env.DB_PASS;
+// const dbName = process.env.DB_NAME;
 
 const { port } = require("./config");
 const PORT = port || 3000;
 
-// Route Inports
+// Route Imports
 const AuthorizationRoutes = require("./authorization/routes");
 const UserRoutes = require("./users/routes");
 const ProductRoutes = require("./products/routes");
+const UploadImageRoutes = require("./common/images/UploadImage");
+const OrderRoutes = require("./order/routes");
 
 //Sequelize model imports
-const UserModel = require("./common/models/User");
-const ProductModel = require("./common/models/Product");
+// const User= require("./common/models/User");
+// const Product = require("./common/models/Product");
+// const Order = require("./common/models/Order")
+const { User, Order, Product, OrderItem } = require('./common/models/associations');
+
 
 app.use(morgan("tiny"));
 app.use(cors());
 
 app.use(express.json())
+app.use('/uploads', express.static('uploads'));
+
 
 app.get("/", (req, res) => {
     res.send("This is the root route!");
 });
 
-app.get("/status", (req, res) => {
-    res.send("Status: OK!");
-});
 
-
-const sequelize = new Sequelize({
-    dialect: "sqlite",
-    storage: "./storage/data.db", // Path to the file that will store the SQLite DB.
-  });
-
-
-// Initialising the Model on sequelize
-UserModel.initialise(sequelize);
+const sequelize= require("./common/models/SequelizeInstance");
 
 
 // Syncing the models that are defined on sequelize with the tables that alredy exists
@@ -52,12 +55,13 @@ sequelize
     app.use("/", AuthorizationRoutes);
     app.use("/user", UserRoutes);
     app.use("/product", ProductRoutes);
+    app.use("/upload/image", UploadImageRoutes);
+    app.use("/order", OrderRoutes);
 
-    app.listen(PORT, () => {
+    app.listen(PORT, '127.0.0.1', () => {
       console.log("Server Listening on PORT:", port);
     });
   })
   .catch((err) => {
     console.error("Sequelize Initialisation threw an error:", err);
   });
-
