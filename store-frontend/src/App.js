@@ -19,9 +19,8 @@ function App() {
   useEffect(() => {
     const token = sessionStorage.getItem('authToken');
     if (token) {
-      // Fetch user information using the token if needed
       setIsAuthenticated(true);
-      // Set userInfo if it's stored or fetch it using the token
+      // Fetch and set user info if needed
     }
   }, []);
 
@@ -29,7 +28,6 @@ function App() {
     sessionStorage.setItem('authToken', token);
     setIsAuthenticated(true);
     setUserInfo(user);
-    console.log(user.role);
     if (user.role === 'admin') {
       navigate('/admin-dashboard', { state: { message: 'Login successful!' } });
     }
@@ -42,32 +40,14 @@ function App() {
     navigate('/', { state: { message: 'You have been logged out successfully.' } });
   };
 
-  const handleUpdateProfile = async (profileData) => {
-    try {
-      const response = await fetch('/user/', { // Adjust the endpoint as per your API setup
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${sessionStorage.getItem('authToken')}`, // Use the token stored in sessionStorage
-        },
-        body: JSON.stringify(profileData),
-      });
-
-      if (!response.ok) {
-        throw new Error('Profile update failed');
-      }
-
-      const data = await response.json();
-      console.log('Profile updated successfully:', data);
-      setUserInfo(data); // Update userInfo state with the response data if needed
-    } catch (error) {
-      console.error('Error updating profile:', error);
-    }
-  };
-
   return (
     <div className="App">
-      <Navbar isAuthenticated={isAuthenticated} userInfo={userInfo} onLogout={handleLogout} onProfileClick={() => setShowProfileModal(true)} />
+      <Navbar
+        isAuthenticated={isAuthenticated}
+        userInfo={userInfo}
+        onLogout={handleLogout}
+        onProfileClick={() => setShowProfileModal(true)}
+      />
       <div className="container">
         <Routes>
           <Route path="/" element={<Home />} />
@@ -76,7 +56,6 @@ function App() {
           <Route path="/login" element={<Login onLogin={handleLogin} />} />
           <Route path="/admin-dashboard" element={<AdminDashboard />} />
           <Route path="/seller-dashboard" element={<SellerDashboard />} />
-          {/* Other routes */}
         </Routes>
       </div>
       <ProfileModal
@@ -85,7 +64,6 @@ function App() {
         isAuthenticated={isAuthenticated}
         userInfo={userInfo}
         onLogout={handleLogout}
-        onUpdateProfile={handleUpdateProfile}
       />
     </div>
   );

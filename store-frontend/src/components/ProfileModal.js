@@ -1,33 +1,51 @@
-import React, { useState } from 'react';
-import { Modal, Button, Form } from 'react-bootstrap';
+import React, { useState, useEffect } from 'react';
+import { Modal, Button, Form, Alert } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import { FaUserCircle } from 'react-icons/fa';
 
-export default function ProfileModal({ show, handleClose, isAuthenticated, userInfo, onLogout, onUpdateProfile, onDeleteAccount }) {
-  const [profilePic, setProfilePic] = useState(userInfo?.profilePic || '');
-  const [firstName, setFirstName] = useState(userInfo?.firstName || '');
-  const [lastName, setLastName] = useState(userInfo?.lastName || '');
-  const [age, setAge] = useState(userInfo?.age || '');
+export default function ProfileModal({ show, handleClose, isAuthenticated, userInfo, onLogout }) {
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [age, setAge] = useState('');
   const [showUpdateForm, setShowUpdateForm] = useState(false);
+  const [successMessage, setSuccessMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
 
-  const handleProfilePicUpload = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      setProfilePic(URL.createObjectURL(file));
-      // Implement file upload logic here if needed
+  useEffect(() => {
+    if (userInfo) {
+      setFirstName(userInfo.firstName || '');
+      setLastName(userInfo.lastName || '');
+      setAge(userInfo.age || '');
     }
-  };
+  }, [userInfo]);
 
   const handleUpdateProfile = async () => {
-    if (typeof onUpdateProfile !== 'function') {
-      console.error('onUpdateProfile is not a function');
-      return;
-    }
     try {
-      await onUpdateProfile({ firstName, lastName, age, profilePic });
-      handleClose(); // Close the modal after updating
+      const response = await fetch('/user/', {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${sessionStorage.getItem('authToken')}`,
+        },
+        body: JSON.stringify({
+          age: Number(age),
+          firstName,
+          lastName
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Profile update failed');
+      }
+
+      const data = await response.json();
+      console.log('Profile updated successfully:', data);
+      setSuccessMessage('Profile updated successfully');
+      setShowUpdateForm(false);
     } catch (error) {
       console.error('Error updating profile:', error);
+      setErrorMessage(error.message);
     }
   };
 
@@ -41,26 +59,44 @@ export default function ProfileModal({ show, handleClose, isAuthenticated, userI
     handleClose();
   };
 
+  const handleModalClose = () => {
+    setSuccessMessage('');
+    setErrorMessage('');
+    handleClose();
+  };
+
+  const handleDeleteAccount = async () => {
+    try {
+      const response = await fetch(`/user/${userInfo.id}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${sessionStorage.getItem('authToken')}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error('Account deletion failed');
+      }
+
+      const data = await response.json();
+      console.log('Account deleted successfully:', data);
+      onLogout();
+    } catch (error) {
+      console.error('Error deleting account:', error);
+      setErrorMessage(error.message);
+    }
+  };
+
   return (
-    <Modal show={show} onHide={handleClose}>
+    <Modal show={show} onHide={handleModalClose}>
       <Modal.Header closeButton>
         <Modal.Title>{isAuthenticated ? 'Profile' : 'Login/Signup'}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         {isAuthenticated ? (
           <>
-            <div className="text-center mb-3">
-              <img
-                src={profilePic || 'default-profile-pic-url'} // Replace with a default picture URL
-                alt="Profile"
-                className="img-fluid rounded-circle"
-                style={{ width: '150px', height: '150px' }}
-              />
-              <Form.Group className="mt-2">
-                <Form.Label>Upload Profile Picture</Form.Label>
-                <Form.Control type="file" onChange={handleProfilePicUpload} />
-              </Form.Group>
-            </div>
+            {successMessage && <Alert variant="success">{successMessage}</Alert>}
+            {errorMessage && <Alert variant="danger">{errorMessage}</Alert>}
             {showUpdateForm ? (
               <Form>
                 <Form.Group controlId="formFirstName">
@@ -84,17 +120,31 @@ export default function ProfileModal({ show, handleClose, isAuthenticated, userI
                   <Form.Control
                     type="number"
                     value={age}
-                    onChange={(e) => setAge(e.target.value)}
+                    onChange={(e) => setAge(Number(e.target.value))}
                   />
                 </Form.Group>
                 <div className="d-flex justify-content-between mt-3">
                   <Button variant="outline-secondary" onClick={handleUpdateProfile}>Update Profile</Button>
+                  <Button variant="outline-danger" onClick={() => setShowUpdateForm(false)}>Cancel</Button>
                 </div>
               </Form>
             ) : (
               <div className="text-center">
-                <Button variant="outline-primary" onClick={() => setShowUpdateForm(true)}>Update Profile</Button>
-                <Button variant="outline-danger" className="mt-2" onClick={onDeleteAccount}>Delete Account</Button>
+                <div className="mb-3">
+                  {userInfo && userInfo.profilePic ? (
+                    <img
+                      src={userInfo.profilePic}
+                      alt="Profile"
+                      className="img-fluid rounded-circle"
+                      style={{ width: '150px', height: '150px' }}
+                    />
+                  ) : (
+                    <FaUserCircle size={150} />
+                  )}
+                </div>
+                <Button variant="outline-primary" className="mb-2 mx-2" onClick={() => setShowUpdateForm(true)}>Update Profile</Button>
+                <Button variant="outline-danger" className="mb-2 mx-2" onClick={handleDeleteAccount}>Delete Account</Button>
+                <Button variant="outline-danger" className="mb-2 mx-2" onClick={onLogout}>Logout</Button>
               </div>
             )}
           </>
@@ -106,8 +156,7 @@ export default function ProfileModal({ show, handleClose, isAuthenticated, userI
         )}
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="secondary" onClick={handleClose}>Close</Button>
-        {isAuthenticated && <Button variant="primary" onClick={onLogout}>Logout</Button>}
+        <Button variant="secondary" onClick={handleModalClose}>Close</Button>
       </Modal.Footer>
     </Modal>
   );

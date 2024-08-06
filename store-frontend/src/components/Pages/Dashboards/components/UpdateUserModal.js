@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Modal, Button, Form } from 'react-bootstrap';
+import { Modal, Button, Form, Spinner, Alert } from 'react-bootstrap';
 import axios from 'axios';
 
 const UpdateUserModal = ({ show, onHide }) => {
@@ -9,14 +9,26 @@ const UpdateUserModal = ({ show, onHide }) => {
     lastName: '',
     age: ''
   });
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
-  const handleUpdate = () => {
-    axios.patch(`/user/${userId}`, userData)
-      .then(response => {
-        alert('User updated successfully!');
-        onHide();
-      })
-      .catch(error => console.error('Error updating user:', error));
+  const handleUpdate = async () => {
+    if (!userId || !userData.firstName || !userData.lastName || !userData.age) {
+      setError('All fields are required.');
+      return;
+    }
+
+    setLoading(true);
+    try {
+      await axios.patch(`/user/${userId}`, userData);
+      alert('User updated successfully!');
+      onHide();
+    } catch (error) {
+      setError('Error updating user.');
+      console.error('Error updating user:', error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -25,6 +37,7 @@ const UpdateUserModal = ({ show, onHide }) => {
         <Modal.Title>Update User</Modal.Title>
       </Modal.Header>
       <Modal.Body>
+        {error && <Alert variant="danger">{error}</Alert>}
         <Form>
           <Form.Group controlId="formUserId">
             <Form.Label>User ID</Form.Label>
@@ -66,7 +79,9 @@ const UpdateUserModal = ({ show, onHide }) => {
       </Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={onHide}>Close</Button>
-        <Button variant="primary" onClick={handleUpdate}>Save Changes</Button>
+        <Button variant="primary" onClick={handleUpdate} disabled={loading}>
+          {loading ? <Spinner animation="border" size="sm" /> : 'Save Changes'}
+        </Button>
       </Modal.Footer>
     </Modal>
   );

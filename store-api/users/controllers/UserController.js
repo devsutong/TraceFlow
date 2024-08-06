@@ -45,7 +45,7 @@ module.exports = {
             .then((user) => {
                 return res.status(200).json({
                     status: true,
-                    data: user.toJSON()
+                    data: user.toJSON
                 });
             })
             .catch((error) => {
