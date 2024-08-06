@@ -16,7 +16,7 @@ const { roles } = require('../config');
 
 router.get(
     "/",
-    isAuthenticatedMiddleware.check,
+    // isAuthenticatedMiddleware.check,
     ProductController.getProducts
 )
 
@@ -29,7 +29,7 @@ router.get(
 router.post(
     "/",
     isAuthenticatedMiddleware.check,
-    CheckPermissionMiddleware.has(roles.ADMIN),
+    // CheckPermissionMiddleware.has(roles.ADMIN),
     SchemaValidationMiddleware.verify(createProductPayload),
     ProductController.createProduct
 )

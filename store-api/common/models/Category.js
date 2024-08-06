@@ -1,6 +1,7 @@
 const DataTypes = require('sequelize');
+const sequelize = require('./SequelizeInstance');
 
-const CategoryModel = {
+const CategoryModel = sequelize.define("Category", {
     id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
@@ -10,14 +11,10 @@ const CategoryModel = {
       type: DataTypes.STRING,
       allowNull: false,
     },
-  };
+  });
 
 module.exports = {
-    initialise: (sequelize) => {
-        const Category = sequelize.define('Category', CategoryModel);
-        this.Category = Category;
-        return Category;
-    },
+
     createCategory: (category) => {
         return this.Category.create(category);
     },
@@ -33,4 +30,5 @@ module.exports = {
     deleteCategory: (query) => {
         return this.Category.destroy({ where: query });
     },
+    Category: CategoryModel
 }

@@ -1,0 +1,34 @@
+/* AdminDashboard.css */
+.d-flex {
+  display: flex !important;
+}
+
+.vh-100 {
+  height: 100vh !important;
+}
+
+.flex-column {
+  flex-direction: column !important;
+}
+
+.flex-grow-1 {
+  flex-grow: 1;
+}
+
+.m-auto {
+  margin: auto !important;
+}
+
+.card {
+  margin-top: 1rem;
+}
+
+.card-title {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.card-text {
+  font-size: 1.25rem;
+  color: #6c757d;
+}

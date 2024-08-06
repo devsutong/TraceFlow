@@ -2,10 +2,13 @@ module.exports = {
     type: 'object',
     properties: {
         username: {
-            type: 'string'
+            type: 'string',
+            minLength: 3,
+            maxLength: 20
         },
         password: {
-            type: 'string'
+            type: 'string',
+            minLength: 6
         }
     },
     required: [

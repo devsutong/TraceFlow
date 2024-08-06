@@ -1,7 +1,9 @@
 const { DataTypes } = require("sequelize")
-const { roles } = require("../../config")
+const { roles } = require("../../config");
+const sequelize = require("./SequelizeInstance");
 
-const UserModel = {
+
+const UserModel = sequelize.define("User", {
     id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
@@ -41,12 +43,14 @@ const UserModel = {
         type: DataTypes.STRING,
         allowNull: true
     }     
-};
+});
 
+
+// module.exports = UserModel
 module.exports = {
-    initialise: (sequelize) => {
-        this.model = sequelize.define("user", UserModel);
-    },
+    // initialise: (sequelize) => {
+    //     this.model = sequelize.define("user", UserModel);
+    // },
     
     createUser: (user) => {
         return this.model.create(user);
@@ -70,5 +74,6 @@ module.exports = {
         return this.model.destroy({
             where: query
         });
-    }
+    },
+    User: UserModel
 };

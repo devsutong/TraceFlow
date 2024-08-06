@@ -1,8 +1,6 @@
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
 
-require('dotenv').config();
-
 const UserModel = require('../../common/models/User');
 const { roles, jwtExpirationInSeconds } = require('../../config');
 

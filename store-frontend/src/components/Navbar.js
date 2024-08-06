@@ -1,0 +1,61 @@
+import React, { useState } from 'react';
+import ProfileModal from './ProfileModal'; // Import the ProfileModal component
+import './styles/navbar.css'; // Ensure this path is correct
+
+export default function Navbar({ isAuthenticated, userInfo, onLogout, onUpdateProfile, onDeleteAccount }) {
+  const [showModal, setShowModal] = useState(false);
+
+  const handleProfileClick = () => {
+    setShowModal(!showModal); // Toggle modal visibility
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
+
+  return (
+    <div className="navbar-container">
+      <nav className="navbar navbar-expand-lg bg-body-tertiary">
+        <div className="container-fluid">
+          <a className="navbar-brand navbar-title" href="/">Traceflow</a>
+          <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span className="navbar-toggler-icon"></span>
+          </button>
+          <div className="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+              <li className="nav-item">
+                <a className="nav-link" aria-current="page" href="/">Home</a>
+              </li>
+              <li className="nav-item">
+                <a className="nav-link" href="/about">About</a>
+              </li>
+            </ul>
+            <div className="navbar-center">
+              <form className="d-flex" role="search">
+                <input className="form-control me-2" type="search" id="search" placeholder="Search" aria-label="Search" />
+                <button className="btn btn-outline-success" type="submit">Search</button>
+              </form>
+            </div>
+            <div className="navbar-right">
+              <i className="cart-icon fs-2">🛒</i>
+              <span className="mx-2"></span>
+                <i className="profile-icon fs-2" onClick={handleProfileClick}>👤</i>
+                {showModal && (
+                  <ProfileModal
+                    show={showModal}
+                    handleClose={handleCloseModal}
+                    isAuthenticated={isAuthenticated}
+                    userInfo={userInfo}
+                    onLogout={onLogout}
+                    onUpdateProfile={onUpdateProfile}
+                    onDeleteAccount={onDeleteAccount}
+                  />
+                )}
+            
+            </div>
+          </div>
+        </div>
+      </nav>
+    </div>
+  );
+}

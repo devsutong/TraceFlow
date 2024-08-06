@@ -4,9 +4,9 @@ const CategoryModel = require('./Category');
 
 const sequelize = require('./SequelizeInstance');
 
-const Category = CategoryModel.initialise(sequelize);
+// const Category = CategoryModel.initialise(sequelize);
 
-const ProductModel = {
+const ProductModel = sequelize.define("Product", {
     id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
@@ -33,19 +33,19 @@ const ProductModel = {
       allowNull: false,
       defaultValue: productPriceUnits.DOLLAR,
     },
-  };
+  });
 
 module.exports = {
-  initialise: (sequelize) => {
-    const Product = sequelize.define('Product', ProductModel);
-    // const Category = sequelize.define('Category', CategoryModel);
+  // initialise: (sequelize) => {
+  //   const Product = sequelize.define('Product', ProductModel);
+  //   // const Category = sequelize.define('Category', CategoryModel);
 
-    Product.belongsToMany(Category, { through: 'ProductCategory' });
-    Category.belongsToMany(Product, { through: 'ProductCategory' });
+  //   Product.belongsToMany(Category, { through: 'ProductCategory' });
+  //   Category.belongsToMany(Product, { through: 'ProductCategory' });
 
-    this.Product = Product;
-    this.Category = Category;
-  },
+  //   this.Product = Product;
+  //   this.Category = Category;
+  // },
   createProduct: (product) => {
     return this.Product.create(product);
   },
@@ -61,4 +61,5 @@ module.exports = {
   deleteProduct: (query) => {
       return this.Product.destroy({ where: query });
   },
+  Product: ProductModel
 };  
