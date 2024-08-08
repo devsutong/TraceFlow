@@ -17,21 +17,11 @@ const ProductRoutes = require("./products/routes");
 const UploadImageRoutes = require("./common/images/UploadImage");
 const OrderRoutes = require("./order/routes");
 
-//Sequelize model imports
-
-const { User, Order, Product, OrderItem } = require('./common/models/associations');
-
-
 app.use(morgan("tiny"));
 app.use(cors());
 
 app.use(express.json())
 app.use('/uploads', express.static('uploads'));
-
-
-app.get("/", (req, res) => {
-    res.send("This is the root route!");
-});
 
 // Syncing the models that are defined on sequelize with the tables that alredy exists
 // in the database. It creates models as tables that do not exist in the DB.
