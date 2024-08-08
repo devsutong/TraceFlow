@@ -61,7 +61,7 @@ module.exports = {
 
         const encryptedPassword = encryptPassword(password);
 
-        UserModel.findUser({ username })
+        User.findUser({ username })
         .then((user) => {
             if (!user) {
                 return res.status(401).json({
