@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Form, Button, Container, Row, Col, Alert } from 'react-bootstrap';
+import { Form, Button, Container, Row, Col, Alert, Dropdown } from 'react-bootstrap';
 import Spinner from '../../Spinner'; // Import Spinner component
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../../styles/sellerdashboard.css'; 
@@ -12,24 +12,39 @@ const SellerDashboard = () => {
     description: '',
     price: '',
     priceUnit: 'inr',
-    categoryIds: [],
+    categoryId: '', // Update to handle single category selection
     image: null
   });
   const [message, setMessage] = useState('');
   const [uploadProgress, setUploadProgress] = useState(0);
   const [loading, setLoading] = useState(true); // Add loading state
+  const [showCategories, setShowCategories] = useState(false); // State to toggle category dropdown visibility
 
   useEffect(() => {
-    // Fetch categories from backend
-    axios.get('/categories')
-      .then(response => {
-        setCategories(response.data.data);
-        setLoading(false); // Set loading to false after data is fetched
-      })
-      .catch(error => {
+    // Mock fetching categories from backend using provided JSON data
+    const fetchCategories = async () => {
+      try {
+        // Simulate API response
+        const response = {
+          data: {
+            Categories: [
+              { id: 1, name: "Computer Accessories" },
+              { id: 2, name: "Fashion" },
+              { id: 3, name: "Electronics and Appliances" },
+              { id: 4, name: "Sports Equipment" },
+              { id: 5, name: "Food Products" }
+            ]
+          }
+        };
+        setCategories(response.data.Categories);
+        setLoading(false);
+      } catch (error) {
         console.error('Error fetching categories:', error);
         setLoading(false);
-      });
+      }
+    };
+
+    fetchCategories();
   }, []);
 
   const handleInputChange = (e) => {
@@ -40,12 +55,12 @@ const SellerDashboard = () => {
     }));
   };
 
-  const handleCategoryChange = (e) => {
-    const selectedCategories = Array.from(e.target.selectedOptions, option => option.value);
+  const handleCategoryChange = (id) => {
     setProductData(prevData => ({
       ...prevData,
-      categoryIds: selectedCategories
+      categoryId: id // Update to handle single category selection
     }));
+    setShowCategories(false); // Hide categories dropdown after selection
   };
 
   const handleFileChange = (e) => {
@@ -65,7 +80,7 @@ const SellerDashboard = () => {
       const formData = new FormData();
       formData.append('image', productData.image);
 
-      axios.post('/upload', formData, {
+      axios.post('/upload/image/', formData, {
         onUploadProgress: progressEvent => {
           setUploadProgress(Math.round((progressEvent.loaded / progressEvent.total) * 100));
         }
@@ -73,7 +88,7 @@ const SellerDashboard = () => {
       .then(response => {
         const imagePath = response.data.path;
         // Submit product data
-        return axios.post('/product', {
+        return axios.post('/product/', {
           ...productData,
           image: imagePath
         });
@@ -85,7 +100,7 @@ const SellerDashboard = () => {
           description: '',
           price: '',
           priceUnit: 'inr',
-          categoryIds: [],
+          categoryId: '',
           image: null
         });
         setLoading(false);
@@ -96,7 +111,7 @@ const SellerDashboard = () => {
       });
     } else {
       // Submit product data without image
-      axios.post('/product', productData)
+      axios.post('/product/', productData)
         .then(response => {
           setMessage('Product added successfully!');
           setProductData({
@@ -104,7 +119,7 @@ const SellerDashboard = () => {
             description: '',
             price: '',
             priceUnit: 'inr',
-            categoryIds: [],
+            categoryId: '',
             image: null
           });
           setLoading(false);
@@ -176,20 +191,19 @@ const SellerDashboard = () => {
               </Form.Group>
               <Form.Group controlId="formProductCategories">
                 <Form.Label>Categories</Form.Label>
-                <Form.Control
-                  as="select"
-                  multiple
-                  name="categoryIds"
-                  value={productData.categoryIds}
-                  onChange={handleCategoryChange}
-                  className="dashboard-select"
-                >
-                  {categories.map(category => (
-                    <option key={category.id} value={category.id}>
-                      {category.name}
-                    </option>
-                  ))}
-                </Form.Control>
+                <Dropdown>
+                  <Dropdown.Toggle variant="success" id="dropdown-basic" onClick={() => setShowCategories(!showCategories)}>
+                    {productData.categoryId ? categories.find(cat => cat.id === parseInt(productData.categoryId)).name : "Select a category"}
+                  </Dropdown.Toggle>
+
+                  <Dropdown.Menu show={showCategories}>
+                    {categories.map(category => (
+                      <Dropdown.Item key={category.id} onClick={() => handleCategoryChange(category.id)}>
+                        {category.name}
+                      </Dropdown.Item>
+                    ))}
+                  </Dropdown.Menu>
+                </Dropdown>
               </Form.Group>
               <Form.Group controlId="formProductImage">
                 <Form.Label>Image</Form.Label>

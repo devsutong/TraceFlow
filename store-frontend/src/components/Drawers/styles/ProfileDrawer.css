@@ -1,0 +1,33 @@
+.drawer {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 300px; /* Adjust width as needed */
+    background-color: white;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.3);
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    z-index: 9999; /* Ensure it appears on top */
+  }
+  
+  .drawer-open {
+    transform: translateX(0);
+  }
+  
+  .drawer-content {
+    padding: 20px;
+    height: 100%;
+    overflow-y: auto;
+  }
+  
+  .drawer-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+  }
+  

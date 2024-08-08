@@ -7,15 +7,16 @@ import Signup from './components/SignupForm';
 import Login from './components/LoginForm';
 import AdminDashboard from './components/Pages/Dashboards/AdminDashboard';
 import SellerDashboard from './components/Pages/Dashboards/SellerDashboard';
-import ProfileModal from './components/ProfileModal';
+import ProfileDrawer from './components/Drawers/ProfileDrawer'; // Correct import path
 import React, { useState, useEffect } from 'react';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userInfo, setUserInfo] = useState(null);
+  const [showProfileDrawer, setShowProfileDrawer] = useState(false);
   const navigate = useNavigate();
-  const [showProfileModal, setShowProfileModal] = useState(false);
 
+  // Wrap handleLogout in useCallback to stabilize its reference
   useEffect(() => {
     const token = sessionStorage.getItem('authToken');
     if (token) {
@@ -46,7 +47,7 @@ function App() {
         isAuthenticated={isAuthenticated}
         userInfo={userInfo}
         onLogout={handleLogout}
-        onProfileClick={() => setShowProfileModal(true)}
+        onProfileClick={() => setShowProfileDrawer(true)}
       />
       <div className="container">
         <Routes>
@@ -58,9 +59,9 @@ function App() {
           <Route path="/seller-dashboard" element={<SellerDashboard />} />
         </Routes>
       </div>
-      <ProfileModal
-        show={showProfileModal}
-        handleClose={() => setShowProfileModal(false)}
+      <ProfileDrawer
+        isOpen={showProfileDrawer}
+        onClose={() => setShowProfileDrawer(false)}
         isAuthenticated={isAuthenticated}
         userInfo={userInfo}
         onLogout={handleLogout}

@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { Modal, Button, Form, Alert } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
+import { Button, Form, Alert } from 'react-bootstrap';
 import { FaUserCircle } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import './styles/ProfileDrawer.css'; // Add your custom styles for the drawer
 
-export default function ProfileModal({ show, handleClose, isAuthenticated, userInfo, onLogout }) {
+const ProfileDrawer = ({ isOpen, onClose, isAuthenticated, userInfo, onLogout }) => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [age, setAge] = useState('');
   const [showUpdateForm, setShowUpdateForm] = useState(false);
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
-  const navigate = useNavigate();
+  const navigate = useNavigate(); // Initialize navigate
 
   useEffect(() => {
     if (userInfo) {
@@ -49,22 +50,6 @@ export default function ProfileModal({ show, handleClose, isAuthenticated, userI
     }
   };
 
-  const handleLogin = () => {
-    navigate('/login');
-    handleClose();
-  };
-
-  const handleSignup = () => {
-    navigate('/signup');
-    handleClose();
-  };
-
-  const handleModalClose = () => {
-    setSuccessMessage('');
-    setErrorMessage('');
-    handleClose();
-  };
-
   const handleDeleteAccount = async () => {
     try {
       const response = await fetch(`/user/${userInfo.id}`, {
@@ -88,11 +73,9 @@ export default function ProfileModal({ show, handleClose, isAuthenticated, userI
   };
 
   return (
-    <Modal show={show} onHide={handleModalClose}>
-      <Modal.Header closeButton>
-        <Modal.Title>{isAuthenticated ? 'Profile' : 'Login/Signup'}</Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
+    <div className={`drawer ${isOpen ? 'drawer-open' : ''}`}>
+      <div className="drawer-content">
+        <button className="drawer-close" onClick={onClose}>X</button>
         {isAuthenticated ? (
           <>
             {successMessage && <Alert variant="success">{successMessage}</Alert>}
@@ -150,14 +133,13 @@ export default function ProfileModal({ show, handleClose, isAuthenticated, userI
           </>
         ) : (
           <div className="text-center">
-            <Button variant="outline-primary" className="w-100 mb-2" onClick={handleLogin}>Login</Button>
-            <Button variant="outline-secondary" className="w-100" onClick={handleSignup}>Signup</Button>
+            <Button variant="outline-primary" className="w-100 mb-2" onClick={() => navigate('/login')}>Login</Button>
+            <Button variant="outline-secondary" className="w-100" onClick={() => navigate('/signup')}>Signup</Button>
           </div>
         )}
-      </Modal.Body>
-      <Modal.Footer>
-        <Button variant="secondary" onClick={handleModalClose}>Close</Button>
-      </Modal.Footer>
-    </Modal>
+      </div>
+    </div>
   );
-}
+};
+
+export default ProfileDrawer;
