@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
 
-const UserModel = require('../../common/models/User');
+const {User} = require('../../common/models/associations');
 const { roles, jwtExpirationInSeconds } = require('../../config');
 
 const jwtSecret = process.env.JWT_SECRET
@@ -27,7 +27,7 @@ module.exports = {
         const payload = req.body;
         let encryptedPassword = encryptPassword(payload.password);
         let role = payload.role || roles.USER;
-        UserModel.createUser(
+        User.create(
             Object.assign(payload, { password: encryptedPassword, role })
         )
         // The object being passed to createUser 

@@ -5,11 +5,7 @@ const cors = require("cors"); // For Cross Origin Resource Sharing
 const morgan = require("morgan"); // For logging
 require('dotenv').config();
 
-
-// const dbHost = process.env.DB_HOST;
-// const dbUser = process.env.DB_USER;
-// const dbPass = process.env.DB_PASS;
-// const dbName = process.env.DB_NAME;
+const sequelize= require("./common/models/SequelizeInstance");
 
 const { port } = require("./config");
 const PORT = port || 3000;
@@ -22,28 +18,9 @@ const UploadImageRoutes = require("./common/images/UploadImage");
 const OrderRoutes = require("./order/routes");
 
 //Sequelize model imports
-// const User= require("./common/models/User");
-// const Product = require("./common/models/Product");
-// const Order = require("./common/models/Order")
+
 const { User, Order, Product, OrderItem } = require('./common/models/associations');
 
-
-// Initialize Sequelize with MySQL configuration
-const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASS, {
-    host: process.env.DB_HOST,
-    dialect: "mysql",
-    logging: console.log, // Optional: log SQL queries
-    pool: {
-        max: 5,
-        min: 0,
-        acquire: 30000,
-        idle: 10000
-    }
-});
-
-// Initialize the Models on Sequelize
-UserModel.initialise(sequelize);
-ProductModel.initialise(sequelize); // Assuming you have similar setup for ProductModel
 
 app.use(morgan("tiny"));
 app.use(cors());
@@ -55,10 +32,6 @@ app.use('/uploads', express.static('uploads'));
 app.get("/", (req, res) => {
     res.send("This is the root route!");
 });
-
-
-const sequelize= require("./common/models/SequelizeInstance");
-
 
 // Syncing the models that are defined on sequelize with the tables that alredy exists
 // in the database. It creates models as tables that do not exist in the DB.
