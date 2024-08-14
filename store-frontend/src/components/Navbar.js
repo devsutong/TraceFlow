@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
-import ProfileModal from './ProfileModal'; // Import the ProfileModal component
+import ProfileDrawer from './Drawers/ProfileDrawer'; // Import the ProfileDrawer component
 import './styles/navbar.css'; // Ensure this path is correct
 
 export default function Navbar({ isAuthenticated, userInfo, onLogout, onUpdateProfile, onDeleteAccount }) {
-  const [showModal, setShowModal] = useState(false);
+  const [showDrawer, setShowDrawer] = useState(false);
 
   const handleProfileClick = () => {
-    setShowModal(!showModal); // Toggle modal visibility
+    setShowDrawer(!showDrawer); // Toggle drawer visibility
   };
 
-  const handleCloseModal = () => {
-    setShowModal(false);
+  const handleCloseDrawer = () => {
+    setShowDrawer(false);
   };
 
   return (
@@ -39,19 +39,18 @@ export default function Navbar({ isAuthenticated, userInfo, onLogout, onUpdatePr
             <div className="navbar-right">
               <i className="cart-icon fs-2">🛒</i>
               <span className="mx-2"></span>
-                <i className="profile-icon fs-2" onClick={handleProfileClick}>👤</i>
-                {showModal && (
-                  <ProfileModal
-                    show={showModal}
-                    handleClose={handleCloseModal}
-                    isAuthenticated={isAuthenticated}
-                    userInfo={userInfo}
-                    onLogout={onLogout}
-                    onUpdateProfile={onUpdateProfile}
-                    onDeleteAccount={onDeleteAccount}
-                  />
-                )}
-            
+              <i className="profile-icon fs-2" onClick={handleProfileClick}>👤</i>
+              {showDrawer && (
+                <ProfileDrawer
+                  isOpen={showDrawer}
+                  onClose={handleCloseDrawer}
+                  isAuthenticated={isAuthenticated}
+                  userInfo={userInfo}
+                  onLogout={onLogout}
+                  onUpdateProfile={onUpdateProfile}
+                  onDeleteAccount={onDeleteAccount}
+                />
+              )}
             </div>
           </div>
         </div>
