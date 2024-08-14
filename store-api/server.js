@@ -20,7 +20,7 @@ const OrderRoutes = require("./order/routes");
 app.use(morgan("tiny"));
 app.use(cors());
 
-app.use(express.json())
+app.use(express.json());
 app.use('/uploads', express.static('uploads'));
 
 // Syncing the models that are defined on sequelize with the tables that alredy exists
