@@ -9,3 +9,4 @@ config
 store-frontend/package-lock.json
 store-api/package-lock.json
 package-lock.json
+store-api/package-lock.json
