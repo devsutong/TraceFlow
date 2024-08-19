@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Form, Alert } from 'react-bootstrap';
-import { FaUserCircle } from 'react-icons/fa';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
-import './styles/ProfileDrawer.css'; // Add your custom styles for the drawer
+import { useNavigate } from 'react-router-dom';
+import ProfileInfo from './components/ProfileInfo';
+import AuthOptions from './components/AuthOptions';
+import UpdateProfileForm from './components/UpdateProfileForm';
+import { Button, Alert } from 'react-bootstrap';
+import { FaExclamationCircle, FaCog } from 'react-icons/fa'; // Import icons
+import './styles/ProfileDrawer.css'; // Ensure this path is correct
 
 const ProfileDrawer = ({ isOpen, onClose, isAuthenticated, userInfo, onLogout }) => {
   const [firstName, setFirstName] = useState('');
@@ -11,7 +14,7 @@ const ProfileDrawer = ({ isOpen, onClose, isAuthenticated, userInfo, onLogout })
   const [showUpdateForm, setShowUpdateForm] = useState(false);
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
-  const navigate = useNavigate(); // Initialize navigate
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (userInfo) {
@@ -76,67 +79,46 @@ const ProfileDrawer = ({ isOpen, onClose, isAuthenticated, userInfo, onLogout })
     <div className={`drawer ${isOpen ? 'drawer-open' : ''}`}>
       <div className="drawer-content">
         <button className="drawer-close" onClick={onClose}>X</button>
-        {isAuthenticated ? (
-          <>
-            {successMessage && <Alert variant="success">{successMessage}</Alert>}
-            {errorMessage && <Alert variant="danger">{errorMessage}</Alert>}
-            {showUpdateForm ? (
-              <Form>
-                <Form.Group controlId="formFirstName">
-                  <Form.Label>First Name</Form.Label>
-                  <Form.Control
-                    type="text"
-                    value={firstName}
-                    onChange={(e) => setFirstName(e.target.value)}
-                  />
-                </Form.Group>
-                <Form.Group controlId="formLastName">
-                  <Form.Label>Last Name</Form.Label>
-                  <Form.Control
-                    type="text"
-                    value={lastName}
-                    onChange={(e) => setLastName(e.target.value)}
-                  />
-                </Form.Group>
-                <Form.Group controlId="formAge">
-                  <Form.Label>Age</Form.Label>
-                  <Form.Control
-                    type="number"
-                    value={age}
-                    onChange={(e) => setAge(Number(e.target.value))}
-                  />
-                </Form.Group>
-                <div className="d-flex justify-content-between mt-3">
-                  <Button variant="outline-secondary" onClick={handleUpdateProfile}>Update Profile</Button>
-                  <Button variant="outline-danger" onClick={() => setShowUpdateForm(false)}>Cancel</Button>
-                </div>
-              </Form>
-            ) : (
-              <div className="text-center">
-                <div className="mb-3">
-                  {userInfo && userInfo.profilePic ? (
-                    <img
-                      src={userInfo.profilePic}
-                      alt="Profile"
-                      className="img-fluid rounded-circle"
-                      style={{ width: '150px', height: '150px' }}
-                    />
-                  ) : (
-                    <FaUserCircle size={150} />
-                  )}
-                </div>
-                <Button variant="outline-primary" className="mb-2 mx-2" onClick={() => setShowUpdateForm(true)}>Update Profile</Button>
-                <Button variant="outline-danger" className="mb-2 mx-2" onClick={handleDeleteAccount}>Delete Account</Button>
-                <Button variant="outline-danger" className="mb-2 mx-2" onClick={onLogout}>Logout</Button>
-              </div>
-            )}
-          </>
-        ) : (
-          <div className="text-center">
-            <Button variant="outline-primary" className="w-100 mb-2" onClick={() => navigate('/login')}>Login</Button>
-            <Button variant="outline-secondary" className="w-100" onClick={() => navigate('/signup')}>Signup</Button>
-          </div>
-        )}
+        <div className="drawer-top-content">
+          {isAuthenticated ? (
+            <>
+              {successMessage && <Alert variant="success">{successMessage}</Alert>}
+              {errorMessage && <Alert variant="danger">{errorMessage}</Alert>}
+              {showUpdateForm ? (
+                <UpdateProfileForm
+                  firstName={firstName}
+                  lastName={lastName}
+                  age={age}
+                  setFirstName={setFirstName}
+                  setLastName={setLastName}
+                  setAge={setAge}
+                  onUpdateProfile={handleUpdateProfile}
+                  onCancel={() => setShowUpdateForm(false)}
+                />
+              ) : (
+                <ProfileInfo
+                  userInfo={userInfo}
+                  onUpdateProfileClick={() => setShowUpdateForm(true)}
+                  onDeleteAccount={handleDeleteAccount}
+                  onLogout={onLogout}
+                />
+              )}
+            </>
+          ) : (
+            <AuthOptions
+              onLoginClick={() => navigate('/login')}
+              onSignupClick={() => navigate('/signup')}
+            />
+          )}
+        </div>
+      </div>
+      <div className="drawer-footer">
+        <Button variant="link" onClick={() => navigate('/about')}>
+          <FaExclamationCircle className="me-2" /> About
+        </Button>
+        <Button variant="link" onClick={() => navigate('/settings')}>
+          <FaCog className="me-2" /> Settings
+        </Button>
       </div>
     </div>
   );

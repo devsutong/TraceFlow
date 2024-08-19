@@ -16,14 +16,6 @@
   display: inline-block;
 }
 
-/* Optional icon for a farming theme */
-.navbar-title::after {
-  content: '🌾';
-  position: absolute;
-  top: -20px; /* Positioning */
-  right: 10px;
-  font-size: 2rem;
-}
 
 /* Navbar links styled as buttons */
 .navbar-nav .nav-item .nav-link {
@@ -50,6 +42,7 @@
 
 .navbar-center .form-control {
   border-radius: 20px;
+  width: 1000px;
 }
 
 .navbar-center .btn {
@@ -122,3 +115,15 @@
   background-color: #04AA6D; /* Green */
   color: white;
 }
+/* navbar.css */
+.navbar-logo {
+  height: 40px; /* Adjust size as needed */
+  width: auto;
+}
+
+.cart-icon {
+  height: 30px; /* Adjust size as needed */
+  width: auto;
+}
+
+/* Add any additional styling for the Navbar */
