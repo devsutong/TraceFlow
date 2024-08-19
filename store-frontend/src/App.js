@@ -1,5 +1,6 @@
 import './App.css';
 import Navbar from './components/Navbar';
+import CategoryNavbar from './components/Categories/CategoryNavbar'; // Import CategoryNavbar
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import Home from './components/Home';
 import About from './components/About';
@@ -16,7 +17,6 @@ function App() {
   const [showProfileDrawer, setShowProfileDrawer] = useState(false);
   const navigate = useNavigate();
 
-  // Wrap handleLogout in useCallback to stabilize its reference
   useEffect(() => {
     const token = sessionStorage.getItem('authToken');
     if (token) {
@@ -49,6 +49,7 @@ function App() {
         onLogout={handleLogout}
         onProfileClick={() => setShowProfileDrawer(true)}
       />
+      <CategoryNavbar /> {/* Add CategoryNavbar here */}
       <div className="container">
         <Routes>
           <Route path="/" element={<Home />} />
