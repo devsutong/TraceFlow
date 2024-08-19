@@ -9,7 +9,7 @@ const ProductCard = ({ product }) => {
       <h3>{product.name}</h3>
       <p>{product.description}</p>
       <p>${product.price} per {product.priceUnit}</p>
-      <button className="buy-now-btn">Buy Now</button>
+      <button className="buy-now-btn">Add to cart</button>
     </div>
   );
 };

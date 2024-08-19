@@ -59,7 +59,7 @@
     {
       "name": "Wireless Charger",
       "description": "Fast wireless charger compatible with most smartphones.",
-      "image": "https://www.pexels.com/photo/close-up-of-person-putting-smartphone-on-wireless-charger-7952558/",
+      "image": "https://images.pexels.com/photos/7952558/pexels-photo-7952558.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
       "price": 39.99,
       "priceUnit": "USD",
       "categoryIds": [1]
@@ -67,7 +67,7 @@
     {
       "name": "Designer Sunglasses",
       "description": "Trendy designer sunglasses with UV protection.",
-      "image": "https://www.pexels.com/photo/luxury-sunglasses-on-pink-studio-background-16667086/",
+      "image": "https://images.pexels.com/photos/16667086/pexels-photo-16667086/free-photo-of-luxury-sunglasses-on-pink-studio-background.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
       "price": 129.99,
       "priceUnit": "USD",
       "categoryIds": [2]
@@ -75,7 +75,7 @@
     {
       "name": "Men's Suit",
       "description": "Elegant men's suit for formal occasions.",
-      "image": "https://images.unsplash.com/photo-1530743890848-6d8d9a64d3a4",
+      "image": "https://images.pexels.com/photos/1096849/pexels-photo-1096849.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
       "price": 299.99,
       "priceUnit": "USD",
       "categoryIds": [2]
@@ -83,7 +83,7 @@
     {
       "name": "Casual Sneakers",
       "description": "Comfortable casual sneakers for everyday wear.",
-      "image": "https://images.unsplash.com/photo-1580918815296-2b9d12ea19a5",
+      "image": "https://images.pexels.com/photos/7651067/pexels-photo-7651067.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
       "price": 79.99,
       "priceUnit": "USD",
       "categoryIds": [2]
@@ -91,7 +91,7 @@
     {
       "name": "Leather Backpack",
       "description": "Stylish leather backpack with multiple compartments.",
-      "image": "https://images.unsplash.com/photo-1568387306-77aa15f3d3e2",
+      "image": "https://images.pexels.com/photos/26649018/pexels-photo-26649018/free-photo-of-leather-backpack-on-bench-on-a-field.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
       "price": 199.99,
       "priceUnit": "USD",
       "categoryIds": [2]
@@ -99,7 +99,7 @@
     {
       "name": "Camping Tent",
       "description": "Waterproof camping tent for outdoor adventures.",
-      "image": "https://images.unsplash.com/photo-1574656843326-c1a24969c7d8",
+      "image": "https://images.pexels.com/photos/2422265/pexels-photo-2422265.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
       "price": 149.99,
       "priceUnit": "USD",
       "categoryIds": [4]
@@ -107,7 +107,7 @@
     {
       "name": "Yoga Mat",
       "description": "Durable yoga mat for comfort and stability.",
-      "image": "https://images.unsplash.com/photo-1552043783-f56ad5c254eb",
+      "image": "https://images.pexels.com/photos/4325462/pexels-photo-4325462.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
       "price": 29.99,
       "priceUnit": "USD",
       "categoryIds": [4]
@@ -115,7 +115,7 @@
     {
       "name": "Dumbbell Set",
       "description": "Adjustable dumbbell set for strength training.",
-      "image": "https://images.unsplash.com/photo-1595792374464-4e1b48434b51",
+      "image": "https://images.pexels.com/photos/4959805/pexels-photo-4959805.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
       "price": 89.99,
       "priceUnit": "USD",
       "categoryIds": [4]
@@ -123,7 +123,7 @@
     {
       "name": "Resistance Bands",
       "description": "Set of resistance bands for various exercises.",
-      "image": "https://images.unsplash.com/photo-1596145074987-4c35ccfb8dc1",
+      "image": "https://images.pexels.com/photos/4379040/pexels-photo-4379040.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
       "price": 24.99,
       "priceUnit": "USD",
       "categoryIds": [4]
@@ -131,7 +131,7 @@
     {
       "name": "Fresh Apples",
       "description": "Crisp and juicy fresh apples, per kg.",
-      "image": "https://images.unsplash.com/photo-1567327888-bb2bb3b7a325",
+      "image": "https://images.pexels.com/photos/2966150/pexels-photo-2966150.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
       "price": 3.99,
       "priceUnit": "USD",
       "categoryIds": [5]
@@ -139,7 +139,7 @@
     {
       "name": "Organic Olive Oil",
       "description": "Premium organic olive oil for cooking and dressing.",
-      "image": "https://images.unsplash.com/photo-1592335109311-b453d2457601",
+      "image": "https://images.pexels.com/photos/3737651/pexels-photo-3737651.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
       "price": 14.99,
       "priceUnit": "USD",
       "categoryIds": [5]
@@ -147,7 +147,7 @@
     {
       "name": "Whole Grain Rice",
       "description": "Healthy whole grain rice, 5kg bag.",
-      "image": "https://images.unsplash.com/photo-1576628227470-54dd9a4b3155",
+      "image": "https://images.pexels.com/photos/1192053/pexels-photo-1192053.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
       "price": 9.99,
       "priceUnit": "USD",
       "categoryIds": [5]
@@ -155,7 +155,7 @@
     {
       "name": "Almonds",
       "description": "Raw almonds, 250g pack.",
-      "image": "https://images.unsplash.com/photo-1578665033238-0dcf61636a6b",
+      "image": "https://images.pexels.com/photos/1013420/pexels-photo-1013420.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
       "price": 6.99,
       "priceUnit": "USD",
       "categoryIds": [5]
@@ -163,7 +163,7 @@
     {
       "name": "Herbal Tea",
       "description": "Relaxing herbal tea blend, 20 bags.",
-      "image": "https://images.unsplash.com/photo-1593642532973-d31b6557b3f0",
+      "image": "https://images.pexels.com/photos/8329261/pexels-photo-8329261.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
       "price": 4.99,
       "priceUnit": "USD",
       "categoryIds": [5]
@@ -171,7 +171,7 @@
     {
       "name": "Protein Powder",
       "description": "High-quality protein powder for fitness enthusiasts.",
-      "image": "https://images.unsplash.com/photo-1600305705102-e295e7c4c728",
+      "image": "https://images.pexels.com/photos/1212845/pexels-photo-1212845.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
       "price": 39.99,
       "priceUnit": "USD",
       "categoryIds": [4]
@@ -179,7 +179,7 @@
     {
       "name": "Electric Kettle",
       "description": "Fast boiling electric kettle with temperature control.",
-      "image": "https://images.unsplash.com/photo-1582110081304-63b46dd90a3e",
+      "image": "https://images.pexels.com/photos/11255397/pexels-photo-11255397.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
       "price": 29.99,
       "priceUnit": "USD",
       "categoryIds": [3]
@@ -187,23 +187,15 @@
     {
       "name": "Digital Camera",
       "description": "High-resolution digital camera with interchangeable lenses.",
-      "image": "https://images.unsplash.com/photo-1562151512-fc0141a75229",
+      "image": "https://images.pexels.com/photos/1528851/pexels-photo-1528851.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
       "price": 599.99,
-      "priceUnit": "USD",
-      "categoryIds": [3]
-    },
-    {
-      "name": "Air Fryer",
-      "description": "Compact air fryer for healthier cooking.",
-      "image": "https://images.unsplash.com/photo-1606351563464-14f0c57e6db2",
-      "price": 89.99,
       "priceUnit": "USD",
       "categoryIds": [3]
     },
     {
       "name": "Blender",
       "description": "High-speed blender for smoothies and soups.",
-      "image": "https://images.unsplash.com/photo-1600387927934-37982361f4a2",
+      "image": "https://images.pexels.com/photos/8805081/pexels-photo-8805081.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
       "price": 69.99,
       "priceUnit": "USD",
       "categoryIds": [3]
@@ -211,7 +203,7 @@
     {
       "name": "Electric Toothbrush",
       "description": "Rechargeable electric toothbrush with multiple modes.",
-      "image": "https://images.unsplash.com/photo-1610914487694-248b2c5d3f26",
+      "image": "https://images.pexels.com/photos/3958092/pexels-photo-3958092.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
       "price": 59.99,
       "priceUnit": "USD",
       "categoryIds": [3]

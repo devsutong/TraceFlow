@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import productsData from '../Products.json'; // Adjust the path accordingly
+import productsData from '../components/Products/Products.json'; // Adjust the path accordingly
 import ProductCard from '../components/Products/ProductCard';
 import Spinner from '../components/Spinner'; // Import the Spinner component
 import './styles/home.css';
