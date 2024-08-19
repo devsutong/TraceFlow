@@ -1,0 +1,220 @@
+{
+  "products": [
+    {
+      "name": "Bluetooth Headphones",
+      "description": "Noise-canceling Bluetooth headphones with a long battery life.",
+      "image": "https://images.pexels.com/photos/15840650/pexels-photo-15840650/free-photo-of-black-wireless-headphones.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      "price": 89.99,
+      "priceUnit": "piece",
+      "categoryIds": [3]
+    },
+    {
+      "name": "Leather Wallet",
+      "description": "Elegant leather wallet with multiple card slots and a coin pocket.",
+      "image": "https://images.pexels.com/photos/4452528/pexels-photo-4452528.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      "price": 29.99,
+      "priceUnit": "piece",
+      "categoryIds": [2]
+    },
+    {
+      "name": "Smartwatch",
+      "description": "A smartwatch with fitness tracking and notification features.",
+      "image": "https://images.pexels.com/photos/437037/pexels-photo-437037.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      "price": 199.99,
+      "priceUnit": "piece",
+      "categoryIds": [3]
+    },
+    {
+      "name": "Wireless Mouse",
+      "description": "Ergonomic wireless mouse with adjustable DPI.",
+      "image": "https://images.pexels.com/photos/13599845/pexels-photo-13599845.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      "price": 29.99,
+      "priceUnit": "USD",
+      "categoryIds": [1]
+    },
+    {
+      "name": "Gaming Keyboard",
+      "description": "RGB backlit mechanical keyboard for gaming.",
+      "image": "https://images.pexels.com/photos/7915508/pexels-photo-7915508.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      "price": 119.99,
+      "priceUnit": "USD",
+      "categoryIds": [1]
+    },
+    {
+      "name": "4K Monitor",
+      "description": "27-inch 4K monitor with high color accuracy.",
+      "image": "https://images.pexels.com/photos/38568/apple-imac-ipad-workplace-38568.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      "price": 299.99,
+      "priceUnit": "USD",
+      "categoryIds": [1]
+    },
+    {
+      "name": "Portable SSD",
+      "description": "High-speed portable SSD with 1TB capacity.",
+      "image": "https://images.pexels.com/photos/2942361/pexels-photo-2942361.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      "price": 149.99,
+      "priceUnit": "USD",
+      "categoryIds": [1]
+    },
+    {
+      "name": "Wireless Charger",
+      "description": "Fast wireless charger compatible with most smartphones.",
+      "image": "https://www.pexels.com/photo/close-up-of-person-putting-smartphone-on-wireless-charger-7952558/",
+      "price": 39.99,
+      "priceUnit": "USD",
+      "categoryIds": [1]
+    },
+    {
+      "name": "Designer Sunglasses",
+      "description": "Trendy designer sunglasses with UV protection.",
+      "image": "https://www.pexels.com/photo/luxury-sunglasses-on-pink-studio-background-16667086/",
+      "price": 129.99,
+      "priceUnit": "USD",
+      "categoryIds": [2]
+    },
+    {
+      "name": "Men's Suit",
+      "description": "Elegant men's suit for formal occasions.",
+      "image": "https://images.unsplash.com/photo-1530743890848-6d8d9a64d3a4",
+      "price": 299.99,
+      "priceUnit": "USD",
+      "categoryIds": [2]
+    },
+    {
+      "name": "Casual Sneakers",
+      "description": "Comfortable casual sneakers for everyday wear.",
+      "image": "https://images.unsplash.com/photo-1580918815296-2b9d12ea19a5",
+      "price": 79.99,
+      "priceUnit": "USD",
+      "categoryIds": [2]
+    },
+    {
+      "name": "Leather Backpack",
+      "description": "Stylish leather backpack with multiple compartments.",
+      "image": "https://images.unsplash.com/photo-1568387306-77aa15f3d3e2",
+      "price": 199.99,
+      "priceUnit": "USD",
+      "categoryIds": [2]
+    },
+    {
+      "name": "Camping Tent",
+      "description": "Waterproof camping tent for outdoor adventures.",
+      "image": "https://images.unsplash.com/photo-1574656843326-c1a24969c7d8",
+      "price": 149.99,
+      "priceUnit": "USD",
+      "categoryIds": [4]
+    },
+    {
+      "name": "Yoga Mat",
+      "description": "Durable yoga mat for comfort and stability.",
+      "image": "https://images.unsplash.com/photo-1552043783-f56ad5c254eb",
+      "price": 29.99,
+      "priceUnit": "USD",
+      "categoryIds": [4]
+    },
+    {
+      "name": "Dumbbell Set",
+      "description": "Adjustable dumbbell set for strength training.",
+      "image": "https://images.unsplash.com/photo-1595792374464-4e1b48434b51",
+      "price": 89.99,
+      "priceUnit": "USD",
+      "categoryIds": [4]
+    },
+    {
+      "name": "Resistance Bands",
+      "description": "Set of resistance bands for various exercises.",
+      "image": "https://images.unsplash.com/photo-1596145074987-4c35ccfb8dc1",
+      "price": 24.99,
+      "priceUnit": "USD",
+      "categoryIds": [4]
+    },
+    {
+      "name": "Fresh Apples",
+      "description": "Crisp and juicy fresh apples, per kg.",
+      "image": "https://images.unsplash.com/photo-1567327888-bb2bb3b7a325",
+      "price": 3.99,
+      "priceUnit": "USD",
+      "categoryIds": [5]
+    },
+    {
+      "name": "Organic Olive Oil",
+      "description": "Premium organic olive oil for cooking and dressing.",
+      "image": "https://images.unsplash.com/photo-1592335109311-b453d2457601",
+      "price": 14.99,
+      "priceUnit": "USD",
+      "categoryIds": [5]
+    },
+    {
+      "name": "Whole Grain Rice",
+      "description": "Healthy whole grain rice, 5kg bag.",
+      "image": "https://images.unsplash.com/photo-1576628227470-54dd9a4b3155",
+      "price": 9.99,
+      "priceUnit": "USD",
+      "categoryIds": [5]
+    },
+    {
+      "name": "Almonds",
+      "description": "Raw almonds, 250g pack.",
+      "image": "https://images.unsplash.com/photo-1578665033238-0dcf61636a6b",
+      "price": 6.99,
+      "priceUnit": "USD",
+      "categoryIds": [5]
+    },
+    {
+      "name": "Herbal Tea",
+      "description": "Relaxing herbal tea blend, 20 bags.",
+      "image": "https://images.unsplash.com/photo-1593642532973-d31b6557b3f0",
+      "price": 4.99,
+      "priceUnit": "USD",
+      "categoryIds": [5]
+    },
+    {
+      "name": "Protein Powder",
+      "description": "High-quality protein powder for fitness enthusiasts.",
+      "image": "https://images.unsplash.com/photo-1600305705102-e295e7c4c728",
+      "price": 39.99,
+      "priceUnit": "USD",
+      "categoryIds": [4]
+    },
+    {
+      "name": "Electric Kettle",
+      "description": "Fast boiling electric kettle with temperature control.",
+      "image": "https://images.unsplash.com/photo-1582110081304-63b46dd90a3e",
+      "price": 29.99,
+      "priceUnit": "USD",
+      "categoryIds": [3]
+    },
+    {
+      "name": "Digital Camera",
+      "description": "High-resolution digital camera with interchangeable lenses.",
+      "image": "https://images.unsplash.com/photo-1562151512-fc0141a75229",
+      "price": 599.99,
+      "priceUnit": "USD",
+      "categoryIds": [3]
+    },
+    {
+      "name": "Air Fryer",
+      "description": "Compact air fryer for healthier cooking.",
+      "image": "https://images.unsplash.com/photo-1606351563464-14f0c57e6db2",
+      "price": 89.99,
+      "priceUnit": "USD",
+      "categoryIds": [3]
+    },
+    {
+      "name": "Blender",
+      "description": "High-speed blender for smoothies and soups.",
+      "image": "https://images.unsplash.com/photo-1600387927934-37982361f4a2",
+      "price": 69.99,
+      "priceUnit": "USD",
+      "categoryIds": [3]
+    },
+    {
+      "name": "Electric Toothbrush",
+      "description": "Rechargeable electric toothbrush with multiple modes.",
+      "image": "https://images.unsplash.com/photo-1610914487694-248b2c5d3f26",
+      "price": 59.99,
+      "priceUnit": "USD",
+      "categoryIds": [3]
+    }
+  ]
+}
