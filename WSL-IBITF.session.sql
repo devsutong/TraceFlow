@@ -28,3 +28,4 @@ FROM Categories
 
 SELECT * FROM Products
 SELECT * FROM ProductCategory
+SHOW DATABASES;
