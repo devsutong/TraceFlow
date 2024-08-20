@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import ProfileInfo from './components/ProfileInfo';
-import AuthOptions from './components/AuthOptions';
-import UpdateProfileForm from './components/UpdateProfileForm';
+import ProfileInfo from './ProfileInfo';
+import AuthOptions from './AuthOptions';
+import UpdateProfileForm from './UpdateProfileForm';
 import { Button, Alert } from 'react-bootstrap';
 import { FaExclamationCircle, FaCog } from 'react-icons/fa'; // Import icons
-import './styles/ProfileDrawer.css'; // Ensure this path is correct
+import '../styles/ProfileDrawer.css'; // Ensure this path is correct
 
 const ProfileDrawer = ({ isOpen, onClose, isAuthenticated, userInfo, onLogout }) => {
   const [firstName, setFirstName] = useState('');

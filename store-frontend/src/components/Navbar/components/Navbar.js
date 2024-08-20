@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import ProfileDrawer from './Drawers/ProfileDrawer'; // Import the ProfileDrawer component
+import ProfileDrawer from '../../Drawers/components/Profile/components/ProfileDrawer'; // Import the ProfileDrawer component
 import logo from '/home/ibitfnehu/TraceFlow/store-frontend/src/components/Assets/logo.png'; // Adjust path if necessary
 import cartIcon from '/home/ibitfnehu/TraceFlow/store-frontend/src/components/Assets/cart_icon.png'; // Import the cart icon
-import './styles/navbar.css'; // Ensure this path is correct
+import '../styles/navbar.css'; // Ensure this path is correct
 
 export default function Navbar({ isAuthenticated, userInfo, onLogout }) {
   const [showDrawer, setShowDrawer] = useState(false);

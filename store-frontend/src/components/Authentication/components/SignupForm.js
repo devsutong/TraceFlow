@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './styles/Signup.css';
+import '../styles/Signup.css';
 import validator from 'validator';
 import { useNavigate } from 'react-router-dom';
 

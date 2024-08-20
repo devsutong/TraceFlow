@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import productsData from '../components/Products/Products.json'; // Adjust the path accordingly
-import ProductCard from '../components/Products/ProductCard';
-import Spinner from '../components/Spinner'; // Import the Spinner component
-import './styles/home.css';
+import productsData from '../../Products/Products.json'; // Adjust the path accordingly
+import ProductCard from '../../Products/ProductCard';
+import Spinner from '../../Spinner'; // Import the Spinner component
+import '../styles/home.css';
 
 const ITEMS_PER_ROW = 4; // Number of items per row
 const ROWS_PER_PAGE = 3; // Number of rows to load per button click

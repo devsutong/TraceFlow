@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import './styles/login.css';
-import Spinner from './Spinner'; // Import Spinner component
-import UserRedirect from './Pages/userRedirect';
+import '../styles/login.css';
+import Spinner from '../../styles/spinner.css'; // Import Spinner component
+import UserRedirect from '../../Pages/userRedirect';
 import GoogleSignIn from './GoogleSignIn'; // Import GoogleSignIn component
 
 const LoginForm = ({ onLogin }) => {

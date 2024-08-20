@@ -1,9 +1,9 @@
 import React from 'react';
 import { Button, Container, Row, Col, Card } from 'react-bootstrap';
-import '../../styles/admindashboard.css';
+import '../../AdminDashboard/components/styles/admindashboard.css';
 
 // Import UserManagement Component
-import UserManagement from './components/UserManagement';
+import UserManagement from '../../components/UserManagement';
 
 const AdminDashboard = () => {
   return (

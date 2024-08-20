@@ -1,16 +1,16 @@
 // src/App.js
 import './App.css';
-import Navbar from './components/Navbar';
+import Navbar from './components/Navbar/components/Navbar';
 import CategoryNavbar from './components/Categories/CategoryNavbar';
 import { Routes, Route, useNavigate } from 'react-router-dom';
-import Home from './components/Home';
-import About from './components/About';
-import Signup from './components/SignupForm';
-import Login from './components/LoginForm';
-import AdminDashboard from './components/Pages/Dashboards/AdminDashboard';
+import Home from './components/Navbar/components/Home';
+import About from './components/Drawers/components/About/components/About';
+import Signup from './components/Authentication/components/SignupForm'
+import Login from './components/Authentication/components/LoginForm';
+import AdminDashboard from './components/Pages/Dashboards/AdminDashboard/components/AdminDashboard';
 import SellerDashboard from './components/Pages/Dashboards/SellerDashboard/components/SellerDashboard';
-import ProfileDrawer from './components/Drawers/ProfileDrawer';
-import GoogleSignIn from './components/GoogleSignIn'; // Import GoogleSignIn
+import ProfileDrawer from './components/Drawers/components/Profile/components/ProfileDrawer';
+import GoogleSignIn from './components/Authentication/components/GoogleSignIn'; // Import GoogleSignIn
 import React, { useState, useEffect } from 'react';
 
 function App() {
