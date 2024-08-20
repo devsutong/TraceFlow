@@ -2,7 +2,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 10vh; /* Full viewport height */
+    height: 8vh; /* Full viewport height */
   }
   
   .spinner {
