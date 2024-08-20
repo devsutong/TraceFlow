@@ -4,12 +4,8 @@
     "bootstrap": "^5.3.3",
     "concurrently": "^8.2.2",
     "lru-cache": "^11.0.0",
-<<<<<<< HEAD
     "mysql": "^2.18.1",
     "mysql2": "^3.11.0",
-=======
-    "mysql2": "^3.10.3",
->>>>>>> 88df1bced5c08b4240e2442f362022fb57c3b203
     "react-bootstrap": "^2.10.4",
     "validator": "^13.12.0"
   }

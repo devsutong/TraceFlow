@@ -7,7 +7,7 @@ import About from './components/About';
 import Signup from './components/SignupForm';
 import Login from './components/LoginForm';
 import AdminDashboard from './components/Pages/Dashboards/AdminDashboard';
-import SellerDashboard from './components/Pages/Dashboards/SellerDashboard';
+import SellerDashboard from './components/Pages/Dashboards/SellerDashboard/components/SellerDashboard';
 import ProfileDrawer from './components/Drawers/ProfileDrawer'; // Correct import path
 import React, { useState, useEffect } from 'react';
 
