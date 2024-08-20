@@ -1,6 +1,7 @@
+// src/App.js
 import './App.css';
 import Navbar from './components/Navbar';
-import CategoryNavbar from './components/Categories/CategoryNavbar'; // Import CategoryNavbar
+import CategoryNavbar from './components/Categories/CategoryNavbar';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import Home from './components/Home';
 import About from './components/About';
@@ -8,7 +9,8 @@ import Signup from './components/SignupForm';
 import Login from './components/LoginForm';
 import AdminDashboard from './components/Pages/Dashboards/AdminDashboard';
 import SellerDashboard from './components/Pages/Dashboards/SellerDashboard/components/SellerDashboard';
-import ProfileDrawer from './components/Drawers/ProfileDrawer'; // Correct import path
+import ProfileDrawer from './components/Drawers/ProfileDrawer';
+import GoogleSignIn from './components/GoogleSignIn'; // Import GoogleSignIn
 import React, { useState, useEffect } from 'react';
 
 function App() {
@@ -31,6 +33,8 @@ function App() {
     setUserInfo(user);
     if (user.role === 'admin') {
       navigate('/admin-dashboard', { state: { message: 'Login successful!' } });
+    } else if (user.role === 'seller') {
+      navigate('/seller-dashboard', { state: { message: 'Login successful!' } });
     }
   };
 
@@ -49,7 +53,7 @@ function App() {
         onLogout={handleLogout}
         onProfileClick={() => setShowProfileDrawer(true)}
       />
-      <CategoryNavbar /> {/* Add CategoryNavbar here */}
+      <CategoryNavbar />
       <div className="container">
         <Routes>
           <Route path="/" element={<Home />} />
@@ -59,6 +63,7 @@ function App() {
           <Route path="/admin-dashboard" element={<AdminDashboard />} />
           <Route path="/seller-dashboard" element={<SellerDashboard />} />
         </Routes>
+        <GoogleSignIn onLogin={handleLogin} /> {/* Add GoogleSignIn component */}
       </div>
       <ProfileDrawer
         isOpen={showProfileDrawer}

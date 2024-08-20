@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './styles/login.css';
 import Spinner from './Spinner'; // Import Spinner component
 import UserRedirect from './Pages/userRedirect';
+import GoogleSignIn from './GoogleSignIn'; // Import GoogleSignIn component
 
 const LoginForm = ({ onLogin }) => {
   const [formData, setFormData] = useState({
@@ -90,6 +91,9 @@ const LoginForm = ({ onLogin }) => {
         <button type="submit">Login</button>
         <div className="signup-link">
           Not registered? <a href="/signup">Register now</a>
+        </div>
+        <div className="google-sign-in">
+          <GoogleSignIn onLogin={onLogin} /> {/* Add Google Sign-In button */}
         </div>
       </form>
       {isLoggedIn && authToken && <UserRedirect token={authToken} />}
