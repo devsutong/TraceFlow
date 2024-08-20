@@ -1,19 +1,40 @@
 import React, { useState } from 'react';
-import ProfileDrawer from '../../Drawers/components/Profile/components/ProfileDrawer'; // Import the ProfileDrawer component
-import logo from '/home/ibitfnehu/TraceFlow/store-frontend/src/components/Assets/logo.png'; // Adjust path if necessary
-import cartIcon from '/home/ibitfnehu/TraceFlow/store-frontend/src/components/Assets/cart_icon.png'; // Import the cart icon
-import '../styles/navbar.css'; // Ensure this path is correct
+import { useNavigate } from 'react-router-dom';
+import ProfileDrawer from '../../Drawers/components/Profile/components/ProfileDrawer';
+import logo from '../../Assets/logo.png';
+import cartIcon from '../../Assets/cart_icon.png';
+import { FaPlus } from 'react-icons/fa';
+import Spinner from '../../Spinner'; // Import Spinner component
+import '../styles/navbar.css';
 
 export default function Navbar({ isAuthenticated, userInfo, onLogout }) {
   const [showDrawer, setShowDrawer] = useState(false);
+  const [loading, setLoading] = useState(false); // State for loading spinner
+  const navigate = useNavigate();
 
   const handleProfileClick = () => {
-    setShowDrawer(!showDrawer); // Toggle drawer visibility
+    setShowDrawer(!showDrawer);
   };
 
   const handleCloseDrawer = () => {
     setShowDrawer(false);
   };
+
+  const handleAddProductClick = () => {
+    setLoading(true); // Show spinner on click
+    setTimeout(() => {
+      setLoading(false); // Hide spinner after the timeout
+      navigate('/seller-dashboard'); // Navigate to seller-dashboard
+    }, 1500); // Adjust the timeout duration as needed
+  };
+
+  if (loading) {
+    return (
+      <div className="spinner-overlay">
+        <Spinner />
+      </div>
+    );
+  }
 
   return (
     <div className="navbar-container">
@@ -33,7 +54,8 @@ export default function Navbar({ isAuthenticated, userInfo, onLogout }) {
               </form>
             </div>
             <div className="navbar-right">
-              <img src={cartIcon} alt="Cart" className="cart-icon" /> {/* Use the new cart icon */}
+              <FaPlus className="add-product-icon fs-3 me-3" onClick={handleAddProductClick} style={{ cursor: 'pointer' }} />
+              <img src={cartIcon} alt="Cart" className="cart-icon" />
               <span className="mx-2"></span>
               <i className="profile-icon fs-2" onClick={handleProfileClick}>👤</i>
               {showDrawer && (

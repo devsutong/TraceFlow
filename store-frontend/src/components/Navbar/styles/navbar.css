@@ -125,5 +125,17 @@
   height: 30px; /* Adjust size as needed */
   width: auto;
 }
+.spinner-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffffff; /* Blank white background */
+  z-index: 9999; /* Ensure it overlays everything else */
+}
 
 /* Add any additional styling for the Navbar */
