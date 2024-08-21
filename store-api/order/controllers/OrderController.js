@@ -1,8 +1,3 @@
-// const Order = require('../../common/models/Order');
-const {findAllOrders, createOrder, createOrderItem } = require('../../common/models/Order');
-// const { Product } = require('../../common/models/Product');
-// const { model } = require('../../common/models/User');
-
 const { User, Order, Product, OrderItem } = require('../../common/models/associations');
 
 

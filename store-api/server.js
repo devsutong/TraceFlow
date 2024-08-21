@@ -16,6 +16,8 @@ const UserRoutes = require("./users/routes");
 const ProductRoutes = require("./products/routes");
 const UploadImageRoutes = require("./common/images/UploadImage");
 const OrderRoutes = require("./order/routes");
+const CartRoutes = require("./cart/routes");
+const { Cart } = require("./common/models/Cart");
 
 app.use(morgan("tiny"));
 app.use(cors());
@@ -37,6 +39,7 @@ sequelize
     app.use("/product", ProductRoutes);
     app.use("/upload/image", UploadImageRoutes);
     app.use("/order", OrderRoutes);
+    app.use("/cart", CartRoutes)
 
     app.listen(PORT, '127.0.0.1', () => {
       console.log("Server Listening on PORT:", port);

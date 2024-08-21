@@ -58,11 +58,12 @@ module.exports = {
 
     login: (req, res) => {
         const { username, password } = req.body;
-
+        console.log("Username: " + username)
         const encryptedPassword = encryptPassword(password);
 
-        User.findOne({ username })
+        User.findOne({ where: { username: username } })
         .then((user) => {
+            console.log(user)
             if (!user) {
                 return res.status(401).json({
                     status: false,
@@ -75,6 +76,8 @@ module.exports = {
                     error: 'Invalid username or password'
                 });
             }
+            console.log(user.username)
+            console.log(encryptedPassword)
             const accessToken = generateAccessToken(username, user.id);
             return res.status(200).json({
                 status: true,

@@ -3,6 +3,7 @@ const {Order} = require('./Order');
 const {OrderItem} = require("./Order")
 const {Product} = require('./Product');
 const {Category} = require("./Category")
+const {Cart, CartItem} = require("./Cart")
 
 
 const sequelize = require("sequelize")
@@ -34,4 +35,15 @@ OrderItem.belongsTo(Product, { foreignKey: 'productID' });
 Product.belongsToMany(Category, { through: 'ProductCategory' });
 Category.belongsToMany(Product, { through: 'ProductCategory' });
 
-module.exports = { User, Order, Product, OrderItem };
+
+//CART
+User.hasOne(Cart, { foreignKey: 'userId' });
+Cart.belongsTo(User, { foreignKey: 'userId' });
+
+Cart.hasMany(CartItem, { foreignKey: 'cartId' });
+CartItem.belongsTo(Cart, { foreignKey: 'cartId' });
+
+Product.hasMany(CartItem, { foreignKey: 'productId' });
+CartItem.belongsTo(Product, { foreignKey: 'productId' });
+
+module.exports = { User, Order, Product, OrderItem, Cart, CartItem};
