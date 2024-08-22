@@ -10,7 +10,6 @@ import Login from './components/Authentication/components/LoginForm';
 import AdminDashboard from './components/Pages/Dashboards/AdminDashboard/components/AdminDashboard';
 import SellerDashboard from './components/Pages/Dashboards/SellerDashboard/components/SellerDashboard';
 import ProfileDrawer from './components/Drawers/components/Profile/components/ProfileDrawer';
-import GoogleSignIn from './components/Authentication/components/GoogleSignIn'; // Import GoogleSignIn
 import React, { useState, useEffect } from 'react';
 
 function App() {
@@ -63,7 +62,6 @@ function App() {
           <Route path="/admin-dashboard" element={<AdminDashboard />} />
           <Route path="/seller-dashboard" element={<SellerDashboard />} />
         </Routes>
-        <GoogleSignIn onLogin={handleLogin} /> {/* Add GoogleSignIn component */}
       </div>
       <ProfileDrawer
         isOpen={showProfileDrawer}

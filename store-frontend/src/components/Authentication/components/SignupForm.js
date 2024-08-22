@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import '../styles/Signup.css';
 import validator from 'validator';
 import { useNavigate } from 'react-router-dom';
+import ReCAPTCHA from 'react-google-recaptcha';
+
+const RECAPTCHA_SITE_KEY = '6LdFmiwqAAAAACToIxlwk54wTzQyJ6usbTPZrH7w'; // Replace with your reCAPTCHA site key
 
 const SignupForm = () => {
   const navigate = useNavigate();
@@ -13,11 +16,9 @@ const SignupForm = () => {
     age: '',
     firstName: '',
     lastName: '',
-    role: '',
   });
-
-  const [errorMessage, setErrorMessage] = useState('');
-  const [successMessage, setSuccessMessage] = useState('');
+  const [recaptchaToken, setRecaptchaToken] = useState('');
+  const [message, setMessage] = useState({ text: '', type: '' });
 
   const handleChange = (event) => {
     setFormData({
@@ -26,21 +27,30 @@ const SignupForm = () => {
     });
   };
 
+  const handleRecaptcha = (token) => {
+    setRecaptchaToken(token);
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     if (!formData.username || !formData.email || !formData.password || !formData.confirmPassword || !formData.age || !formData.firstName || !formData.lastName) {
-      setErrorMessage('All fields are required!');
+      setMessage({ text: 'All fields are required!', type: 'error' });
       return;
     }
 
     if (!validator.isEmail(formData.email)) {
-      setErrorMessage('Invalid email format!');
+      setMessage({ text: 'Invalid email format!', type: 'error' });
       return;
     }
 
     if (formData.password !== formData.confirmPassword) {
-      setErrorMessage('Passwords do not match!');
+      setMessage({ text: 'Passwords do not match!', type: 'error' });
+      return;
+    }
+
+    if (!recaptchaToken) {
+      setMessage({ text: 'Please complete the CAPTCHA!', type: 'error' });
       return;
     }
 
@@ -48,16 +58,20 @@ const SignupForm = () => {
       const response = await fetch("/signup", {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          ...formData,
+          role: 'user', // Default role set to 'user'
+          recaptchaToken,
+        }),
       });
 
       if (!response.ok) {
         const errorData = await response.json();
-        setErrorMessage(errorData.error);
+        setMessage({ text: errorData.error, type: 'error' });
         return;
       }
-      
-      setSuccessMessage('Signup successful! Please login.');
+
+      setMessage({ text: 'Signup successful! Please login.', type: 'success' });
       setFormData({
         username: '',
         email: '',
@@ -66,14 +80,14 @@ const SignupForm = () => {
         age: '',
         firstName: '',
         lastName: '',
-        role: '',
       });
+      setRecaptchaToken('');
 
       navigate('/login', { state: { message: 'Signup successful! Please login.' } });
 
     } catch (error) {
       console.error('Signup error:', error);
-      setErrorMessage('Signup failed. Please try again.');
+      setMessage({ text: 'Signup failed. Please try again.', type: 'error' });
     }
   };
 
@@ -81,8 +95,11 @@ const SignupForm = () => {
     <div className="signup-container">
       <form onSubmit={handleSubmit} className="signup-form">
         <h2>Signup</h2>
-        {errorMessage && <p className="error-message">{errorMessage}</p>}
-        {successMessage && <p className="success-message">{successMessage}</p>}
+        {message.text && (
+          <p className={message.type === 'error' ? 'error-message' : 'success-message'}>
+            {message.text}
+          </p>
+        )}
         
         <label htmlFor="username">Username:</label>
         <input
@@ -92,6 +109,7 @@ const SignupForm = () => {
           value={formData.username}
           onChange={handleChange}
           autoComplete="username"
+          aria-label="Enter your username"
         />
 
         <label htmlFor="email">Email:</label>
@@ -102,6 +120,7 @@ const SignupForm = () => {
           value={formData.email}
           onChange={handleChange}
           autoComplete="email"
+          aria-label="Enter your email"
         />
 
         <label htmlFor="password">Password:</label>
@@ -112,6 +131,7 @@ const SignupForm = () => {
           value={formData.password}
           onChange={handleChange}
           autoComplete="new-password"
+          aria-label="Enter your password"
         />
 
         <label htmlFor="confirmPassword">Confirm Password:</label>
@@ -122,6 +142,7 @@ const SignupForm = () => {
           value={formData.confirmPassword}
           onChange={handleChange}
           autoComplete="new-password"
+          aria-label="Confirm your password"
         />
 
         <label htmlFor="firstName">First Name:</label>
@@ -131,6 +152,7 @@ const SignupForm = () => {
           name="firstName"
           value={formData.firstName}
           onChange={handleChange}
+          aria-label="Enter your first name"
         />
 
         <label htmlFor="lastName">Last Name:</label>
@@ -140,6 +162,7 @@ const SignupForm = () => {
           name="lastName"
           value={formData.lastName}
           onChange={handleChange}
+          aria-label="Enter your last name"
         />
 
         <label htmlFor="age">Age:</label>
@@ -149,28 +172,13 @@ const SignupForm = () => {
           name="age"
           value={formData.age}
           onChange={handleChange}
+          aria-label="Enter your age"
         />
-        
-        <label>Role:</label>
-        <div className="role-radio-buttons">
-          <input
-            type="radio"
-            id="role-seller"
-            name="role"
-            value="seller"
-            onChange={handleChange}
-          />
-          <label htmlFor="role-seller">Seller</label>
 
-          <input
-            type="radio"
-            id="role-buyer"
-            name="role"
-            value="buyer"
-            onChange={handleChange}
-          />
-          <label htmlFor="role-buyer">Buyer</label>
-        </div>
+        <ReCAPTCHA
+          sitekey={RECAPTCHA_SITE_KEY}
+          onChange={handleRecaptcha}
+        />
 
         <button type="submit">Signup</button>
 

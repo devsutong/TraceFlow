@@ -1,8 +1,8 @@
-const { DataTypes } = require("sequelize")
+const { DataTypes } = require("sequelize");
 const { roles } = require("../../config");
 const sequelize = require("./SequelizeInstance");
 
-
+// Define the User model
 const UserModel = sequelize.define("User", {
     id: {
         type: DataTypes.INTEGER,
@@ -45,33 +45,28 @@ const UserModel = sequelize.define("User", {
     }     
 });
 
-
-// module.exports = UserModel
+// Export the model and CRUD methods
 module.exports = {
-    // initialise: (sequelize) => {
-    //     this.model = sequelize.define("user", UserModel);
-    // },
-    
     createUser: (user) => {
-        return this.model.create(user);
+        return UserModel.create(user);
     }, 
     findUser: (query) => {
-        return this.model.findOne({
+        return UserModel.findOne({
             where: query,
         });
     },
     updateUser: (query, updatedValues) => {
-        return this.model.update(updatedValues, {
+        return UserModel.update(updatedValues, {
             where: query
         });
     },
     findAllUsers: (query) => {
-        return this.model.findAll({
+        return UserModel.findAll({
             where: query
         });
     },
     deleteUser: (query) => {
-        return this.model.destroy({
+        return UserModel.destroy({
             where: query
         });
     },
