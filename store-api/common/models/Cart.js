@@ -35,6 +35,6 @@ const CartItem = sequelize.define('CartItem', {
 });
 
 module.exports = {
-    Cart,
-    CartItem
+    Cart: Cart,
+    CartItem: CartItem
 };
