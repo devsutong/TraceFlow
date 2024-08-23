@@ -4,8 +4,6 @@ const CategoryModel = require('./Category');
 
 const sequelize = require('./SequelizeInstance');
 
-// const Category = CategoryModel.initialise(sequelize);
-
 const ProductModel = sequelize.define("Product", {
     id: {
       type: DataTypes.INTEGER,
@@ -36,30 +34,20 @@ const ProductModel = sequelize.define("Product", {
   });
 
 module.exports = {
-  // initialise: (sequelize) => {
-  //   const Product = sequelize.define('Product', ProductModel);
-  //   // const Category = sequelize.define('Category', CategoryModel);
-
-  //   Product.belongsToMany(Category, { through: 'ProductCategory' });
-  //   Category.belongsToMany(Product, { through: 'ProductCategory' });
-
-  //   this.Product = Product;
-  //   this.Category = Category;
-  // },
   createProduct: (product) => {
-    return this.Product.create(product);
+    return ProductModel.create(product);
   },
   findProduct: (query) => {
-      return this.Product.findOne({ where: query });
+      return ProductModel.findOne({ where: query });
   },
   updateProduct: (query, updatedValues) => {
-      return this.Product.update(updatedValues, { where: query });
+      return ProductModel.update(updatedValues, { where: query });
   },
   findAllProducts: (query) => {
-      return this.Product.findAll({ where: query });
+      return ProductModel.findAll({ where: query });
   },
   deleteProduct: (query) => {
-      return this.Product.destroy({ where: query });
+      return ProductModel.destroy({ where: query });
   },
   Product: ProductModel
 };  
