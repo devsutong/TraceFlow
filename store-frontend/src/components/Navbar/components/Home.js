@@ -1,41 +1,70 @@
-import React, { useState } from 'react';
-import productsData from '../../Products/Products.json'; // Adjust the path accordingly
-import ProductCard from '../../Products/ProductCard';
-import Spinner from '../../Spinner'; // Import the Spinner component
-import '../styles/home.css';
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import ProductCard from '../../Products/ProductCard'; // Ensure you have this component
+import Spinner from '../../Spinner'; // Ensure you have this component
+import '../styles/home.css'; // Import the CSS file
 
-const ITEMS_PER_ROW = 4; // Number of items per row
-const ROWS_PER_PAGE = 3; // Number of rows to load per button click
+const ROWS_PER_PAGE = 3;
+const ITEMS_PER_ROW = 4; // Changed to 4
 
 const Home = () => {
-  // Calculate the number of items to show initially (3 rows x ITEMS_PER_ROW items per row)
+  const [products, setProducts] = useState([]);
   const [visibleItems, setVisibleItems] = useState(ROWS_PER_PAGE * ITEMS_PER_ROW);
-  const [loading, setLoading] = useState(false); // Loading state
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await axios.get('/product/');
+        // Extract the data array from the response
+        const productData = response.data.data;
+        setProducts(Array.isArray(productData) ? productData : []);
+        setLoading(false);
+      } catch (err) {
+        setError('Failed to fetch products');
+        setLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, []);
 
   const handleLoadMore = () => {
-    setLoading(true); // Show spinner when loading starts
-    setTimeout(() => { // Simulate network request
-      setVisibleItems((prev) => Math.min(prev + ROWS_PER_PAGE * ITEMS_PER_ROW, productsData.products.length));
-      setLoading(false); // Hide spinner when loading is complete
-    }, 1000); // Simulated delay
+    setLoading(true);
+    setTimeout(() => {
+      setVisibleItems((prev) => Math.min(prev + ROWS_PER_PAGE * ITEMS_PER_ROW, products.length));
+      setLoading(false);
+    }, 1000);
   };
 
-  // Determine which products to display based on visibleItems
-  const productsToShow = productsData.products.slice(0, visibleItems);
-
+  const productsToShow = products.slice(0, visibleItems);
 
   return (
     <div className="home-container">
-      <div className="products-grid">
-        {productsToShow.map((product) => (
-          <ProductCard key={product.name} product={product} />
-        ))}
-      </div>
-      {loading && <Spinner />} {/* Conditionally render the spinner */}
-      {!loading && visibleItems < productsData.products.length && (
-        <button className="load-more-btn" onClick={handleLoadMore}>
-          Load More
-        </button>
+      {loading ? (
+        <Spinner />
+      ) : error ? (
+        <p>{error}</p>
+      ) : (
+        <>
+          {productsToShow.length > 0 ? (
+            <>
+              <div className="products-grid">
+                {productsToShow.map((product) => (
+                  <ProductCard key={product.id} product={product} />
+                ))}
+              </div>
+              {!loading && visibleItems < products.length && (
+                <button className="load-more-btn" onClick={handleLoadMore}>
+                  Load More
+                </button>
+              )}
+            </>
+          ) : (
+            <p>No products available.</p>
+          )}
+        </>
       )}
     </div>
   );

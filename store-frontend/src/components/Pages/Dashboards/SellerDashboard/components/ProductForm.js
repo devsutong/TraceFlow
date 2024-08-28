@@ -57,8 +57,8 @@ const ProductForm = ({ productData, categories, selectedCategory, loading, onInp
           autoComplete="off"
           className="dashboard-select"
         >
-          <option value="inr">INR</option>
-          <option value="usd">USD</option>
+          <option value="INR">INR</option>
+          <option value="USD">USD</option>
         </Form.Control>
       </Form.Group>
       <ProductCategoryDropdown

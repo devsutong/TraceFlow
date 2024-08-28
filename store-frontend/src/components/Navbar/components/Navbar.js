@@ -1,16 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ProfileDrawer from '../../Drawers/components/Profile/components/ProfileDrawer';
 import logo from '../../Assets/logo.png';
 import cartIcon from '../../Assets/cart_icon.png';
 import { FaPlus } from 'react-icons/fa';
 import Spinner from '../../Spinner'; // Import Spinner component
+import { CartContext } from '../../Cart/CartContext'; // Import CartContext
 import '../styles/navbar.css';
 
 export default function Navbar({ isAuthenticated, userInfo, onLogout }) {
   const [showDrawer, setShowDrawer] = useState(false);
   const [loading, setLoading] = useState(false); // State for loading spinner
   const navigate = useNavigate();
+  const { cartItems } = useContext(CartContext); // Access cart items from context
 
   const handleProfileClick = () => {
     setShowDrawer(!showDrawer);
@@ -26,6 +28,10 @@ export default function Navbar({ isAuthenticated, userInfo, onLogout }) {
       setLoading(false); // Hide spinner after the timeout
       navigate('/seller-dashboard'); // Navigate to seller-dashboard
     }, 1500); // Adjust the timeout duration as needed
+  };
+
+  const handleCartClick = () => {
+    navigate('/cart'); // Navigate to the cart page
   };
 
   if (loading) {
@@ -54,9 +60,11 @@ export default function Navbar({ isAuthenticated, userInfo, onLogout }) {
               </form>
             </div>
             <div className="navbar-right">
-              <FaPlus className="add-product-icon fs-3 me-3" onClick={handleAddProductClick} style={{ cursor: 'pointer' }} />
-              <img src={cartIcon} alt="Cart" className="cart-icon" />
-              <span className="mx-2"></span>
+              <FaPlus className="add-product-icon fs-3" onClick={handleAddProductClick} />
+              <div className="cart-container" onClick={handleCartClick}>
+                <img src={cartIcon} alt="Cart" className="cart-icon" />
+                {cartItems.length > 0 && <span className="cart-count">{cartItems.length}</span>}
+              </div>
               <i className="profile-icon fs-2" onClick={handleProfileClick}>👤</i>
               {showDrawer && (
                 <ProfileDrawer

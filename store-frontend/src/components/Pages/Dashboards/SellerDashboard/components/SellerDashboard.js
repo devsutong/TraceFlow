@@ -4,7 +4,7 @@ import { Container, Row, Col, Spinner } from 'react-bootstrap';
 import ProductForm from './ProductForm'; // Import ProductForm component
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../../SellerDashboard/styles/sellerdashboard.css'; 
-import logo from '../../../../Assets/logo.png' // Import the logo
+import logo from '../../../../Assets/logo.png'; // Import the logo
 
 const SellerDashboard = () => {
   const [categories, setCategories] = useState([]);
@@ -13,7 +13,6 @@ const SellerDashboard = () => {
     description: '',
     price: '',
     priceUnit: 'inr',
-    categoryId: '', // Single category ID
     image: null
   });
   const [message, setMessage] = useState('');
@@ -51,7 +50,7 @@ const SellerDashboard = () => {
       ...prevData,
       categoryId: id
     }));
-    setSelectedCategory(name);
+    setSelectedCategory(id); // Set category ID as the selectedCategory
   };
 
   const handleFileChange = (e) => {
@@ -66,29 +65,48 @@ const SellerDashboard = () => {
     setLoading(true);
 
     try {
+      const token = sessionStorage.getItem('authToken'); // Retrieve the token
       let imagePath = '';
 
+      // If the image needs to be uploaded first
       if (productData.image) {
         const formData = new FormData();
         formData.append('image', productData.image);
 
         const uploadResponse = await axios.post('/upload/image/', formData, {
+          headers: {
+            'Authorization': `Bearer ${token}`, // Include the token in the headers
+          },
           onUploadProgress: progressEvent => {
             setUploadProgress(Math.round((progressEvent.loaded / progressEvent.total) * 100));
           }
         });
-        imagePath = uploadResponse.data.path;
+        imagePath = uploadResponse.data.path; // Get the uploaded image path
       }
 
-      await axios.post('/product/', {
-        ...productData,
-        image: imagePath
+      // Build the payload
+      const payload = {
+        name: productData.name,
+        description: productData.description,
+        image: imagePath || productData.image, // Use the uploaded path or the provided URL
+        price: parseFloat(productData.price), // Convert price to a number
+        priceUnit: productData.priceUnit,
+        categoryIds: [productData.categoryId] // Ensure this is an array
+      };
+
+      console.log('Sending payload:', payload); // Log the payload for debugging
+
+      await axios.post('/product/', payload, {
+        headers: {
+          'Authorization': `Bearer ${token}` // Include the token in the headers
+        }
       });
 
       setMessage('Product added successfully!');
       resetForm();
     } catch (error) {
-      setMessage(`Error: ${error.message}`);
+      console.error('Error adding product:', error.response?.data || error.message); // Improved error logging
+      setMessage(`Error: ${error.response?.data?.message || error.message}`);
     } finally {
       setLoading(false);
     }
@@ -100,7 +118,6 @@ const SellerDashboard = () => {
       description: '',
       price: '',
       priceUnit: 'inr',
-      categoryId: '',
       image: null
     });
     setSelectedCategory('');

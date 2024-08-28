@@ -29,3 +29,5 @@ FROM Categories
 SELECT * FROM Products
 SELECT * FROM ProductCategory
 SHOW DATABASES;
+
+DELETE FROM Products WHERE id=2;

@@ -1,43 +1,61 @@
-/* src/components/ProductCard.css */
+/* src/components/styles/ProductCard.css */
 .product-card {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    padding: 15px;
-    width: 250px;
-    text-align: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  .product-image {
-    width: 100%;
-    height: 150px;
-    object-fit: cover;
-    border-radius: 10px;
-  }
-  
-  .product-card h3 {
-    font-size: 1.2em;
-    margin: 10px 0;
-  }
-  
-  .product-card p {
-    margin: 5px 0;
-  }
-  
-  .buy-now-btn {
-    background-color: #28a745;
-    color: white;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-top: auto;  /* Ensures the button is at the bottom */
-  }
-  
-  .buy-now-btn:hover {
-    background-color: #0c3615;
-  }
-  
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 15px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.product-image {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.product-card h3 {
+  font-size: 1.2em;
+  margin: 10px 0;
+}
+
+.product-card p {
+  margin: 5px 0;
+}
+
+/* Styling for price and priceUnit container */
+.product-price-container {
+  display: flex;
+  justify-content: center;
+  align-items: baseline; /* Aligns the text to the baseline */
+  font-size: 1.5em; /* Adjust as needed */
+  font-weight: bold;
+}
+
+/* Styling for priceUnit */
+.product-price-unit {
+  text-transform: uppercase;
+  margin-right: 5px; /* Space between price unit and price */
+}
+
+/* Styling for price */
+.product-price {
+  margin: 0; /* Remove default margin */
+}
+
+.buy-now-btn {
+  background-color: #28a745;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: auto; /* Ensures the button is at the bottom */
+}
+
+.buy-now-btn:hover {
+  background-color: #218838;
+}

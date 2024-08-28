@@ -5,11 +5,13 @@ import CategoryNavbar from './components/Categories/CategoryNavbar';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import Home from './components/Navbar/components/Home';
 import About from './components/Drawers/components/About/components/About';
-import Signup from './components/Authentication/components/SignupForm'
+import Signup from './components/Authentication/components/SignupForm';
 import Login from './components/Authentication/components/LoginForm';
 import AdminDashboard from './components/Pages/Dashboards/AdminDashboard/components/AdminDashboard';
 import SellerDashboard from './components/Pages/Dashboards/SellerDashboard/components/SellerDashboard';
 import ProfileDrawer from './components/Drawers/components/Profile/components/ProfileDrawer';
+import Cart from './components/Cart/Cart'; // Import Cart component
+import { CartProvider } from './components/Cart/CartContext'; // Import CartProvider context
 import React, { useState, useEffect } from 'react';
 
 function App() {
@@ -45,32 +47,35 @@ function App() {
   };
 
   return (
-    <div className="App">
-      <Navbar
-        isAuthenticated={isAuthenticated}
-        userInfo={userInfo}
-        onLogout={handleLogout}
-        onProfileClick={() => setShowProfileDrawer(true)}
-      />
-      <CategoryNavbar />
-      <div className="container">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/login" element={<Login onLogin={handleLogin} />} />
-          <Route path="/admin-dashboard" element={<AdminDashboard />} />
-          <Route path="/seller-dashboard" element={<SellerDashboard />} />
-        </Routes>
+    <CartProvider> {/* Wrap the App in CartProvider */}
+      <div className="App">
+        <Navbar
+          isAuthenticated={isAuthenticated}
+          userInfo={userInfo}
+          onLogout={handleLogout}
+          onProfileClick={() => setShowProfileDrawer(true)}
+        />
+        <CategoryNavbar />
+        <div className="container">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/login" element={<Login onLogin={handleLogin} />} />
+            <Route path="/admin-dashboard" element={<AdminDashboard />} />
+            <Route path="/seller-dashboard" element={<SellerDashboard />} />
+            <Route path="/cart" element={<Cart />} /> {/* Add Cart route */}
+          </Routes>
+        </div>
+        <ProfileDrawer
+          isOpen={showProfileDrawer}
+          onClose={() => setShowProfileDrawer(false)}
+          isAuthenticated={isAuthenticated}
+          userInfo={userInfo}
+          onLogout={handleLogout}
+        />
       </div>
-      <ProfileDrawer
-        isOpen={showProfileDrawer}
-        onClose={() => setShowProfileDrawer(false)}
-        isAuthenticated={isAuthenticated}
-        userInfo={userInfo}
-        onLogout={handleLogout}
-      />
-    </div>
+    </CartProvider>
   );
 }
 

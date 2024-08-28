@@ -1,5 +1,3 @@
-/* src/styles/navbar.css */
-
 /* Navbar container */
 .navbar-container {
   background-color: #4b4d4367; /* Olive green for a farmer theme */
@@ -15,7 +13,6 @@
   position: relative;
   display: inline-block;
 }
-
 
 /* Navbar links styled as buttons */
 .navbar-nav .nav-item .nav-link {
@@ -49,11 +46,30 @@
   border-radius: 20px;
 }
 
-/* Cart icon and profile icon styles */
-.cart-icon, .profile-icon {
+/* Navbar right section (icons) */
+.navbar-right {
+  display: flex; /* Align items horizontally */
+  align-items: center; /* Center items vertically */
+  gap: 15px; /* Space between icons */
+}
+
+/* Cart icon, profile icon, and add-product icon styles */
+.cart-icon, .profile-icon, .add-product-icon {
   cursor: pointer;
-  margin-left: 10px;
-  color: white;
+}
+
+.add-product-icon {
+  font-size: 24px; /* Adjust size as needed */
+  color: black; /* Set the '+' icon color to black */
+}
+
+.cart-icon {
+  height: 30px; /* Adjust size as needed */
+  width: auto;
+}
+
+.profile-icon {
+  font-size: 24px; /* Adjust size as needed */
 }
 
 /* Profile modal content */
@@ -115,16 +131,8 @@
   background-color: #04AA6D; /* Green */
   color: white;
 }
-/* navbar.css */
-.navbar-logo {
-  height: 40px; /* Adjust size as needed */
-  width: auto;
-}
 
-.cart-icon {
-  height: 30px; /* Adjust size as needed */
-  width: auto;
-}
+/* Spinner overlay */
 .spinner-overlay {
   position: fixed;
   top: 0;
@@ -137,5 +145,3 @@
   background-color: #ffffff; /* Blank white background */
   z-index: 9999; /* Ensure it overlays everything else */
 }
-
-/* Add any additional styling for the Navbar */
