@@ -1,5 +1,7 @@
 // controllers/cartController.js
 const { Cart, CartItem, Product } = require('../../common/models/associations');
+const jwtSecret = process.env.JWT_SECRET;
+const jwt = require("jsonwebtoken");
 
 exports.addToCart = async (req, res) => {
     const { userId, productId, quantity } = req.body;
@@ -38,9 +40,9 @@ exports.addToCart = async (req, res) => {
 
 exports.removeFromCart = async (req, res) => {
     const { cartItemId } = req.body;
-
     try {
         const cartItem = await CartItem.findByPk(cartItemId);
+
         if (!cartItem) {
             return res.status(404).json({
                 status: false,
@@ -95,14 +97,24 @@ exports.updateCartItem = async (req, res) => {
 
 
 exports.viewCart = async (req, res) => {
-    const { userId } = req.body;
+    const authHeader = req.headers.authorization;
+    console.log(authHeader)
+    const token = authHeader.split(" ")[1];
+    const decoded = jwt.verify(token, jwtSecret);  
+    // var userId = decoded.userId
+    // console.log(userId)
+
+    const { userId } = decoded;
+    console.log(userId)
 
     try {
         const cart = await Cart.findOne({
             where: { userId },
+            attributes: ['id', 'userId', 'createdAt', 'updatedAt'],
             include: [
                 {
                     model: CartItem,
+                    attributes: ['id', 'cartId', 'productId', 'quantity', 'createdAt', 'updatedAt'],
                     include: [
                         {
                             model: Product,
@@ -112,6 +124,7 @@ exports.viewCart = async (req, res) => {
                 },
             ],
         });
+        console.log("TEST-----------")
 
         if (!cart) {
             return res.status(404).json({
