@@ -50,4 +50,4 @@ module.exports = {
       return ProductModel.destroy({ where: query });
   },
   Product: ProductModel
-};  
+};
