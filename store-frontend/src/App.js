@@ -1,18 +1,20 @@
 // src/App.js
-import './App.css';
-import Navbar from './components/Navbar/components/Navbar';
-import CategoryNavbar from './components/Categories/CategoryNavbar';
-import { Routes, Route, useNavigate } from 'react-router-dom';
-import Home from './components/Navbar/components/Home';
-import About from './components/Drawers/components/About/components/About';
-import Signup from './components/Authentication/components/SignupForm';
-import Login from './components/Authentication/components/LoginForm';
-import AdminDashboard from './components/Pages/Dashboards/AdminDashboard/components/AdminDashboard';
-import SellerDashboard from './components/Pages/Dashboards/SellerDashboard/components/SellerDashboard';
-import ProfileDrawer from './components/Drawers/components/Profile/components/ProfileDrawer';
-import Cart from './components/Cart/Cart'; // Import Cart component
-import { CartProvider } from './components/Cart/CartContext'; // Import CartProvider context
-import React, { useState, useEffect } from 'react';
+import "./App.css";
+import Navbar from "./components/Navbar/components/Navbar";
+import CategoryNavbar from "./components/Categories/CategoryNavbar";
+import { Routes, Route, useNavigate } from "react-router-dom";
+import Home from "./components/Navbar/components/Home";
+import About from "./components/Drawers/components/About/components/About";
+import Signup from "./components/Authentication/components/SignupForm";
+import Login from "./components/Authentication/components/LoginForm";
+import AdminDashboard from "./components/Pages/Dashboards/AdminDashboard/components/AdminDashboard";
+import SellerDashboard from "./components/Pages/Dashboards/SellerDashboard/components/SellerDashboard";
+import ProfileDrawer from "./components/Drawers/components/Profile/components/ProfileDrawer";
+import Cart from "./components/Cart/Cart"; // Import Cart component
+import { CartProvider } from "./components/Cart/CartContext"; // Import CartProvider context
+import React, { useState, useEffect } from "react";
+import { ToastContainer } from 'react-toastify'; // Import ToastContainer
+import 'react-toastify/dist/ReactToastify.css'; // Import ToastContainer styles
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -21,7 +23,7 @@ function App() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const token = sessionStorage.getItem('authToken');
+    const token = sessionStorage.getItem("authToken");
     if (token) {
       setIsAuthenticated(true);
       // Fetch and set user info if needed
@@ -29,25 +31,29 @@ function App() {
   }, []);
 
   const handleLogin = (token, user) => {
-    sessionStorage.setItem('authToken', token);
+    sessionStorage.setItem("authToken", token);
     setIsAuthenticated(true);
     setUserInfo(user);
-    if (user.role === 'admin') {
-      navigate('/admin-dashboard', { state: { message: 'Login successful!' } });
-    } else if (user.role === 'seller') {
-      navigate('/seller-dashboard', { state: { message: 'Login successful!' } });
+    if (user.role === "admin") {
+      navigate("/admin-dashboard", { state: { message: "Login successful!" } });
+    } else if (user.role === "seller") {
+      navigate("/seller-dashboard", {
+        state: { message: "Login successful!" },
+      });
     }
   };
 
   const handleLogout = () => {
-    sessionStorage.removeItem('authToken');
+    sessionStorage.removeItem("authToken");
     setIsAuthenticated(false);
     setUserInfo(null);
-    navigate('/', { state: { message: 'You have been logged out successfully.' } });
+    navigate("/", {
+      state: { message: "You have been logged out successfully." },
+    });
   };
 
   return (
-    <CartProvider> {/* Wrap the App in CartProvider */}
+    <CartProvider>
       <div className="App">
         <Navbar
           isAuthenticated={isAuthenticated}
@@ -74,6 +80,7 @@ function App() {
           userInfo={userInfo}
           onLogout={handleLogout}
         />
+        <ToastContainer /> {/* Add ToastContainer to display notifications */}
       </div>
     </CartProvider>
   );
