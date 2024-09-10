@@ -9,7 +9,7 @@ export default function UserRedirect({ token }) {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const userResponse = await fetch('http://localhost:3000/user/', {
+        const userResponse = await fetch('/user/', {
           method: 'GET',
           headers: { Authorization: `Bearer ${token}` },
         });

@@ -1,29 +1,13 @@
 // src/components/ProductCard.js
-import React from 'react';
-import './styles/ProductCard.css'; // Ensure the path is correct
-import axios from 'axios'; // Import axios for making HTTP requests
+import React, { useContext } from 'react';
+import { CartContext } from '../Cart/CartContext'; // Import CartContext
+import './styles/ProductCard.css';
 
 const ProductCard = ({ product }) => {
-  const handleAddToCart = async () => {
-    try {
-      // Replace `userId` with the actual user ID from your app's state or context
-      const userId = 1; // Example user ID, replace this with actual value
+  const { addToCart } = useContext(CartContext); // Use CartContext
 
-      const response = await axios.post('/cart/add', {
-        userId, // The user ID
-        productId: product.id,
-        quantity: 1 // Adjust this as needed
-      });
-
-      if (response.data.status) {
-        alert('Product added to cart successfully!');
-      } else {
-        alert('Failed to add product to cart.');
-      }
-    } catch (error) {
-      console.error('Error adding product to cart:', error);
-      alert('An error occurred while adding the product to the cart.');
-    }
+  const handleAddToCart = () => {
+    addToCart(product); // Call the addToCart function from CartContext
   };
 
   return (

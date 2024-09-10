@@ -30,4 +30,4 @@ SELECT * FROM Products
 SELECT * FROM ProductCategory
 SHOW DATABASES;
 
-DELETE FROM Products WHERE id=2;
+DELETE FROM Products WHERE id=13;

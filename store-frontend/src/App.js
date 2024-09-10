@@ -13,8 +13,6 @@ import ProfileDrawer from "./components/Drawers/components/Profile/components/Pr
 import Cart from "./components/Cart/Cart"; // Import Cart component
 import { CartProvider } from "./components/Cart/CartContext"; // Import CartProvider context
 import React, { useState, useEffect } from "react";
-import { ToastContainer } from 'react-toastify'; // Import ToastContainer
-import 'react-toastify/dist/ReactToastify.css'; // Import ToastContainer styles
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -54,6 +52,7 @@ function App() {
 
   return (
     <CartProvider>
+      {" "}
       <div className="App">
         <Navbar
           isAuthenticated={isAuthenticated}
@@ -80,7 +79,6 @@ function App() {
           userInfo={userInfo}
           onLogout={handleLogout}
         />
-        <ToastContainer /> {/* Add ToastContainer to display notifications */}
       </div>
     </CartProvider>
   );
