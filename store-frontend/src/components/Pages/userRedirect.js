@@ -26,8 +26,8 @@ export default function UserRedirect({ token }) {
             case 'seller':
               navigate('/seller-dashboard');
               break;
-            case 'buyer':
-              navigate('/buyer-dashboard');
+            case 'user':
+              navigate('/');
               break;
             default:
               console.error('Unexpected user role:', userRole);
