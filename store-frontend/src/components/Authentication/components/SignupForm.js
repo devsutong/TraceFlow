@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import '../styles/Signup.css';
 import validator from 'validator';
 import { useNavigate } from 'react-router-dom';
-// import ReCAPTCHA from 'react-google-recaptcha';
+import ReCAPTCHA from 'react-google-recaptcha';
 
-// const RECAPTCHA_SITE_KEY = '6LdFmiwqAAAAACToIxlwk54wTzQyJ6usbTPZrH7w'; // Replace with your reCAPTCHA site key
+const RECAPTCHA_SITE_KEY = '6LdFmiwqAAAAACToIxlwk54wTzQyJ6usbTPZrH7w'; // Replace with your reCAPTCHA site key
 
 const SignupForm = () => {
   const navigate = useNavigate();
@@ -27,9 +27,9 @@ const SignupForm = () => {
     });
   };
 
-  // const handleRecaptcha = (token) => {
-  //   setRecaptchaToken(token);
-  // };
+  const handleRecaptcha = (token) => {
+    setRecaptchaToken(token);
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -49,10 +49,10 @@ const SignupForm = () => {
       return;
     }
 
-    // if (!recaptchaToken) {
-    //   setMessage({ text: 'Please complete the CAPTCHA!', type: 'error' });
-    //   return;
-    // }
+    if (!recaptchaToken) {
+      setMessage({ text: 'Please complete the CAPTCHA!', type: 'error' });
+      return;
+    }
 
     try {
       const response = await fetch("/signup", {
@@ -175,10 +175,10 @@ const SignupForm = () => {
           aria-label="Enter your age"
         />
 
-        {/* <ReCAPTCHA
+        <ReCAPTCHA
           sitekey={RECAPTCHA_SITE_KEY}
           onChange={handleRecaptcha}
-        /> */}
+        />
 
         <button type="submit">Signup</button>
 
