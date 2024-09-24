@@ -118,7 +118,7 @@ exports.viewCart = async (req, res) => {
                     include: [
                         {
                             model: Product,
-                            attributes: ['id', 'name', 'price'],
+                            attributes: ['id', 'name', 'image', 'price'],
                         },
                     ],
                 },
