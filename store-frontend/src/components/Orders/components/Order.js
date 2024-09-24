@@ -2,13 +2,14 @@
 import React, { useContext } from 'react';
 import { CartContext } from '../../Cart/CartContext';
 import axios from 'axios';
-import { MDBBtn, MDBTypography, MDBContainer, MDBRow, MDBCol, MDBCard, MDBCardBody } from 'mdb-react-ui-kit';
+import { MDBBtn, MDBTypography, MDBContainer, MDBRow, MDBCol, MDBCard, MDBCardBody , MDBCardImage } from 'mdb-react-ui-kit';
 import {jwtDecode} from 'jwt-decode';
 import '../styles/Order.css';
+import { useNavigate } from 'react-router-dom';
 
 const Order = () => {
   const { cartItems } = useContext(CartContext);
-
+  const navigate=useNavigate();
   const handleSubmitOrder = async () => {
     const token = sessionStorage.getItem("authToken");
     const userId = jwtDecode(token).userId;
@@ -51,6 +52,9 @@ const Order = () => {
               <ul className="list-unstyled">
                 {cartItems.map((item) => (
                   <MDBRow key={item.id} className="align-items-center">
+                    <MDBCol md="2" lg="2" xl="2">
+                            <MDBCardImage src={item.Product.image} fluid className="rounded-3 small-image my-2" alt={item.Product.name} />
+                          </MDBCol>
                     <MDBCol>
                       <MDBTypography tag="h6" className="mb-0">{item.Product.name}</MDBTypography>
                     </MDBCol>
@@ -72,6 +76,7 @@ const Order = () => {
                 </MDBCol>
               </MDBRow>
               <MDBBtn color="dark" onClick={handleSubmitOrder} className="mt-4 w-100">Submit Order</MDBBtn>
+              <MDBBtn color="dark" onClick={()=>{navigate('/cart')}} className="mt-4 w-100">Back To Cart</MDBBtn>
             </MDBCardBody>
           </MDBCard>
         </MDBCol>
