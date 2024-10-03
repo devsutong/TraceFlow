@@ -1,15 +1,17 @@
 // src/components/Cart/Cart.js
 import React, { useContext } from 'react';
 import { MDBCardText, MDBBtn, MDBCard, MDBCardBody, MDBCardImage, MDBCol, MDBContainer, MDBIcon, MDBInput, MDBRow, MDBTypography } from 'mdb-react-ui-kit';
-import { CartContext } from '../Cart/CartContext';
+import { CartContext } from '../Cart/CartContext'; // Adjust the import based on your folder structure
 import './styles/Cart.css';
+import { useNavigate } from 'react-router-dom';
 
 const Cart = () => {
-  const { cartItems, removeFromCart } = useContext(CartContext);
+  const { cartItems, removeFromCart, updateCartItem } = useContext(CartContext);
+  const navigate = useNavigate();
 
-  const handleQuantityChange = (productId, newQuantity) => {
-    // Here you can add logic to update quantity
-    console.log(`Update quantity for product ${productId} to ${newQuantity}`);
+  const handleQuantityChange = (cartItemId, newQuantity) => {
+    if (newQuantity < 1) return; // Prevent quantity from going below 1
+    updateCartItem(cartItemId, newQuantity);
   };
 
   return (
@@ -36,10 +38,10 @@ const Cart = () => {
                       {cartItems.map((item) => (
                         <MDBRow key={item.id} className="mb-4 d-flex justify-content-between align-items-center">
                           <MDBCol md="2" lg="2" xl="2">
-                            <MDBCardImage src={item.image} fluid className="rounded-3" alt={item.name} />
+                            <MDBCardImage src={item.Product.image} fluid className="rounded-3" alt={item.Product.name} />
                           </MDBCol>
                           <MDBCol md="3" lg="3" xl="3">
-                            <MDBTypography tag="h6" className="text-black mb-0">{item.name}</MDBTypography>
+                            <MDBTypography tag="h6" className="text-black mb-0">{item.Product.name}</MDBTypography>
                           </MDBCol>
                           <MDBCol md="3" lg="3" xl="3" className="d-flex align-items-center">
                             <MDBBtn color="link" className="px-2">
@@ -52,7 +54,7 @@ const Cart = () => {
                           </MDBCol>
                           <MDBCol md="3" lg="2" xl="2" className="text-end">
                             <MDBTypography tag="h6" className="mb-0">
-                              INR {item.price}
+                              INR {item.Product.price}
                             </MDBTypography>
                           </MDBCol>
                           <MDBCol md="1" lg="1" xl="1" className="text-end">
@@ -84,10 +86,10 @@ const Cart = () => {
 
                       <div className="d-flex justify-content-between mb-4">
                         <MDBTypography tag="h5" className="text-uppercase">
-                          items| {cartItems.length}
+                          items | {cartItems.length}
                         </MDBTypography>
                         <MDBTypography tag="h5">
-                          INR {cartItems.reduce((total, item) => total + (item.price * item.quantity), 0).toFixed(2)}
+                          INR {cartItems.reduce((total, item) => total + (item.Product.price * item.quantity), 0).toFixed(2)}
                         </MDBTypography>
                       </div>
 
@@ -98,11 +100,11 @@ const Cart = () => {
                           Total price
                         </MDBTypography>
                         <MDBTypography tag="h5">
-                          INR {cartItems.reduce((total, item) => total + (item.price * item.quantity), 0).toFixed(2)}
+                          INR {cartItems.reduce((total, item) => total + (item.Product.price * item.quantity), 0).toFixed(2)}
                         </MDBTypography>
                       </div>
 
-                      <MDBBtn color="dark" block size="lg">
+                      <MDBBtn color="dark" block size="lg" onClick={() => navigate('/order')}>
                         Checkout
                       </MDBBtn>
                     </div>

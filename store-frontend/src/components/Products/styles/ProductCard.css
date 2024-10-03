@@ -1,59 +1,66 @@
-/* src/components/styles/ProductCard.css */
+/* Flexbox container to align cards */
 .product-card {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   border: 1px solid #ddd;
-  border-radius: 10px;
-  padding: 15px;
-  text-align: center;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 16px;
+  border-radius: 8px;
+  max-width: 300px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
 }
 
-.product-image {
+.product-card:hover {
+  transform: scale(1.05);
+}
+
+/* Image container with a fixed aspect ratio */
+.product-image-container {
   width: 100%;
-  height: 150px;
-  object-fit: cover;
-  border-radius: 10px;
+  padding-top: 75%; /* This creates a 4:3 aspect ratio. Change the value for different aspect ratios */
+  position: relative;
+  overflow: hidden;
 }
 
-.product-card h3 {
-  font-size: 1.2em;
-  margin: 10px 0;
+/* Image fills the container */
+.product-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensures the image fills the container without distortion */
 }
 
-.product-card p {
-  margin: 5px 0;
-}
-
-/* Styling for price and priceUnit container */
+/* Flexbox layout for price */
 .product-price-container {
   display: flex;
   justify-content: center;
-  align-items: baseline; /* Aligns the text to the baseline */
-  font-size: 1.5em; /* Adjust as needed */
-  font-weight: bold;
+  gap: 8px;
+  margin: 8px 0;
 }
 
-/* Styling for priceUnit */
+/* Other styling remains the same */
 .product-price-unit {
-  text-transform: uppercase;
-  margin-right: 5px; /* Space between price unit and price */
+  font-size: 14px;
+  color: #888;
 }
 
-/* Styling for price */
 .product-price {
-  margin: 0; /* Remove default margin */
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
 }
 
 .buy-now-btn {
   background-color: #28a745;
   color: white;
-  padding: 10px 15px;
   border: none;
-  border-radius: 5px;
+  padding: 10px 16px;
+  border-radius: 4px;
   cursor: pointer;
-  margin-top: auto; /* Ensures the button is at the bottom */
+  transition: background-color 0.3s ease;
 }
 
 .buy-now-btn:hover {

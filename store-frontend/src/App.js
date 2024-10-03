@@ -13,7 +13,7 @@ import ProfileDrawer from "./components/Drawers/components/Profile/components/Pr
 import Cart from "./components/Cart/Cart"; // Import Cart component
 import { CartProvider } from "./components/Cart/CartContext"; // Import CartProvider context
 import React, { useState, useEffect } from "react";
-
+import Order from "./components/Orders/components/Order";
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userInfo, setUserInfo] = useState(null);
@@ -70,6 +70,7 @@ function App() {
             <Route path="/admin-dashboard" element={<AdminDashboard />} />
             <Route path="/seller-dashboard" element={<SellerDashboard />} />
             <Route path="/cart" element={<Cart />} /> {/* Add Cart route */}
+            <Route path="/order" element={<Order />} />
           </Routes>
         </div>
         <ProfileDrawer
