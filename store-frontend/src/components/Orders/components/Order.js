@@ -1,4 +1,3 @@
-// src/components/Order/Order.js
 import React, { useContext } from 'react';
 import { CartContext } from '../../Cart/CartContext';
 import axios from 'axios';
@@ -9,29 +8,45 @@ import { useNavigate } from 'react-router-dom';
 
 const Order = () => {
   const { cartItems } = useContext(CartContext);
-  const navigate=useNavigate();
+  const navigate = useNavigate();
+
   const handleSubmitOrder = async () => {
     const token = sessionStorage.getItem("authToken");
+    if (!token) {
+      alert('User not authenticated');
+      return;
+    }
+    
     const userId = jwtDecode(token).userId;
 
+    // Map cartItems to match the expected structure of orderItem
     const orderData = {
       userID: userId,
-      products: cartItems.map(item => ({
+      products: cartItems.map(item => ({  // Map cart items to products format required by backend
         productID: item.Product.id,
         quantity: item.quantity,
       })),
-      totalAmount: cartItems.reduce((total, item) => total + (item.Product.price * item.quantity), 0),
-      status: 'Pending',
+      totalAmount: cartItems.reduce((total, item) => total + item.Product.price * item.quantity, 0),  // Calculate total amount
+      status: 'Pending',  // Set default status
+      
+      // createdAt and updatedAt can be omitted here since they are typically set by the backend.
     };
 
     try {
-      const response = await axios.post('/orders/create', orderData, {
+      const response = await axios.post('/order/create', orderData, {
         headers: {
           Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
         },
       });
-      alert(response.data.message);
-      // Optionally clear the cart or redirect the user
+
+      if (response.status === 200) {
+        alert(response.data.message);
+        // Optionally clear the cart or redirect the user
+        navigate('/order-confirmation');  // You might want to redirect to an order confirmation page.
+      } else {
+        throw new Error('Order submission failed');
+      }
     } catch (error) {
       console.error('Error submitting order:', error);
       alert('Failed to submit order. Please try again.');
@@ -53,8 +68,8 @@ const Order = () => {
                 {cartItems.map((item) => (
                   <MDBRow key={item.id} className="align-items-center">
                     <MDBCol md="2" lg="2" xl="2">
-                            <MDBCardImage src={item.Product.image} fluid className="rounded-3 small-image my-2" alt={item.Product.name} />
-                          </MDBCol>
+                      <MDBCardImage src={item.Product.image} fluid className="rounded-3 small-image my-2" alt={item.Product.name} />
+                    </MDBCol>
                     <MDBCol>
                       <MDBTypography tag="h6" className="mb-0">{item.Product.name}</MDBTypography>
                     </MDBCol>
@@ -76,7 +91,7 @@ const Order = () => {
                 </MDBCol>
               </MDBRow>
               <MDBBtn color="dark" onClick={handleSubmitOrder} className="mt-4 w-100">Submit Order</MDBBtn>
-              <MDBBtn color="dark" onClick={()=>{navigate('/cart')}} className="mt-4 w-100">Back To Cart</MDBBtn>
+              <MDBBtn color="dark" onClick={() => { navigate('/cart') }} className="mt-4 w-100">Back To Cart</MDBBtn>
             </MDBCardBody>
           </MDBCard>
         </MDBCol>
