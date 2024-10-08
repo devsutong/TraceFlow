@@ -77,6 +77,7 @@ module.exports = {
             });
         }
     },
+
     getOrder: async (req, res) => {
         const { id } = req.params;
         try {
@@ -98,6 +99,7 @@ module.exports = {
             });
         }
     },
+
     updateOrder: async (req, res) => {
         const { id } = req.params;
         const updatedValues = req.body;
@@ -123,6 +125,7 @@ module.exports = {
             });
         }
     },
+    
     deleteOrder: async (req, res) => {
         console.log("Deleteing Order")
         const { id } = req.params;
