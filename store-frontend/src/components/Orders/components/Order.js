@@ -27,7 +27,7 @@ const Order = () => {
         quantity: item.quantity,
       })),
       totalAmount: cartItems.reduce((total, item) => total + item.Product.price * item.quantity, 0),  // Calculate total amount
-      status: 'Pending',  // Set default status
+      status: 'Success',  // Set default status
       
       // createdAt and updatedAt can be omitted here since they are typically set by the backend.
     };
@@ -40,13 +40,13 @@ const Order = () => {
         },
       });
 
-      if (response.status === 200) {
-        alert(response.data.message);
-        // Optionally clear the cart or redirect the user
-        navigate('/order-confirmation');  // You might want to redirect to an order confirmation page.
-      } else {
+      if (response.status >= 200 && response.status < 300) {
+        const message = response.data.message || 'Order submitted successfully!';
+        alert(message);
+        navigate('/order-confirmation', { state: { orderData } });
+    } else {
         throw new Error('Order submission failed');
-      }
+    }
     } catch (error) {
       console.error('Error submitting order:', error);
       alert('Failed to submit order. Please try again.');

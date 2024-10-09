@@ -14,6 +14,7 @@ import Cart from "./components/Cart/Cart"; // Import Cart component
 import { CartProvider } from "./components/Cart/CartContext"; // Import CartProvider context
 import React, { useState, useEffect } from "react";
 import Order from "./components/Orders/components/Order";
+import OrderConfirmation from "./components/Orders/components/OrderConfirmation";
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userInfo, setUserInfo] = useState(null);
@@ -71,6 +72,7 @@ function App() {
             <Route path="/seller-dashboard" element={<SellerDashboard />} />
             <Route path="/cart" element={<Cart />} /> {/* Add Cart route */}
             <Route path="/order" element={<Order />} />
+            <Route path="/order-confirmation" element={<OrderConfirmation />} />
           </Routes>
         </div>
         <ProfileDrawer
