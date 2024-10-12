@@ -1,78 +1,32 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import ProfileInfo from './ProfileInfo';
 import AuthOptions from './AuthOptions';
-import UpdateProfileForm from './UpdateProfileForm';
-import { Button, Alert } from 'react-bootstrap';
-import { FaExclamationCircle, FaCog } from 'react-icons/fa'; // Import icons
-import '../styles/ProfileDrawer.css'; // Ensure this path is correct
+import SettingsDrawer from './SettingsDrawer'; // Import SettingsDrawer
+import { Button } from 'react-bootstrap';
+import { FaCog, FaShoppingCart } from 'react-icons/fa';
+import '../styles/ProfileDrawer.css';
+import { FaUserCircle } from 'react-icons/fa';
 
 const ProfileDrawer = ({ isOpen, onClose, isAuthenticated, userInfo, onLogout }) => {
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [age, setAge] = useState('');
-  const [showUpdateForm, setShowUpdateForm] = useState(false);
-  const [successMessage, setSuccessMessage] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
+  const [userName, setuserName] = useState('');
+  const [showSettings, setShowSettings] = useState(false); // State to manage Settings view
   const navigate = useNavigate();
 
   useEffect(() => {
     if (userInfo) {
-      setFirstName(userInfo.firstName || '');
-      setLastName(userInfo.lastName || '');
-      setAge(userInfo.age || '');
+      setuserName(userInfo.username);
+      console.log(userInfo);
+      console.log(userName);
     }
   }, [userInfo]);
 
-  const handleUpdateProfile = async () => {
-    try {
-      const response = await fetch('/user/', {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${sessionStorage.getItem('authToken')}`,
-        },
-        body: JSON.stringify({
-          age: Number(age),
-          firstName,
-          lastName
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error('Profile update failed');
-      }
-
-      const data = await response.json();
-      console.log('Profile updated successfully:', data);
-      setSuccessMessage('Profile updated successfully');
-      setShowUpdateForm(false);
-    } catch (error) {
-      console.error('Error updating profile:', error);
-      setErrorMessage(error.message);
-    }
+  const handleOrdersClick = () => {
+    navigate('/my-orders');
   };
 
-  const handleDeleteAccount = async () => {
-    try {
-      const response = await fetch(`/user/${userInfo.id}`, {
-        method: 'DELETE',
-        headers: {
-          'Authorization': `Bearer ${sessionStorage.getItem('authToken')}`,
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error('Account deletion failed');
-      }
-
-      const data = await response.json();
-      console.log('Account deleted successfully:', data);
-      onLogout();
-    } catch (error) {
-      console.error('Error deleting account:', error);
-      setErrorMessage(error.message);
-    }
+  // Function to toggle to settings view
+  const handleSettingsClick = () => {
+    setShowSettings(true); // Show settings
   };
 
   return (
@@ -81,29 +35,40 @@ const ProfileDrawer = ({ isOpen, onClose, isAuthenticated, userInfo, onLogout })
         <button className="drawer-close" onClick={onClose}>X</button>
         <div className="drawer-top-content">
           {isAuthenticated ? (
-            <>
-              {successMessage && <Alert variant="success">{successMessage}</Alert>}
-              {errorMessage && <Alert variant="danger">{errorMessage}</Alert>}
-              {showUpdateForm ? (
-                <UpdateProfileForm
-                  firstName={firstName}
-                  lastName={lastName}
-                  age={age}
-                  setFirstName={setFirstName}
-                  setLastName={setLastName}
-                  setAge={setAge}
-                  onUpdateProfile={handleUpdateProfile}
-                  onCancel={() => setShowUpdateForm(false)}
-                />
-              ) : (
-                <ProfileInfo
-                  userInfo={userInfo}
-                  onUpdateProfileClick={() => setShowUpdateForm(true)}
-                  onDeleteAccount={handleDeleteAccount}
-                  onLogout={onLogout}
-                />
-              )}
-            </>
+            showSettings ? ( // Check if settings view should be shown
+              <SettingsDrawer
+                onClose={() => setShowSettings(false)} // Function to close settings
+                onUpdateProfileClick={() => {
+                  // Handle navigation to update profile here
+                  navigate('/update-profile');
+                }}
+                onDeleteAccount={() => {
+                  // Handle account deletion logic here
+                }}
+              />
+            ) : (
+              <>
+                <div className="mb-3">
+                  {userInfo && userInfo.profilePic ? (
+                    <img
+                      src={userInfo.profilePic}
+                      alt="Profile"
+                      className="img-fluid rounded-circle"
+                      style={{ width: '150px', height: '150px' }}
+                    />
+                  ) : (
+                    <FaUserCircle size={150} />
+                  )}
+                  <h4>{`${userName}`}</h4>
+              </div>
+                <Button variant="link" onClick={handleSettingsClick}>
+                  <FaCog className="me-2" /> Settings
+                </Button>
+                <Button variant="link" onClick={handleOrdersClick}>
+                  <FaShoppingCart className="me-2" /> Orders
+                </Button>
+              </>
+            )
           ) : (
             <AuthOptions
               onLoginClick={() => navigate('/login')}
@@ -113,11 +78,8 @@ const ProfileDrawer = ({ isOpen, onClose, isAuthenticated, userInfo, onLogout })
         </div>
       </div>
       <div className="drawer-footer">
-        <Button variant="link" onClick={() => navigate('/about')}>
-          <FaExclamationCircle className="me-2" /> About
-        </Button>
-        <Button variant="link" onClick={() => navigate('/settings')}>
-          <FaCog className="me-2" /> Settings
+        <Button variant="link" onClick={onLogout}>
+          Logout
         </Button>
       </div>
     </div>

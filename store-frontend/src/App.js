@@ -15,6 +15,8 @@ import { CartProvider } from "./components/Cart/CartContext"; // Import CartProv
 import React, { useState, useEffect } from "react";
 import Order from "./components/Orders/components/Order";
 import OrderConfirmation from "./components/Orders/components/OrderConfirmation";
+import MyOrders from "./components/Orders/components/MyOrders";
+
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userInfo, setUserInfo] = useState(null);
@@ -25,14 +27,18 @@ function App() {
     const token = sessionStorage.getItem("authToken");
     if (token) {
       setIsAuthenticated(true);
-      // Fetch and set user info if needed
+      // Decode the token to extract user info
+      const decodedToken = JSON.parse(atob(token.split('.')[1])); // Decode payload
+      setUserInfo({ id: decodedToken.userId, username: decodedToken.username }); // Set user info
     }
   }, []);
 
   const handleLogin = (token, user) => {
     sessionStorage.setItem("authToken", token);
     setIsAuthenticated(true);
-    setUserInfo(user);
+    // Decode the token to extract user info
+    const decodedToken = JSON.parse(atob(token.split('.')[1])); // Decode payload
+    setUserInfo({ id: decodedToken.userId, username: decodedToken.username }); // Set user info
     if (user.role === "admin") {
       navigate("/admin-dashboard", { state: { message: "Login successful!" } });
     } else if (user.role === "seller") {
@@ -53,7 +59,6 @@ function App() {
 
   return (
     <CartProvider>
-      {" "}
       <div className="App">
         <Navbar
           isAuthenticated={isAuthenticated}
@@ -73,6 +78,7 @@ function App() {
             <Route path="/cart" element={<Cart />} /> {/* Add Cart route */}
             <Route path="/order" element={<Order />} />
             <Route path="/order-confirmation" element={<OrderConfirmation />} />
+            <Route path="/my-orders" element={<MyOrders userID={userInfo?.id} />} /> 
           </Routes>
         </div>
         <ProfileDrawer
