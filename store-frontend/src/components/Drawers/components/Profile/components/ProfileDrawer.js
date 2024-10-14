@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AuthOptions from './AuthOptions';
-import SettingsDrawer from './SettingsDrawer'; // Import SettingsDrawer
+import SettingsDrawer from '../../Settings/components/SettingsDrawer'; // Import SettingsDrawer
 import { Button } from 'react-bootstrap';
-import { FaCog, FaShoppingCart } from 'react-icons/fa';
+import { FaCog, FaShoppingCart, FaUserCircle, FaCrown } from 'react-icons/fa'; // Import FaCrown
 import '../styles/ProfileDrawer.css';
-import { FaUserCircle } from 'react-icons/fa';
 
 const ProfileDrawer = ({ isOpen, onClose, isAuthenticated, userInfo, onLogout }) => {
   const [userName, setuserName] = useState('');
@@ -15,8 +14,6 @@ const ProfileDrawer = ({ isOpen, onClose, isAuthenticated, userInfo, onLogout })
   useEffect(() => {
     if (userInfo) {
       setuserName(userInfo.username);
-      console.log(userInfo);
-      console.log(userName);
     }
   }, [userInfo]);
 
@@ -29,22 +26,48 @@ const ProfileDrawer = ({ isOpen, onClose, isAuthenticated, userInfo, onLogout })
     setShowSettings(true); // Show settings
   };
 
+  const handleDeleteAccount = async () => {
+    const confirmation = window.confirm("Are you sure you want to delete your account? This action cannot be undone.");
+    if (!confirmation) return; // If the user cancels, do nothing
+
+    try {
+      const response = await fetch(`/user/${userInfo.id}`, { // Adjust the URL based on your API endpoint
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${sessionStorage.getItem('authToken')}` // Include your authorization token if needed
+        }
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        alert(result.message); // Show success message
+        onLogout(); // Log the user out or navigate to login page
+      } else {
+        alert(result.error); // Show the error message
+      }
+    } catch (error) {
+      console.error('Error deleting account:', error);
+      alert('There was an error deleting your account. Please try again later.');
+    }
+  };
+
   return (
     <div className={`drawer ${isOpen ? 'drawer-open' : ''}`}>
       <div className="drawer-content">
         <button className="drawer-close" onClick={onClose}>X</button>
         <div className="drawer-top-content">
           {isAuthenticated ? (
-            showSettings ? ( // Check if settings view should be shown
+            showSettings ? (
               <SettingsDrawer
                 onClose={() => setShowSettings(false)} // Function to close settings
                 onUpdateProfileClick={() => {
-                  // Handle navigation to update profile here
                   navigate('/update-profile');
                 }}
-                onDeleteAccount={() => {
-                  // Handle account deletion logic here
-                }}
+                onDeleteAccount={handleDeleteAccount} // Include delete account logic here
+                onBackClick={onClose} // Pass onClose to go back to ProfileDrawer
+                onLogout={onLogout}
               />
             ) : (
               <>
@@ -60,13 +83,24 @@ const ProfileDrawer = ({ isOpen, onClose, isAuthenticated, userInfo, onLogout })
                     <FaUserCircle size={150} />
                   )}
                   <h4>{`${userName}`}</h4>
-              </div>
-                <Button variant="link" onClick={handleSettingsClick}>
-                  <FaCog className="me-2" /> Settings
-                </Button>
-                <Button variant="link" onClick={handleOrdersClick}>
-                  <FaShoppingCart className="me-2" /> Orders
-                </Button>
+                </div>
+                <div className="d-flex flex-column align-items-center">
+                  <Button variant="link" onClick={handleSettingsClick} className="mb-2 text-center">
+                    <FaCog className="me-2" /> Profile Settings
+                  </Button>
+                  <Button variant="link" onClick={handleOrdersClick} className="text-center mb-2">
+                    <FaShoppingCart className="me-2" /> Orders
+                  </Button>
+                  {userInfo.role === 'admin' && ( // Check if user is admin
+                    <Button 
+                      variant="link" 
+                      onClick={() => navigate('/admin-dashboard')} 
+                      className="text-center"
+                    >
+                      <FaCrown className="me-2" /> Admin Dashboard
+                    </Button>
+                  )}
+                </div>
               </>
             )
           ) : (
@@ -76,11 +110,6 @@ const ProfileDrawer = ({ isOpen, onClose, isAuthenticated, userInfo, onLogout })
             />
           )}
         </div>
-      </div>
-      <div className="drawer-footer">
-        <Button variant="link" onClick={onLogout}>
-          Logout
-        </Button>
       </div>
     </div>
   );

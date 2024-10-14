@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import ProfileDrawer from '../../Drawers/components/Profile/components/ProfileDrawer';
 import logo from '../../Assets/logo.png';
 import cartIcon from '../../Assets/cart_icon.png';
-import { FaPlus } from 'react-icons/fa';
+import { FaPlus } from 'react-icons/fa'; // Import crown icon
 import Spinner from '../../Spinner'; // Import Spinner component
 import { CartContext } from '../../Cart/CartContext'; // Import CartContext
 import '../styles/navbar.css';
@@ -13,6 +13,7 @@ export default function Navbar({ isAuthenticated, userInfo, onLogout }) {
   const [loading, setLoading] = useState(false); // State for loading spinner
   const navigate = useNavigate();
   const { cartItems } = useContext(CartContext); // Access cart items from context
+  const timeoutDuration = 1500; // Define timeout duration
 
   const handleProfileClick = () => {
     setShowDrawer(!showDrawer);
@@ -27,11 +28,18 @@ export default function Navbar({ isAuthenticated, userInfo, onLogout }) {
     setTimeout(() => {
       setLoading(false); // Hide spinner after the timeout
       navigate('/seller-dashboard'); // Navigate to seller-dashboard
-    }, 1500); // Adjust the timeout duration as needed
+    }, timeoutDuration);
   };
 
   const handleCartClick = () => {
     navigate('/cart'); // Navigate to the cart page
+  };
+
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    const query = e.target.search.value;
+    console.log('Searching for:', query);
+    // Add your search handling logic here
   };
 
   if (loading) {
@@ -41,6 +49,7 @@ export default function Navbar({ isAuthenticated, userInfo, onLogout }) {
       </div>
     );
   }
+
 
   return (
     <div className="navbar-container">
@@ -54,18 +63,26 @@ export default function Navbar({ isAuthenticated, userInfo, onLogout }) {
           </button>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <div className="navbar-center">
-              <form className="d-flex" role="search">
-                <input className="form-control me-2" type="search" id="search" placeholder="Search" aria-label="Search" />
+              <form className="d-flex" role="search" onSubmit={handleSearchSubmit}>
+                <input
+                  className="form-control me-2"
+                  type="search"
+                  id="search"
+                  placeholder="Search"
+                  aria-label="Search"
+                />
                 <button className="btn btn-outline-success" type="submit">Search</button>
               </form>
             </div>
             <div className="navbar-right">
-              <FaPlus className="add-product-icon fs-3" onClick={handleAddProductClick} />
-              <div className="cart-container" onClick={handleCartClick}>
+              {userInfo && userInfo.role === 'seller' && (
+                <FaPlus className="add-product-icon fs-3" onClick={handleAddProductClick} aria-label="Add Product" />
+              )}
+              <div className="cart-container" onClick={handleCartClick} aria-label="View Cart">
                 <img src={cartIcon} alt="Cart" className="cart-icon" />
                 {cartItems.length > 0 && <span className="cart-count">{cartItems.length}</span>}
               </div>
-              <i className="profile-icon fs-2" onClick={handleProfileClick}>👤</i>
+              <i className="profile-icon fs-2" onClick={handleProfileClick} aria-label="Profile" tabIndex={0}>👤</i>
               {showDrawer && (
                 <ProfileDrawer
                   isOpen={showDrawer}

@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { MDBBtn, MDBTypography, MDBContainer, MDBRow, MDBCol, MDBCardImage } from 'mdb-react-ui-kit';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { CartContext } from '../../Cart/CartContext';
@@ -9,6 +9,10 @@ const OrderConfirmation = () => {
     const navigate = useNavigate();
     const orderData = location.state?.orderData;
     const { cartItems, clearCart } = useContext(CartContext); // Get clearCart function
+
+    useEffect(() => {
+       
+    }, []);
 
     // Check if cartItems is empty or undefined
     if (!cartItems || cartItems.length === 0) {
@@ -24,7 +28,7 @@ const OrderConfirmation = () => {
     }
 
     const handleBackToHome = () => {
-        clearCart(); // Reset the cart
+        clearCart(); // Clear the cart when the user goes back to home
         navigate('/'); // Navigate to home
     };
 

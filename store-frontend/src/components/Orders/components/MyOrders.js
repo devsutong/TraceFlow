@@ -27,10 +27,8 @@ const MyOrders = ({ userID }) => {
             }
 
             try {
-                const data = await getOrders();
-                
+                const data = await getOrders(userID); // Pass userID here if supported
 
-                // Normalize status and filter by userID
                 const userOrders = data
                     .map(order => ({
                         ...order,
@@ -51,6 +49,9 @@ const MyOrders = ({ userID }) => {
     }, [userID]);
 
     const handleDelete = async (id) => {
+        const confirmDelete = window.confirm("Are you sure you want to delete this order?");
+        if (!confirmDelete) return;
+
         try {
             await deleteOrder(id);
             setOrders(prevOrders => prevOrders.filter(order => order.id !== id));
@@ -104,7 +105,7 @@ const MyOrders = ({ userID }) => {
                                                     fluid 
                                                     className="rounded-3 small-image me-2" 
                                                     alt={item.Product.name} 
-                                                    style={{ width: '50px', height: '50px', marginRight: '10px' }} // Adjust size as needed
+                                                    style={{ width: '50px', height: '50px', marginRight: '10px' }} 
                                                 />
                                                 <div className="d-flex justify-content-between w-100">
                                                     <span>{item.Product.name}</span> 

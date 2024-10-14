@@ -38,7 +38,7 @@ function App() {
     setIsAuthenticated(true);
     // Decode the token to extract user info
     const decodedToken = JSON.parse(atob(token.split('.')[1])); // Decode payload
-    setUserInfo({ id: decodedToken.userId, username: decodedToken.username }); // Set user info
+    setUserInfo({ id: decodedToken.userId, username: decodedToken.username,role: decodedToken.role }); // Set user info
     if (user.role === "admin") {
       navigate("/admin-dashboard", { state: { message: "Login successful!" } });
     } else if (user.role === "seller") {
