@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Modal, Button, Table } from 'react-bootstrap';
-import Spinner from './../../../Spinner';
+import Spinner from './../../../../Spinner';
 
 const ViewUsersModal = ({ show, onHide }) => {
   const [users, setUsers] = useState([]);

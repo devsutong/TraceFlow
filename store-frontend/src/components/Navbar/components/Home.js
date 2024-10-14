@@ -8,7 +8,7 @@ import '../styles/home.css'; // Import the CSS file
 const ROWS_PER_PAGE = 3;
 const ITEMS_PER_ROW = 4; // Changed to 4
 
-const Home = ({ userInfo }) => { // Accept userInfo as a prop
+const Home = () => { // Accept userInfo as a prop
   const [products, setProducts] = useState([]);
   const [visibleItems, setVisibleItems] = useState(ROWS_PER_PAGE * ITEMS_PER_ROW);
   const [loading, setLoading] = useState(true);

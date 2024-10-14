@@ -29,7 +29,6 @@ function App() {
       setIsAuthenticated(true);
       // Decode the token to extract user info
       const decodedToken = jwtDecode(token);
-      console.log(decodedToken);
       setUserInfo({
         id: decodedToken.userId,
         username: decodedToken.username,
@@ -92,7 +91,7 @@ function App() {
         <CategoryNavbar />
         <div className="container">
           <Routes>
-            <Route path="/" element={<Home userInfo={userInfo} />} />
+            <Route path="/" element={<Home/>} />
             <Route path="/about" element={<About />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/login" element={<Login onLogin={handleLogin} />} />

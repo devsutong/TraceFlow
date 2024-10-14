@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Modal, Button, Form } from 'react-bootstrap';
-import Spinner from './../../../Spinner';
+import Spinner from './../../../../Spinner';
 
 const DeleteUserModal = ({ show, onHide }) => {
   const [userId, setUserId] = useState(''); // State for the user ID input

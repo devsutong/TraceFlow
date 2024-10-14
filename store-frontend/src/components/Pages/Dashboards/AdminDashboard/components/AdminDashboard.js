@@ -3,7 +3,8 @@ import { Button, Container, Row, Col, Card } from 'react-bootstrap';
 import '../../AdminDashboard/components/styles/admindashboard.css';
 
 // Import UserManagement Component
-import UserManagement from '../../components/UserManagement';
+import UserManagement from '../../components/User/UserManagement';
+import ProductManagement from '../../components/Products/ProductManagement';
 
 const AdminDashboard = () => {
   return (
@@ -20,7 +21,7 @@ const AdminDashboard = () => {
             <UserManagement />
           </Col>
           <Col md={4} className="mb-3">
-            <Button variant="success" size="lg" className="w-100">Products</Button>
+            <ProductManagement/>
           </Col>
           <Col md={4} className="mb-3">
             <Button variant="warning" size="lg" className="w-100">Categories</Button>
