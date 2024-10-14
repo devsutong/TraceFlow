@@ -45,24 +45,8 @@ const AdminDashboard = () => {
           </Card>
         </Col>
 
-        {/* Category Management */}
-        <Col md={4} className="mb-4">
-          <Card className="admin-task-card shadow-sm">
-            <Card.Body>
-              <FontAwesomeIcon icon={faTags} size="3x" className="mb-3" />
-              <Card.Title>Category Management</Card.Title>
-              <Card.Text>Organize and manage product categories.</Card.Text>
-              <Button variant="warning" size="lg" className="mt-3 w-100">
-                Manage Categories
-              </Button>
-            </Card.Body>
-          </Card>
-        </Col>
-      </Row>
-
-      <Row className="text-center">
         {/* Order Management */}
-        <Col md={6} className="mb-4">
+        <Col md={4} className="mb-4">
           <Card className="admin-task-card shadow-sm">
             <Card.Body>
               <FontAwesomeIcon icon={faShoppingCart} size="3x" className="mb-3" />
@@ -70,6 +54,21 @@ const AdminDashboard = () => {
               <Card.Text>View and manage customer orders.</Card.Text>
               <Button variant="danger" size="lg" className="mt-3 w-100">
                 Manage Orders
+              </Button>
+            </Card.Body>
+          </Card>
+        </Col>
+        </Row>
+        <Row className="text-center">
+        {/* Category Management */}
+        <Col md={6} className="mb-4">
+          <Card className="admin-task-card shadow-sm">
+            <Card.Body>
+              <FontAwesomeIcon icon={faTags} size="3x" className="mb-3" />
+              <Card.Title>Category Management</Card.Title>
+              <Card.Text>Organize and manage product categories.</Card.Text>
+              <Button variant="warning" size="lg" className="mt-3 w-100">
+                Manage Categories
               </Button>
             </Card.Body>
           </Card>
