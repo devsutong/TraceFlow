@@ -8,13 +8,17 @@ const OrderConfirmation = () => {
     const location = useLocation();
     const navigate = useNavigate();
     const orderData = location.state?.orderData;
-    const { cartItems, clearCart } = useContext(CartContext); // Get clearCart function
+    const { cartItems, removeFromCart } = useContext(CartContext); // Get removeFromCart function
 
     useEffect(() => {
-       
-    }, []);
+        if (orderData && cartItems.length > 0) {
+            // Clear each cart item one by one using removeFromCart
+            cartItems.forEach(item => {
+                removeFromCart(item.id);
+            });
+        }
+    }, [orderData, cartItems, removeFromCart]);
 
-    // Check if cartItems is empty or undefined
     if (!cartItems || cartItems.length === 0) {
         return (
             <MDBContainer className="py-5 text-center">
@@ -28,7 +32,6 @@ const OrderConfirmation = () => {
     }
 
     const handleBackToHome = () => {
-        clearCart(); // Clear the cart when the user goes back to home
         navigate('/'); // Navigate to home
     };
 

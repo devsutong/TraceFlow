@@ -1,4 +1,3 @@
-// src/App.js
 import "./App.css";
 import Navbar from "./components/Navbar/components/Navbar";
 import CategoryNavbar from "./components/Categories/CategoryNavbar";
@@ -16,6 +15,7 @@ import React, { useState, useEffect } from "react";
 import Order from "./components/Orders/components/Order";
 import OrderConfirmation from "./components/Orders/components/OrderConfirmation";
 import MyOrders from "./components/Orders/components/MyOrders";
+import { jwtDecode } from "jwt-decode";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -28,24 +28,47 @@ function App() {
     if (token) {
       setIsAuthenticated(true);
       // Decode the token to extract user info
-      const decodedToken = JSON.parse(atob(token.split('.')[1])); // Decode payload
-      setUserInfo({ id: decodedToken.userId, username: decodedToken.username }); // Set user info
+      const decodedToken = jwtDecode(token);
+      console.log(decodedToken);
+      setUserInfo({
+        id: decodedToken.userId,
+        username: decodedToken.username,
+      });
+      
+      // Fetch user role after login
+      fetchUserRole(token);
     }
   }, []);
+
+  const fetchUserRole = async (token) => {
+    try {
+      const response = await fetch('/user/', {
+        method: 'GET',
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      if (response.ok) {
+        const userData = await response.json();
+        const role = userData.data.role; // Ensure you handle the response correctly
+        setUserInfo((prev) => ({ ...prev, role }));
+      } else {
+        console.error('Failed to fetch user role');
+      }
+    } catch (error) {
+      console.error('Error fetching user role:', error);
+    }
+  };
 
   const handleLogin = (token, user) => {
     sessionStorage.setItem("authToken", token);
     setIsAuthenticated(true);
-    // Decode the token to extract user info
-    const decodedToken = JSON.parse(atob(token.split('.')[1])); // Decode payload
-    setUserInfo({ id: decodedToken.userId, username: decodedToken.username,role: decodedToken.role }); // Set user info
-    if (user.role === "admin") {
-      navigate("/admin-dashboard", { state: { message: "Login successful!" } });
-    } else if (user.role === "seller") {
-      navigate("/seller-dashboard", {
-        state: { message: "Login successful!" },
-      });
-    }
+    setUserInfo({
+      id: user.id,
+      username: user.username,
+    });
+    
+    // Fetch user role after login
+    fetchUserRole(token);
   };
 
   const handleLogout = () => {
@@ -69,7 +92,7 @@ function App() {
         <CategoryNavbar />
         <div className="container">
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<Home userInfo={userInfo} />} />
             <Route path="/about" element={<About />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/login" element={<Login onLogin={handleLogin} />} />

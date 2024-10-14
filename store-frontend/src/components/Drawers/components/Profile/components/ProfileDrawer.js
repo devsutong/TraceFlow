@@ -1,22 +1,29 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AuthOptions from './AuthOptions';
-import SettingsDrawer from '../../Settings/components/SettingsDrawer'; // Import SettingsDrawer
+import SettingsDrawer from '../../Settings/components/SettingsDrawer';
+import UpdateProfileForm from './UpdateProfileForm'; // Import UpdateProfileForm
 import { Button } from 'react-bootstrap';
-import { FaCog, FaShoppingCart, FaUserCircle, FaCrown } from 'react-icons/fa'; // Import FaCrown
+import { FaCog, FaShoppingCart, FaUserCircle, FaCrown } from 'react-icons/fa';
 import '../styles/ProfileDrawer.css';
 
 const ProfileDrawer = ({ isOpen, onClose, isAuthenticated, userInfo, onLogout }) => {
-  const [userName, setuserName] = useState('');
+  const [userName, setUserName] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [age, setAge] = useState('');
   const [showSettings, setShowSettings] = useState(false); // State to manage Settings view
+  const [showUpdateProfile, setShowUpdateProfile] = useState(false); // State for showing UpdateProfileForm
   const navigate = useNavigate();
 
   useEffect(() => {
     if (userInfo) {
-      setuserName(userInfo.username);
+      setUserName(userInfo.username);
+      setFirstName(userInfo.firstName || ''); // Initialize the form fields with user info
+      setLastName(userInfo.lastName || '');
+      setAge(userInfo.age || '');
     }
   }, [userInfo]);
-
   const handleOrdersClick = () => {
     navigate('/my-orders');
   };
@@ -26,31 +33,72 @@ const ProfileDrawer = ({ isOpen, onClose, isAuthenticated, userInfo, onLogout })
     setShowSettings(true); // Show settings
   };
 
-  const handleDeleteAccount = async () => {
-    const confirmation = window.confirm("Are you sure you want to delete your account? This action cannot be undone.");
-    if (!confirmation) return; // If the user cancels, do nothing
+  const handleUpdateProfileClick = () => {
+    setShowUpdateProfile(true); // Show the update profile form
+  };
 
+  // Function to handle profile update
+  const handleUpdateProfile = async () => {
     try {
-      const response = await fetch(`/user/${userInfo.id}`, { // Adjust the URL based on your API endpoint
-        method: 'DELETE',
+      const response = await fetch('/user/', {
+        method: 'PATCH', // Use PUT or PATCH based on your API
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${sessionStorage.getItem('authToken')}` // Include your authorization token if needed
-        }
+          Authorization: `Bearer ${sessionStorage.getItem('authToken')}`,
+        },
+        body: JSON.stringify({
+          firstName,
+          lastName,
+          age,
+        }),
       });
 
       const result = await response.json();
 
       if (response.ok) {
-        alert(result.message); // Show success message
-        onLogout(); // Log the user out or navigate to login page
+        alert('Profile updated successfully!');
+        setShowUpdateProfile(false); // Hide the update form after success
+        // Update user info in parent state or refetch if needed
       } else {
-        alert(result.error); // Show the error message
+        alert(result.error);
+      }
+    } catch (error) {
+      console.error('Error updating profile:', error);
+      alert('There was an error updating your profile. Please try again later.');
+    }
+  };
+
+  // Define the handleDeleteAccount function here
+  const handleDeleteAccount = async () => {
+    const confirmation = window.confirm("Are you sure you want to delete your account? This action cannot be undone.");
+    if (!confirmation) return;
+
+    try {
+      const response = await fetch(`/user/${userInfo.id}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${sessionStorage.getItem('authToken')}`,
+        },
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        alert(result.message);
+        onLogout(); // Log the user out after successful deletion
+        navigate('/login'); // Redirect to login or home page
+      } else {
+        alert(result.error);
       }
     } catch (error) {
       console.error('Error deleting account:', error);
       alert('There was an error deleting your account. Please try again later.');
     }
+  };
+
+  const handleCancelUpdate = () => {
+    setShowUpdateProfile(false); // Hide the update form if canceled
   };
 
   return (
@@ -59,20 +107,29 @@ const ProfileDrawer = ({ isOpen, onClose, isAuthenticated, userInfo, onLogout })
         <button className="drawer-close" onClick={onClose}>X</button>
         <div className="drawer-top-content">
           {isAuthenticated ? (
-            showSettings ? (
+            showUpdateProfile ? (
+              <UpdateProfileForm
+                firstName={firstName}
+                lastName={lastName}
+                age={age}
+                setFirstName={setFirstName}
+                setLastName={setLastName}
+                setAge={setAge}
+                onUpdateProfile={handleUpdateProfile}
+                onCancel={handleCancelUpdate}
+              />
+            ) : showSettings ? (
               <SettingsDrawer
-                onClose={() => setShowSettings(false)} // Function to close settings
-                onUpdateProfileClick={() => {
-                  navigate('/update-profile');
-                }}
-                onDeleteAccount={handleDeleteAccount} // Include delete account logic here
-                onBackClick={onClose} // Pass onClose to go back to ProfileDrawer
+                onClose={() => setShowSettings(false)}
+                onUpdateProfileClick={handleUpdateProfileClick}
+                onDeleteAccount={handleDeleteAccount} // Pass delete account logic here
+                onBackClick={onClose}
                 onLogout={onLogout}
               />
             ) : (
               <>
                 <div className="mb-3">
-                  {userInfo && userInfo.profilePic ? (
+                  {userInfo?.profilePic ? (
                     <img
                       src={userInfo.profilePic}
                       alt="Profile"
@@ -82,7 +139,7 @@ const ProfileDrawer = ({ isOpen, onClose, isAuthenticated, userInfo, onLogout })
                   ) : (
                     <FaUserCircle size={150} />
                   )}
-                  <h4>{`${userName}`}</h4>
+                  <h4>{userName}</h4>
                 </div>
                 <div className="d-flex flex-column align-items-center">
                   <Button variant="link" onClick={handleSettingsClick} className="mb-2 text-center">
@@ -91,13 +148,13 @@ const ProfileDrawer = ({ isOpen, onClose, isAuthenticated, userInfo, onLogout })
                   <Button variant="link" onClick={handleOrdersClick} className="text-center mb-2">
                     <FaShoppingCart className="me-2" /> Orders
                   </Button>
-                  {userInfo.role === 'admin' && ( // Check if user is admin
-                    <Button 
-                      variant="link" 
-                      onClick={() => navigate('/admin-dashboard')} 
+                  {userInfo.role === 'admin' && (
+                    <Button
+                      variant="link"
+                      onClick={() => navigate('/admin-dashboard')}
                       className="text-center"
                     >
-                      <FaCrown className="me-2" /> Admin Dashboard
+                      <FaCrown className="me-2" /> Go to Admin Dashboard
                     </Button>
                   )}
                 </div>

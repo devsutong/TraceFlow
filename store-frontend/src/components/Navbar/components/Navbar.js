@@ -36,12 +36,8 @@ export default function Navbar({ isAuthenticated, userInfo, onLogout }) {
   };
 
   const handleSearchSubmit = (e) => {
-    e.preventDefault();
-    const query = e.target.search.value;
-    console.log('Searching for:', query);
     // Add your search handling logic here
   };
-
   if (loading) {
     return (
       <div className="spinner-overlay">
@@ -49,8 +45,6 @@ export default function Navbar({ isAuthenticated, userInfo, onLogout }) {
       </div>
     );
   }
-
-
   return (
     <div className="navbar-container">
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
