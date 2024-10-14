@@ -1,5 +1,7 @@
 import React from 'react';
 import { Modal, Button, Table } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 const ViewProductsModal = ({ show, onHide, products, onProductSelect, onProductDelete }) => {
   const handleUpdateClick = (product) => {
@@ -40,16 +42,16 @@ const ViewProductsModal = ({ show, onHide, products, onProductSelect, onProductD
                     <Button 
                       variant="warning" 
                       onClick={() => handleUpdateClick(product)} 
-                      className="me-2 my-1"
+          
                     >
-                      Update
+                      <FontAwesomeIcon icon={faEdit}/>
                     </Button>
                     <Button 
                       variant="danger" 
                       onClick={() => handleDeleteClick(product)} 
-                      className="ms-2"
+                      
                     >
-                      Delete
+                      <FontAwesomeIcon icon={faTrash} />
                     </Button>
                   </td>
                 </tr>
