@@ -1,7 +1,8 @@
-// src/components/Cart/Cart.js
 import React, { useContext } from 'react';
-import { MDBCardText, MDBBtn, MDBCard, MDBCardBody, MDBCardImage, MDBCol, MDBContainer, MDBIcon, MDBInput, MDBRow, MDBTypography } from 'mdb-react-ui-kit';
-import { CartContext } from '../Cart/CartContext'; // Adjust the import based on your folder structure
+import {
+  MDBCardText, MDBBtn, MDBCard, MDBCardBody, MDBCardImage, MDBCol, MDBContainer, MDBIcon, MDBInput, MDBRow, MDBTypography,
+} from 'mdb-react-ui-kit';
+import { CartContext } from '../Cart/CartContext';
 import './styles/Cart.css';
 import { useNavigate } from 'react-router-dom';
 
@@ -12,6 +13,10 @@ const Cart = () => {
   const handleQuantityChange = (cartItemId, newQuantity) => {
     if (newQuantity < 1) return; // Prevent quantity from going below 1
     updateCartItem(cartItemId, newQuantity);
+  };
+
+  const handleRemove = (cartItemId) => {
+    removeFromCart(cartItemId); // Call the removeFromCart function from CartContext
   };
 
   return (
@@ -52,15 +57,16 @@ const Cart = () => {
                               <MDBIcon fas icon="plus" onClick={() => handleQuantityChange(item.id, item.quantity + 1)} />
                             </MDBBtn>
                           </MDBCol>
-                          <MDBCol md="3" lg="2" xl="2" className="text-end">
+                          <MDBCol md="2" lg="2" xl="2" className="text-end">
                             <MDBTypography tag="h6" className="mb-0">
                               INR {item.Product.price}
                             </MDBTypography>
                           </MDBCol>
                           <MDBCol md="1" lg="1" xl="1" className="text-end">
-                            <a href="#!" className="text-muted" onClick={() => removeFromCart(item.id)}>
-                              <MDBIcon fas icon="times" />
-                            </a>
+                            {/* Remove Button */}
+                            <MDBBtn color="danger" size="sm" onClick={() => handleRemove(item.id)}>
+                              Remove
+                            </MDBBtn>
                           </MDBCol>
                         </MDBRow>
                       ))}

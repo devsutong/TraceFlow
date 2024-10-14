@@ -1,3 +1,4 @@
+// src/components/Navbar/components/Home.js
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import ProductCard from '../../Products/ProductCard'; // Ensure you have this component
@@ -7,7 +8,7 @@ import '../styles/home.css'; // Import the CSS file
 const ROWS_PER_PAGE = 3;
 const ITEMS_PER_ROW = 4; // Changed to 4
 
-const Home = () => {
+const Home = () => { // Accept userInfo as a prop
   const [products, setProducts] = useState([]);
   const [visibleItems, setVisibleItems] = useState(ROWS_PER_PAGE * ITEMS_PER_ROW);
   const [loading, setLoading] = useState(true);
@@ -29,7 +30,6 @@ const Home = () => {
 
     fetchProducts();
   }, []);
-
   const handleLoadMore = () => {
     setLoading(true);
     setTimeout(() => {

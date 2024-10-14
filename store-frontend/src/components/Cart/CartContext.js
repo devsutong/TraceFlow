@@ -7,6 +7,9 @@ export const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
+  const clearCart = () => {
+    setCartItems([]); // Assuming setCartItems is the function to update cart items in your context
+};
 
   // Function to fetch cart items from the backend
   const fetchCartItems = async () => {
@@ -126,7 +129,7 @@ export const CartProvider = ({ children }) => {
   }, []);
 
   return (
-    <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, updateCartItem }}>
+    <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, updateCartItem ,clearCart}}>
       {children}
     </CartContext.Provider>
   );
