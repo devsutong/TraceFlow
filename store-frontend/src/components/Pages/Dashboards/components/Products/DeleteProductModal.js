@@ -5,7 +5,7 @@ import axios from 'axios';
 const DeleteProductModal = ({ show, onHide, product, onProductDeleted }) => {
   const handleDeleteProduct = async () => {
     try {
-      await axios.delete(`/api/products/${product.id}`); // Adjust endpoint if needed
+      await axios.delete(`/product/${product.id}`); // Adjust endpoint if needed
       onProductDeleted(); // Notify parent to remove product from state
       onHide(); // Close the modal
     } catch (error) {
