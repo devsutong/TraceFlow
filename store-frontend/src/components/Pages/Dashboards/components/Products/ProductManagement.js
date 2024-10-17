@@ -7,7 +7,7 @@ import AddProductModal from './AddProductModal';
 import UpdateProductModal from './UpdateProductModal';
 import DeleteProductModal from './DeleteProductModal';
 import axios from 'axios';
-import './styles/ProductManagement.css'; // Ensure this path is correct
+import './styles/ProductManagement.css';
 
 const ProductManagement = () => {
   const [showViewProducts, setShowViewProducts] = useState(false);

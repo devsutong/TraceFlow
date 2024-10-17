@@ -4,6 +4,8 @@ import AuthOptions from './AuthOptions';
 import SettingsDrawer from '../../Settings/components/SettingsDrawer';
 import UpdateProfileForm from './UpdateProfileForm'; // Import UpdateProfileForm
 import { Button } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBoxes} from '@fortawesome/free-solid-svg-icons';
 import { FaCog, FaShoppingCart, FaUserCircle, FaCrown } from 'react-icons/fa';
 import '../styles/ProfileDrawer.css';
 
@@ -67,7 +69,7 @@ const ProfileDrawer = ({ isOpen, onClose, isAuthenticated, userInfo, onLogout })
       alert('There was an error updating your profile. Please try again later.');
     }
   };
-
+  
   // Define the handleDeleteAccount function here
   const handleDeleteAccount = async () => {
     const confirmation = window.confirm("Are you sure you want to delete your account? This action cannot be undone.");
@@ -146,7 +148,7 @@ const ProfileDrawer = ({ isOpen, onClose, isAuthenticated, userInfo, onLogout })
                     <FaCog className="me-2" /> Profile Settings
                   </Button>
                   <Button variant="link" onClick={handleOrdersClick} className="text-center mb-2">
-                    <FaShoppingCart className="me-2" /> Orders
+                    <FaShoppingCart className="me-2" /> My Orders
                   </Button>
                   {userInfo.role === 'admin' && (
                     <Button
@@ -155,6 +157,15 @@ const ProfileDrawer = ({ isOpen, onClose, isAuthenticated, userInfo, onLogout })
                       className="text-center"
                     >
                       <FaCrown className="me-2" /> Go to Admin Dashboard
+                    </Button>
+                  )}
+                   {userInfo.role === 'seller' && (
+                    <Button
+                      variant="link"
+                      onClick={() => navigate('/')}
+                      className="text-center"
+                    >
+                      <FontAwesomeIcon icon={faBoxes}className="me-2" /> My Products
                     </Button>
                   )}
                 </div>

@@ -7,18 +7,18 @@ const ViewUsersModal = ({ show, onHide }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
+  useEffect(() => { 
     if (show) {
       const fetchUsers = async () => {
         setLoading(true);
         setError(null);
 
-        const token = sessionStorage.getItem('authToken'); // Retrieve token from sessionStorage
+        const token = sessionStorage.getItem('authToken');
 
         if (!token) {
           setError('No token found');
           setLoading(false);
-          return;
+          return; 
         }
 
         try {
@@ -26,7 +26,7 @@ const ViewUsersModal = ({ show, onHide }) => {
             method: 'GET',
             headers: {
               'Content-Type': 'application/json',
-              'Authorization': `Bearer ${token}`, // Include token in the headers
+              'Authorization': `Bearer ${token}`,
             },
           });
 
@@ -44,7 +44,6 @@ const ViewUsersModal = ({ show, onHide }) => {
           setLoading(false);
         }
       };
-
       fetchUsers();
     }
   }, [show]);
