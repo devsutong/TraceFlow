@@ -4,11 +4,8 @@ import AuthOptions from './AuthOptions';
 import SettingsDrawer from '../../Settings/components/SettingsDrawer';
 import UpdateProfileForm from './UpdateProfileForm'; // Import UpdateProfileForm
 import { Button } from 'react-bootstrap';
-<<<<<<< HEAD
-=======
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBoxes} from '@fortawesome/free-solid-svg-icons';
->>>>>>> temp-store-frontend
 import { FaCog, FaShoppingCart, FaUserCircle, FaCrown } from 'react-icons/fa';
 import '../styles/ProfileDrawer.css';
 
@@ -72,11 +69,7 @@ const ProfileDrawer = ({ isOpen, onClose, isAuthenticated, userInfo, onLogout })
       alert('There was an error updating your profile. Please try again later.');
     }
   };
-<<<<<<< HEAD
-
-=======
   
->>>>>>> temp-store-frontend
   // Define the handleDeleteAccount function here
   const handleDeleteAccount = async () => {
     const confirmation = window.confirm("Are you sure you want to delete your account? This action cannot be undone.");
@@ -155,11 +148,7 @@ const ProfileDrawer = ({ isOpen, onClose, isAuthenticated, userInfo, onLogout })
                     <FaCog className="me-2" /> Profile Settings
                   </Button>
                   <Button variant="link" onClick={handleOrdersClick} className="text-center mb-2">
-<<<<<<< HEAD
-                    <FaShoppingCart className="me-2" /> Orders
-=======
                     <FaShoppingCart className="me-2" /> My Orders
->>>>>>> temp-store-frontend
                   </Button>
                   {userInfo.role === 'admin' && (
                     <Button
@@ -170,8 +159,6 @@ const ProfileDrawer = ({ isOpen, onClose, isAuthenticated, userInfo, onLogout })
                       <FaCrown className="me-2" /> Go to Admin Dashboard
                     </Button>
                   )}
-<<<<<<< HEAD
-=======
                    {userInfo.role === 'seller' && (
                     <Button
                       variant="link"
@@ -181,7 +168,6 @@ const ProfileDrawer = ({ isOpen, onClose, isAuthenticated, userInfo, onLogout })
                       <FontAwesomeIcon icon={faBoxes}className="me-2" /> My Products
                     </Button>
                   )}
->>>>>>> temp-store-frontend
                 </div>
               </>
             )

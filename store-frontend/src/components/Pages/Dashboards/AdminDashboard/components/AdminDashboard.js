@@ -4,16 +4,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUsers, faBoxes, faTags, faShoppingCart, faReceipt } from '@fortawesome/free-solid-svg-icons';
 import '../../AdminDashboard/components/styles/admindashboard.css';
 
-<<<<<<< HEAD
-// Import UserManagement and ProductManagement Components
-import UserManagement from '../../components/User/UserManagement';
-import ProductManagement from '../../components/Products/ProductManagement';
-=======
 // Import UserManagement, ProductManagement, and OrderManagement Components
 import UserManagement from '../../components/User/UserManagement';
 import ProductManagement from '../../components/Products/ProductManagement';
 import OrderManagement from '../../components/Orders/OrderManagement'; // Import OrderManagement
->>>>>>> temp-store-frontend
 
 const AdminDashboard = () => {
   return (
@@ -52,12 +46,6 @@ const AdminDashboard = () => {
           </Card>
         </Col>
 
-<<<<<<< HEAD
-        {/* Category Management */}
-        <Col md={4} className="mb-4">
-          <Card className="admin-task-card shadow-sm">
-            <Card.Body>
-=======
         {/* Order Management */}
         <Col md={4} className="mb-4">
           <Card className="admin-task-card shadow-sm">
@@ -77,7 +65,6 @@ const AdminDashboard = () => {
         <Col md={6} className="mb-4">
           <Card className="admin-task-card shadow-sm">
             <Card.Body>
->>>>>>> temp-store-frontend
               <FontAwesomeIcon icon={faTags} size="3x" className="mb-3" />
               <Card.Title>Category Management</Card.Title>
               <Card.Text>Organize and manage product categories.</Card.Text>
@@ -87,25 +74,6 @@ const AdminDashboard = () => {
             </Card.Body>
           </Card>
         </Col>
-<<<<<<< HEAD
-      </Row>
-
-      <Row className="text-center">
-        {/* Order Management */}
-        <Col md={6} className="mb-4">
-          <Card className="admin-task-card shadow-sm">
-            <Card.Body>
-              <FontAwesomeIcon icon={faShoppingCart} size="3x" className="mb-3" />
-              <Card.Title>Order Management</Card.Title>
-              <Card.Text>View and manage customer orders.</Card.Text>
-              <Button variant="danger" size="lg" className="mt-3 w-100">
-                Manage Orders
-              </Button>
-            </Card.Body>
-          </Card>
-        </Col>
-=======
->>>>>>> temp-store-frontend
 
         {/* Payment History */}
         <Col md={6} className="mb-4">

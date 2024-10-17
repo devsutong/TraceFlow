@@ -34,11 +34,7 @@ function App() {
         username: decodedToken.username,
       });
       
-<<<<<<< HEAD
-      // Fetch user role after login
-=======
      
->>>>>>> temp-store-frontend
       fetchUserRole(token);
     }
   }, []);
@@ -52,11 +48,7 @@ function App() {
 
       if (response.ok) {
         const userData = await response.json();
-<<<<<<< HEAD
-        const role = userData.data.role; // Ensure you handle the response correctly
-=======
         const role = userData.data.role;
->>>>>>> temp-store-frontend
         setUserInfo((prev) => ({ ...prev, role }));
       } else {
         console.error('Failed to fetch user role');
