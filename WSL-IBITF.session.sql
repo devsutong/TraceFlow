@@ -31,3 +31,14 @@ SELECT * FROM ProductCategory
 SHOW DATABASES;
 
 DELETE FROM Products WHERE id=13;
+
+SELECT JSON_ARRAYAGG(
+    JSON_OBJECT(
+        'name', name,
+        'description', description,
+        'image', image,
+        'price', price,
+        'priceUnit', priceUnit,
+    )
+) AS json_result
+FROM Products;

@@ -34,7 +34,11 @@ function App() {
         username: decodedToken.username,
       });
       
+<<<<<<< HEAD
       // Fetch user role after login
+=======
+     
+>>>>>>> temp-store-frontend
       fetchUserRole(token);
     }
   }, []);
@@ -48,7 +52,11 @@ function App() {
 
       if (response.ok) {
         const userData = await response.json();
+<<<<<<< HEAD
         const role = userData.data.role; // Ensure you handle the response correctly
+=======
+        const role = userData.data.role;
+>>>>>>> temp-store-frontend
         setUserInfo((prev) => ({ ...prev, role }));
       } else {
         console.error('Failed to fetch user role');
@@ -97,7 +105,7 @@ function App() {
             <Route path="/login" element={<Login onLogin={handleLogin} />} />
             <Route path="/admin-dashboard" element={<AdminDashboard />} />
             <Route path="/seller-dashboard" element={<SellerDashboard />} />
-            <Route path="/cart" element={<Cart />} /> {/* Add Cart route */}
+            <Route path="/cart" element={<Cart />} /> 
             <Route path="/order" element={<Order />} />
             <Route path="/order-confirmation" element={<OrderConfirmation />} />
             <Route path="/my-orders" element={<MyOrders userID={userInfo?.id} />} /> 

@@ -3,7 +3,7 @@ const { roles } = require("../../config");
 const sequelize = require("./SequelizeInstance");
 
 // Define the User model
-const UserModel = sequelize.define("User", {
+const UserModel = sequelize.define("user", {
     id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,

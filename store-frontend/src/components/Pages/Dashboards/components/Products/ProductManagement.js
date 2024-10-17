@@ -7,7 +7,11 @@ import AddProductModal from './AddProductModal';
 import UpdateProductModal from './UpdateProductModal';
 import DeleteProductModal from './DeleteProductModal';
 import axios from 'axios';
+<<<<<<< HEAD
 import './styles/ProductManagement.css'; // Ensure this path is correct
+=======
+import './styles/ProductManagement.css';
+>>>>>>> temp-store-frontend
 
 const ProductManagement = () => {
   const [showViewProducts, setShowViewProducts] = useState(false);
