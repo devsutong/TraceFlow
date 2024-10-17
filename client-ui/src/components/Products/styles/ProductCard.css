@@ -1,0 +1,68 @@
+/* Flexbox container to align cards */
+.product-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 1px solid #ddd;
+  padding: 16px;
+  border-radius: 8px;
+  max-width: 300px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.product-card:hover {
+  transform: scale(1.05);
+}
+
+/* Image container with a fixed aspect ratio */
+.product-image-container {
+  width: 100%;
+  padding-top: 75%; /* This creates a 4:3 aspect ratio. Change the value for different aspect ratios */
+  position: relative;
+  overflow: hidden;
+}
+
+/* Image fills the container */
+.product-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensures the image fills the container without distortion */
+}
+
+/* Flexbox layout for price */
+.product-price-container {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin: 8px 0;
+}
+
+/* Other styling remains the same */
+.product-price-unit {
+  font-size: 14px;
+  color: #888;
+}
+
+.product-price {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+}
+
+.buy-now-btn {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.buy-now-btn:hover {
+  background-color: #218838;
+}

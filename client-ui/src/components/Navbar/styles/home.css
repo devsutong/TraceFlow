@@ -1,0 +1,64 @@
+.home-container {
+  padding: 20px;
+}
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 columns */
+  gap: 20px; /* Space between items */
+}
+
+.buy-now-btn {
+  background-color: #28a745;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: auto;  /* Ensures the button is at the bottom */
+}
+
+.buy-now-btn:hover {
+  background-color: #218838;
+}
+
+/* Style for the Load More button */
+.load-more-btn {
+  display: block;
+  margin: 30px auto; /* Centered with margin */
+  padding: 12px 25px;
+  font-size: 18px;
+  background-color: #29302c;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.load-more-btn:hover {
+  background-color: #5a6268;
+  transform: translateY(-2px);
+}
+
+.load-more-btn:focus {
+  outline: none;
+}
+@media (max-width: 1200px) {
+  .products-grid {
+    grid-template-columns: repeat(3, 1fr); /* 3 columns for medium screens */
+  }
+}
+
+@media (max-width: 768px) {
+  .products-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2 columns for small screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .products-grid {
+    grid-template-columns: 1fr; /* 1 column for very small screens */
+  }
+}

@@ -6,3 +6,5 @@ helper_json.json
 store-api/uploads
 config
 .env
+chaincode.zip
+go1.23.0.linux-amd64.tar.gz
