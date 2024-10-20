@@ -8,3 +8,4 @@ config
 .env
 chaincode.zip
 go1.23.0.linux-amd64.tar.gz
+/node_modules
