@@ -1,9 +1,9 @@
-store-api/.env
-store-api/storage/
-store-api/node_modules/
-store-frontend/node_modules/
+server-api/.env
+server-api/storage/
+server-api/node_modules/
+client-ui/node_modules/
 helper_json.json
-store-api/uploads
+server-api/uploads
 config
 .env
 chaincode.zip

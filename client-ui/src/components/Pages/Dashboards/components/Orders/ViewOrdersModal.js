@@ -1,10 +1,10 @@
 import React from 'react';
 import { Modal, Button, Table } from 'react-bootstrap';
 
-const ViewOrdersModal = ({ show, onHide, orders, users }) => {
+const ViewOrdersModal = ({ show, onHide, orders, users, onOrderSelect, onOrderDelete }) => {
     const getUserName = (userID) => {
         const user = users.find(u => u.id === userID);
-        return user ? user.firstName : 'Unknown User'
+        return user ? user.firstName : 'Unknown User';
     };
 
     return (
@@ -21,9 +21,6 @@ const ViewOrdersModal = ({ show, onHide, orders, users }) => {
                             <th>Customer Name</th>
                             <th>Total Amount (INR)</th>
                             <th>Products Ordered</th>
-                            <th>Quantity</th>
-                            <th>Images</th>
-                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -36,56 +33,23 @@ const ViewOrdersModal = ({ show, onHide, orders, users }) => {
                                     <td>{order.totalAmount}</td>
                                     <td>
                                         {order.OrderItems.map(item => (
-                                            <div key={item.Product.id} style={{ display: 'flex', alignItems: 'center', marginBottom: '5px' }}>
-                                                <span style={{ marginRight: '5px' }}>{item.Product.name}</span>
+                                            <div key={item.Product.id} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '5px', marginRight: '10px'}}>
+                                                <span>{item.Product.name}</span>
+                                                <span>X{item.quantity}</span>
                                             </div>
                                         ))}
-                                    </td>
-                                    <td>
-                                        {order.OrderItems.map(item => (
-                                            <div key={item.Product.id} style={{ marginBottom: '5px' }}>
-                                                {item.quantity}
-                                            </div>
-                                        ))}
-                                    </td>
-                                    <td>
-                                        {order.OrderItems.map(item => (
-                                            <div key={item.Product.id} style={{ display: 'flex', alignItems: 'center', marginBottom: '5px' }}>
-                                                <img 
-                                                    src={item.Product.image} 
-                                                    alt={item.Product.name} 
-                                                    style={{ width: '50px', height: '50px', marginRight: '5px' }} 
-                                                />
-                                            </div>
-                                        ))}
-                                    </td>
-                                    <td>
-                                        <Button 
-                                            variant="info" 
-                                            size="sm" 
-                                            className="me-2"
-                                            onClick={() => console.log('Update order:', order)}
-                                        >
-                                            Update
-                                        </Button>
-                                        <Button 
-                                            variant="danger" 
-                                            size="sm" 
-                                            onClick={() => console.log('Delete order:', order)}
-                                        >
-                                            Delete
-                                        </Button>
                                     </td>
                                 </tr>
                             ))
                         ) : (
                             <tr>
-                                <td colSpan="8" className="text-center">No orders available</td>
+                                <td colSpan="7" className="text-center">No orders available</td>
                             </tr>
                         )}
                     </tbody>
                 </Table>
             </Modal.Body>
+
             <Modal.Footer>
                 <Button variant="secondary" onClick={onHide}>
                     Close
