@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { getOrders, deleteOrder } from '../services/orderService'; // Adjust based on your actual path
-import { Link } from 'react-router-dom';
+import { getOrders } from '../services/orderService'; // Adjust based on your actual path
 import {
     MDBTable,
     MDBTableBody,
     MDBTableHead,
-    MDBBtn,
     MDBSpinner,
     MDBCard,
     MDBCardBody,
@@ -48,19 +46,6 @@ const MyOrders = ({ userID }) => {
         fetchUserOrders();
     }, [userID]);
 
-    const handleDelete = async (id) => {
-        const confirmDelete = window.confirm("Are you sure you want to delete this order?");
-        if (!confirmDelete) return;
-
-        try {
-            await deleteOrder(id);
-            setOrders(prevOrders => prevOrders.filter(order => order.id !== id));
-        } catch (err) {
-            console.error('Error deleting order:', err);
-            setError('Failed to delete the order. Please try again later.');
-        }
-    };
-
     if (isLoading) {
         return <MDBSpinner />;
     }
@@ -89,7 +74,6 @@ const MyOrders = ({ userID }) => {
                             <th>Items</th>
                             <th>Total Price</th>
                             <th>Order Date</th>
-                            <th>Actions</th>
                         </tr>
                     </MDBTableHead>
                     <MDBTableBody>
@@ -117,12 +101,6 @@ const MyOrders = ({ userID }) => {
                                 </td>
                                 <td>INR {order.totalAmount}</td>
                                 <td>{new Date(order.createdAt).toLocaleString()}</td>
-                                <td>
-                                    <Link to={`/update-order/${order.id}`}>
-                                        <MDBBtn color="primary" className="me-2">Update</MDBBtn>
-                                    </Link>
-                                    <MDBBtn color="danger" onClick={() => handleDelete(order.id)}>Delete</MDBBtn>
-                                </td>
                             </tr>
                         ))}
                     </MDBTableBody>

@@ -9,12 +9,13 @@ import Login from "./components/Authentication/components/LoginForm";
 import AdminDashboard from "./components/Pages/Dashboards/AdminDashboard/components/AdminDashboard";
 import SellerDashboard from "./components/Pages/Dashboards/SellerDashboard/components/SellerDashboard";
 import ProfileDrawer from "./components/Drawers/components/Profile/components/ProfileDrawer";
-import Cart from "./components/Cart/Cart"; // Import Cart component
-import { CartProvider } from "./components/Cart/CartContext"; // Import CartProvider context
+import Cart from "./components/Cart/Cart"; 
+import { CartProvider } from "./components/Cart/CartContext";
 import React, { useState, useEffect } from "react";
 import Order from "./components/Orders/components/Order";
 import OrderConfirmation from "./components/Orders/components/OrderConfirmation";
 import MyOrders from "./components/Orders/components/MyOrders";
+import ProductDetails from "./components/Products/ProductDetails";
 import { jwtDecode } from "jwt-decode";
 
 function App() {
@@ -27,14 +28,11 @@ function App() {
     const token = sessionStorage.getItem("authToken");
     if (token) {
       setIsAuthenticated(true);
-      // Decode the token to extract user info
       const decodedToken = jwtDecode(token);
       setUserInfo({
         id: decodedToken.userId,
         username: decodedToken.username,
       });
-      
-     
       fetchUserRole(token);
     }
   }, []);
@@ -45,7 +43,6 @@ function App() {
         method: 'GET',
         headers: { Authorization: `Bearer ${token}` },
       });
-
       if (response.ok) {
         const userData = await response.json();
         const role = userData.data.role;
@@ -65,8 +62,6 @@ function App() {
       id: user.id,
       username: user.username,
     });
-    
-    // Fetch user role after login
     fetchUserRole(token);
   };
 
@@ -74,9 +69,7 @@ function App() {
     sessionStorage.removeItem("authToken");
     setIsAuthenticated(false);
     setUserInfo(null);
-    navigate("/", {
-      state: { message: "You have been logged out successfully." },
-    });
+    navigate("/", { state: { message: "You have been logged out successfully." } });
   };
 
   return (
@@ -91,16 +84,17 @@ function App() {
         <CategoryNavbar />
         <div className="container">
           <Routes>
-            <Route path="/" element={<Home/>} />
+            <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/login" element={<Login onLogin={handleLogin} />} />
             <Route path="/admin-dashboard" element={<AdminDashboard />} />
             <Route path="/seller-dashboard" element={<SellerDashboard />} />
-            <Route path="/cart" element={<Cart />} /> 
+            <Route path="/cart" element={<Cart />} />
             <Route path="/order" element={<Order />} />
             <Route path="/order-confirmation" element={<OrderConfirmation />} />
-            <Route path="/my-orders" element={<MyOrders userID={userInfo?.id} />} /> 
+            <Route path="/my-orders" element={<MyOrders userID={userInfo?.id} />} />
+            <Route path="/product/:id" element={<ProductDetails />} />
           </Routes>
         </div>
         <ProfileDrawer

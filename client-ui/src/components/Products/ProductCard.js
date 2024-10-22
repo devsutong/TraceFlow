@@ -1,13 +1,12 @@
-// src/components/ProductCard.js
-import React, { useContext } from 'react';
-import { CartContext } from '../Cart/CartContext'; // Import CartContext
+// src/components/Products/ProductCard.js
+import React from 'react';
+import { Link } from 'react-router-dom';
 import './styles/ProductCard.css';
 
 const ProductCard = ({ product }) => {
-  const { addToCart } = useContext(CartContext); // Use CartContext
-
   const handleAddToCart = () => {
-    addToCart(product); // Call the addToCart function from CartContext
+    
+    console.log(`${product.name} added to cart`);
   };
 
   return (
@@ -24,6 +23,7 @@ const ProductCard = ({ product }) => {
       <button className="buy-now-btn" onClick={handleAddToCart}>
         Add to cart
       </button>
+      <Link to={`/product/${product.id}`} className="view-details-btn">View Details</Link>
     </div>
   );
 };
