@@ -1,7 +1,7 @@
 import "./App.css";
 import Navbar from "./components/Navbar/components/Navbar";
 import CategoryNavbar from "./components/Categories/CategoryNavbar";
-import { Routes, Route, useNavigate } from "react-router-dom";
+import { Routes, Route, useNavigate, Navigate } from "react-router-dom";
 import Home from "./components/Navbar/components/Home";
 import About from "./components/Drawers/components/About/components/About";
 import Signup from "./components/Authentication/components/SignupForm";
@@ -9,14 +9,14 @@ import Login from "./components/Authentication/components/LoginForm";
 import AdminDashboard from "./components/Pages/Dashboards/AdminDashboard/components/AdminDashboard";
 import SellerDashboard from "./components/Pages/Dashboards/SellerDashboard/components/SellerDashboard";
 import ProfileDrawer from "./components/Drawers/components/Profile/components/ProfileDrawer";
-import Cart from "./components/Cart/Cart"; 
+import Cart from "./components/Cart/Cart";
 import { CartProvider } from "./components/Cart/CartContext";
 import React, { useState, useEffect } from "react";
 import Order from "./components/Orders/components/Order";
 import OrderConfirmation from "./components/Orders/components/OrderConfirmation";
 import MyOrders from "./components/Orders/components/MyOrders";
 import ProductDetails from "./components/Products/ProductDetails";
-import { jwtDecode } from "jwt-decode";
+import {jwtDecode} from "jwt-decode"; // Fix import
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -88,13 +88,19 @@ function App() {
             <Route path="/about" element={<About />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/login" element={<Login onLogin={handleLogin} />} />
-            <Route path="/admin-dashboard" element={<AdminDashboard />} />
-            <Route path="/seller-dashboard" element={<SellerDashboard />} />
+            <Route
+              path="/admin-dashboard"
+              element={userInfo?.role === "admin" ? <AdminDashboard /> : <Navigate to="/" />}
+            />
+            <Route
+              path="/seller-dashboard"
+              element={userInfo?.role === "seller" ? <SellerDashboard /> : <Navigate to="/" />}
+            />
             <Route path="/cart" element={<Cart />} />
             <Route path="/order" element={<Order />} />
             <Route path="/order-confirmation" element={<OrderConfirmation />} />
             <Route path="/my-orders" element={<MyOrders userID={userInfo?.id} />} />
-            <Route path="/product/:id" element={<ProductDetails />} />
+            <Route path="/product/:productId" element={<ProductDetails />} />
           </Routes>
         </div>
         <ProfileDrawer

@@ -66,3 +66,7 @@
 .buy-now-btn:hover {
   background-color: #218838;
 }
+.product-card-link {
+  text-decoration: none;
+  color: inherit; /* Ensure the link inherits text color */
+}
