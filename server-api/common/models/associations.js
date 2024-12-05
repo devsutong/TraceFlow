@@ -5,18 +5,20 @@ const {Product} = require('./Product');
 const {Category} = require("./Category")
 const {Cart} = require("./Cart")
 const {CartItem} = require("./Cart")
-
+const { Address } = require("./Address");
 
 const sequelize = require("sequelize")
 console.log("User: ", User) // Should show the User model definition
 console.log("Order: ", Order); // Should show the Order model definition
 console.log("Product: ", Product); // Should show the Product model definition
 console.log("OrderItem: ", OrderItem); // Should show the OrderItem model definition
+console.log("Address: ", Address)
 
 console.log(User instanceof sequelize.Model); // Should be true
 console.log(Order instanceof sequelize.Model); // Should be true
 console.log(Product instanceof sequelize.Model); // Should be true
 console.log(OrderItem instanceof sequelize.Model); // Should be true
+console.log(Address instanceof sequelize.Model); // Should be true
 
 // User - Order: One-to-Many relationship
 User.hasMany(Order, { foreignKey: 'userID' });
@@ -47,4 +49,12 @@ CartItem.belongsTo(Cart, { foreignKey: 'cartId' });
 Product.hasMany(CartItem, { foreignKey: 'productID' });
 CartItem.belongsTo(Product, { foreignKey: 'productId' });
 
-module.exports = { User, Order, Product, OrderItem, Cart, CartItem};
+// Address Relationships
+User.hasMany(Address, { foreignKey: 'userID' }); // A user can have multiple addresses
+Address.belongsTo(User, { foreignKey: 'userID' }); // Each address belongs to one user
+
+// Address - Order Relationship
+Order.belongsTo(Address, { foreignKey: 'addressID' }); // An order is linked to one address
+Address.hasMany(Order, { foreignKey: 'addressID' }); // An address can have multiple orders
+
+module.exports = { User, Order, Product, OrderItem, Cart, CartItem, Address };

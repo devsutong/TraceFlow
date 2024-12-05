@@ -18,12 +18,16 @@ const UploadImageRoutes = require("./common/images/UploadImage");
 const OrderRoutes = require("./order/routes");
 const CartRoutes = require("./cart/routes");
 const { Cart } = require("./common/models/Cart");
+const AddressRoutes = require("./address/routes");
+const traceflowRoutes = require("./traceflowRouters/routes");
 
 app.use(morgan("tiny"));
 app.use(cors());
 
-app.use(express.json());
+app.use(express.json({ limit: '25mb' }));
 app.use('/uploads', express.static('uploads'));
+
+
 
 // Syncing the models that are defined on sequelize with the tables that alredy exists
 // in the database. It creates models as tables that do not exist in the DB.
@@ -40,6 +44,8 @@ sequelize
     app.use("/upload/image", UploadImageRoutes);
     app.use("/order", OrderRoutes);
     app.use("/cart", CartRoutes)
+    app.use("/address", AddressRoutes)
+    app.use("/traceflow", traceflowRoutes)
 
     app.listen(PORT, '127.0.0.1', () => {
       console.log("Server Listening on PORT:", port);
