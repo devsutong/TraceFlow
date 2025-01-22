@@ -1,5 +1,6 @@
 const { User, Order, Product, OrderItem } = require('../../common/models/associations');
-
+const jwt = require("jsonwebtoken");
+const jwtSecret = process.env.JWT_SECRET;
 
 module.exports = {
     // createOrderItem: async (req, res) => {
@@ -19,12 +20,18 @@ module.exports = {
     // },
 
     createOrder: async (req, res) => {
+    const authHeader = req.headers.authorization;
+    const token = authHeader.split(" ")[1];
+    const decoded = jwt.verify(token, jwtSecret);
+
+    const { userId } = decoded; // User ID from JWT
+    const userID = userId;
+    console.log("User ID:", userID)
         try {
             console.log("Creating Order!")
-            const {userID, products, totalAmount, status} = req.body;
-            const order = await Order.create({userID, totalAmount, status});
-            console.log("Order Created!")
-            console.log(products)
+            const {products, totalAmount, status, addressID} = req.body;
+            const order = await Order.create({userID, totalAmount, status, addressID});
+            console.log("Order Created!, Product ID: ", products)
             const orderID = order.id;
             console.log(orderID)
 
@@ -48,9 +55,14 @@ module.exports = {
     },
 
     getOrders: async (req, res) => {
-        console.log("Get Orders");
-        const { userID } = req.body;
-        console.log(userID)
+        const authHeader = req.headers.authorization;
+        const token = authHeader.split(" ")[1];
+        const decoded = jwt.verify(token, jwtSecret);
+
+        const { userId } = decoded; // User ID from JWT
+        const userID = userId;
+        console.log("User ID:", userID)
+        
         try {
             const orders = await Order.findAll({
                 userID,

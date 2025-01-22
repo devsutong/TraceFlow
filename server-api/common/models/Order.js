@@ -20,6 +20,14 @@ const OrderModel = sequelize.define('Order', {
         type: DataTypes.INTEGER,
         allowNull: false,
     },
+    addressID: { // Added field for associating orders with addresses
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+            model: 'address', // Ensure the table name matches your database schema
+            key: 'id',
+        },
+    },
     status: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -27,7 +35,7 @@ const OrderModel = sequelize.define('Order', {
     },
     createdAt: {
         type: DataTypes.DATE,
-        allowNull: false,
+        allowNull: false
     },
     updatedAt: {
         type: DataTypes.DATE,

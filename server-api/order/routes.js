@@ -9,7 +9,7 @@ router.get(
 )
 
 router.post(
-    "/create-item",
+    "/",
     // isAuthenticatedMiddleware.check,
     OrderController.createOrder
 )
