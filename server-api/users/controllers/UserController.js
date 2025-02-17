@@ -2,9 +2,16 @@ const UserModel = require("../../common/models/User");
 
 module.exports = {
     getUser: (req, res) => {
-        const {
-            user: { userId }
-        } = req;
+
+        const authHeader = req.headers.authorization;
+            console.log(authHeader)
+            const token = authHeader.split(" ")[1];
+            const decoded = jwt.verify(token, jwtSecret);  
+            // var userId = decoded.userId
+            // console.log(userId)
+        
+            const { userId } = decoded;
+            console.log(userId)
 
         UserModel.findUser({ id: userId })
             .then((user) => {
