@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AuthOptions from './AuthOptions';
 import SettingsDrawer from '../../Settings/components/SettingsDrawer';
-import UpdateProfileForm from './UpdateProfileForm'; // Import UpdateProfileForm
+import UpdateProfileForm from './UpdateProfileForm';
 import { Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBoxes} from '@fortawesome/free-solid-svg-icons';
+import { faBoxes } from '@fortawesome/free-solid-svg-icons';
 import { FaCog, FaShoppingCart, FaUserCircle, FaCrown } from 'react-icons/fa';
 import '../styles/ProfileDrawer.css';
 
@@ -14,53 +14,59 @@ const ProfileDrawer = ({ isOpen, onClose, isAuthenticated, userInfo, onLogout })
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [age, setAge] = useState('');
-  const [showSettings, setShowSettings] = useState(false); // State to manage Settings view
-  const [showUpdateProfile, setShowUpdateProfile] = useState(false); // State for showing UpdateProfileForm
+  const [email, setEmail] = useState(''); //  Ensure email state is included
+  const [role, setRole] = useState(''); //  Ensure role state is included
+  const [showSettings, setShowSettings] = useState(false);
+  const [showUpdateProfile, setShowUpdateProfile] = useState(false);
   const navigate = useNavigate();
 
+  //  Debugging logs to check `userInfo`
   useEffect(() => {
+    //console.log("UserInfo received in ProfileDrawer:", userInfo);
+
     if (userInfo) {
-      setUserName(userInfo.username);
-      setFirstName(userInfo.firstName || ''); // Initialize the form fields with user info
+      setUserName(userInfo.username || '');
+      setFirstName(userInfo.firstName || '');
       setLastName(userInfo.lastName || '');
-      setAge(userInfo.age || '');
+      setAge(userInfo.age?.toString() || '');
+      setEmail(userInfo?.email ?? '');
+      setRole(userInfo?.role ?? '');
     }
   }, [userInfo]);
+
+  //  Debugging logs to verify state updates
+  useEffect(() => {
+    //console.log(" Updated State - Email:", email, " Role:", role);
+  }, [email, role]);
+
   const handleOrdersClick = () => {
     navigate('/my-orders');
   };
 
-  // Function to toggle to settings view
   const handleSettingsClick = () => {
-    setShowSettings(true); // Show settings
+    setShowSettings(true);
   };
 
   const handleUpdateProfileClick = () => {
-    setShowUpdateProfile(true); // Show the update profile form
+    setShowUpdateProfile(true);
   };
 
-  // Function to handle profile update
   const handleUpdateProfile = async () => {
     try {
       const response = await fetch('/user/', {
-        method: 'PATCH', // Use PUT or PATCH based on your API
+        method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${sessionStorage.getItem('authToken')}`,
         },
-        body: JSON.stringify({
-          firstName,
-          lastName,
-          age,
-        }),
+        body: JSON.stringify({ firstName, lastName, age }),
       });
 
       const result = await response.json();
 
       if (response.ok) {
         alert('Profile updated successfully!');
-        setShowUpdateProfile(false); // Hide the update form after success
-        // Update user info in parent state or refetch if needed
+        setShowUpdateProfile(false);
       } else {
         alert(result.error);
       }
@@ -69,8 +75,7 @@ const ProfileDrawer = ({ isOpen, onClose, isAuthenticated, userInfo, onLogout })
       alert('There was an error updating your profile. Please try again later.');
     }
   };
-  
-  // Define the handleDeleteAccount function here
+
   const handleDeleteAccount = async () => {
     const confirmation = window.confirm("Are you sure you want to delete your account? This action cannot be undone.");
     if (!confirmation) return;
@@ -88,8 +93,8 @@ const ProfileDrawer = ({ isOpen, onClose, isAuthenticated, userInfo, onLogout })
 
       if (response.ok) {
         alert(result.message);
-        onLogout(); // Log the user out after successful deletion
-        navigate('/login'); // Redirect to login or home page
+        onLogout();
+        navigate('/login');
       } else {
         alert(result.error);
       }
@@ -100,7 +105,7 @@ const ProfileDrawer = ({ isOpen, onClose, isAuthenticated, userInfo, onLogout })
   };
 
   const handleCancelUpdate = () => {
-    setShowUpdateProfile(false); // Hide the update form if canceled
+    setShowUpdateProfile(false);
   };
 
   return (
@@ -124,13 +129,13 @@ const ProfileDrawer = ({ isOpen, onClose, isAuthenticated, userInfo, onLogout })
               <SettingsDrawer
                 onClose={() => setShowSettings(false)}
                 onUpdateProfileClick={handleUpdateProfileClick}
-                onDeleteAccount={handleDeleteAccount} // Pass delete account logic here
+                onDeleteAccount={handleDeleteAccount}
                 onBackClick={onClose}
                 onLogout={onLogout}
               />
             ) : (
               <>
-                <div className="mb-3">
+                <div className="mb-3 text-center">
                   {userInfo?.profilePic ? (
                     <img
                       src={userInfo.profilePic}
@@ -142,6 +147,8 @@ const ProfileDrawer = ({ isOpen, onClose, isAuthenticated, userInfo, onLogout })
                     <FaUserCircle size={150} />
                   )}
                   <h4>{userName}</h4>
+                  <p>Email: {email || 'Not Available'}</p> {/* Email displayed here */}
+                  <p>Role: {role || 'Not Available'}</p>   {/* Role displayed here */}
                 </div>
                 <div className="d-flex flex-column align-items-center">
                   <Button variant="link" onClick={handleSettingsClick} className="mb-2 text-center">
@@ -150,7 +157,7 @@ const ProfileDrawer = ({ isOpen, onClose, isAuthenticated, userInfo, onLogout })
                   <Button variant="link" onClick={handleOrdersClick} className="text-center mb-2">
                     <FaShoppingCart className="me-2" /> My Orders
                   </Button>
-                  {userInfo.role === 'admin' && (
+                  {role === 'admin' && (
                     <Button
                       variant="link"
                       onClick={() => navigate('/admin-dashboard')}
@@ -159,13 +166,13 @@ const ProfileDrawer = ({ isOpen, onClose, isAuthenticated, userInfo, onLogout })
                       <FaCrown className="me-2" /> Go to Admin Dashboard
                     </Button>
                   )}
-                   {userInfo.role === 'seller' && (
+                  {role === 'seller' && (
                     <Button
                       variant="link"
                       onClick={() => navigate('/')}
                       className="text-center"
                     >
-                      <FontAwesomeIcon icon={faBoxes}className="me-2" /> My Products
+                      <FontAwesomeIcon icon={faBoxes} className="me-2" /> My Products
                     </Button>
                   )}
                 </div>

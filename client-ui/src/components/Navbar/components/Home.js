@@ -1,14 +1,13 @@
-// src/components/Navbar/components/Home.js
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import ProductCard from '../../Products/ProductCard'; // Ensure you have this component
-import Spinner from '../../Spinner'; // Ensure you have this component
-import '../styles/home.css'; // Import the CSS file
+import ProductCard from '../../Products/ProductCard'; 
+import Spinner from '../../Spinner'; 
+import '../styles/home.css'; 
 
 const ROWS_PER_PAGE = 3;
-const ITEMS_PER_ROW = 4; // Changed to 4
+const ITEMS_PER_ROW = 4;
 
-const Home = () => { // Accept userInfo as a prop
+const Home = () => {
   const [products, setProducts] = useState([]);
   const [visibleItems, setVisibleItems] = useState(ROWS_PER_PAGE * ITEMS_PER_ROW);
   const [loading, setLoading] = useState(true);
@@ -18,7 +17,6 @@ const Home = () => { // Accept userInfo as a prop
     const fetchProducts = async () => {
       try {
         const response = await axios.get('/product/');
-        // Extract the data array from the response
         const productData = response.data.data;
         setProducts(Array.isArray(productData) ? productData : []);
         setLoading(false);
@@ -30,6 +28,7 @@ const Home = () => { // Accept userInfo as a prop
 
     fetchProducts();
   }, []);
+
   const handleLoadMore = () => {
     setLoading(true);
     setTimeout(() => {

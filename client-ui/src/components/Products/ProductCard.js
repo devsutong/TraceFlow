@@ -1,21 +1,37 @@
-// src/components/ProductCard.js
+// src/components/Products/ProductCard.js
 import React, { useContext } from 'react';
-import { CartContext } from '../Cart/CartContext'; // Import CartContext
+import { useNavigate } from 'react-router-dom';
+import { CartContext } from '../Cart/CartContext'; // Import your CartContext
 import './styles/ProductCard.css';
 
 const ProductCard = ({ product }) => {
-  const { addToCart } = useContext(CartContext); // Use CartContext
+  const navigate = useNavigate();
+  const { addToCart } = useContext(CartContext); // Access addToCart from CartContext
 
-  const handleAddToCart = () => {
-    addToCart(product); // Call the addToCart function from CartContext
+  const handleAddToCart = (e) => {
+    e.stopPropagation(); // Prevents triggering card click when button is clicked
+    addToCart(product); // Call addToCart with the product
+  };
+
+  const handleCardClick = () => {
+    navigate(`/product/${product.id}`);
+  };
+
+  const renderStars = (rating) => {
+    return [...Array(5)].map((_, index) => (
+      <span key={index} className={index < rating ? 'star filled' : 'star'}>★</span>
+    ));
   };
 
   return (
-    <div className="product-card">
+    <div className="product-card" onClick={handleCardClick}>
       <div className="product-image-container">
         <img src={product.image} alt={product.name} className="product-image" />
       </div>
       <h3>{product.name}</h3>
+      <div className="product-rating">
+        {renderStars(product.rating)}
+      </div>
       <p>{product.description}</p>
       <div className="product-price-container">
         <span className="product-price-unit">{product.priceUnit.toUpperCase()}</span>

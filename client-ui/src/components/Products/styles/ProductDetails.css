@@ -1,0 +1,140 @@
+.product-details {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
+.product-details-container {
+  display: flex;
+  width: 100%;
+  max-width: 1200px;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.product-image-large img {
+  width: 100%; 
+  max-width: 300px; 
+  height: auto; 
+  object-fit: contain;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.product-info {
+  max-width: 700px;
+  margin-left: 20px;
+}
+
+.product-price-container {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.quantity-controls {
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+}
+
+.quantity-controls button {
+  padding: 5px 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 0 5px;
+}
+
+.add-to-cart-btn {
+  background-color: #28a745;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s; /* Add transition for hover effect */
+}
+
+.add-to-cart-btn:hover {
+  background-color: #218838; /* Darker green on hover */
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.star {
+  font-size: 20px;
+  color: gray;
+  cursor: pointer;
+}
+
+.star.filled {
+  color: gold;
+}
+
+.review-form {
+  margin-top: 20px;
+}
+
+.review-form textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  resize: none;
+}
+
+.review-form button {
+  margin-top: 10px;
+  padding: 10px 20px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.review-form button:hover {
+  background-color: #218838;
+}
+
+.reviews {
+  margin-top: 20px;
+}
+
+.review {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.review-rating {
+  display: flex;
+}
+
+.review-rating .star {
+  font-size: 18px;
+  color: gold;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .product-details-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .product-info {
+    margin-left: 0;
+    margin-top: 20px;
+  }
+
+  .product-image-large img {
+    max-width: 100%;
+  }
+}

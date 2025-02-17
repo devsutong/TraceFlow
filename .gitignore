@@ -1,4 +1,9 @@
+server-api/.env
+server-api/storage/
+server-api/node_modules/
+client-ui/node_modules/
 helper_json.json
+server-api/uploads
 config
 .env
 chaincode.zip
