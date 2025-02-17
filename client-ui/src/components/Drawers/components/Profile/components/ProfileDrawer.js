@@ -14,29 +14,29 @@ const ProfileDrawer = ({ isOpen, onClose, isAuthenticated, userInfo, onLogout })
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [age, setAge] = useState('');
-  const [email, setEmail] = useState(''); // 🔥 Ensure email state is included
-  const [role, setRole] = useState(''); // 🔥 Ensure role state is included
+  const [email, setEmail] = useState(''); //  Ensure email state is included
+  const [role, setRole] = useState(''); //  Ensure role state is included
   const [showSettings, setShowSettings] = useState(false);
   const [showUpdateProfile, setShowUpdateProfile] = useState(false);
   const navigate = useNavigate();
 
-  // ✅ Debugging logs to check `userInfo`
+  //  Debugging logs to check `userInfo`
   useEffect(() => {
-    console.log("🔵 UserInfo received in ProfileDrawer:", userInfo);
+    //console.log("UserInfo received in ProfileDrawer:", userInfo);
 
     if (userInfo) {
       setUserName(userInfo.username || '');
       setFirstName(userInfo.firstName || '');
       setLastName(userInfo.lastName || '');
       setAge(userInfo.age?.toString() || '');
-      setEmail(userInfo?.email ?? ''); // ✅ Prevents undefined values
-      setRole(userInfo?.role ?? '');   // ✅ Prevents undefined values
+      setEmail(userInfo?.email ?? '');
+      setRole(userInfo?.role ?? '');
     }
   }, [userInfo]);
 
-  // ✅ Debugging logs to verify state updates
+  //  Debugging logs to verify state updates
   useEffect(() => {
-    console.log("🟢 Updated State - Email:", email, " Role:", role);
+    //console.log(" Updated State - Email:", email, " Role:", role);
   }, [email, role]);
 
   const handleOrdersClick = () => {
@@ -147,8 +147,8 @@ const ProfileDrawer = ({ isOpen, onClose, isAuthenticated, userInfo, onLogout })
                     <FaUserCircle size={150} />
                   )}
                   <h4>{userName}</h4>
-                  <p>Email: {email || 'Not Available'}</p> {/* 🔥 Email displayed here */}
-                  <p>Role: {role || 'Not Available'}</p>   {/* 🔥 Role displayed here */}
+                  <p>Email: {email || 'Not Available'}</p> {/* Email displayed here */}
+                  <p>Role: {role || 'Not Available'}</p>   {/* Role displayed here */}
                 </div>
                 <div className="d-flex flex-column align-items-center">
                   <Button variant="link" onClick={handleSettingsClick} className="mb-2 text-center">

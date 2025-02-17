@@ -45,15 +45,18 @@ function App() {
       });
       if (response.ok) {
         const userData = await response.json();
-        const role = userData.data.role;
-        setUserInfo((prev) => ({ ...prev, role }));
+        setUserInfo((prev) => ({
+          ...prev,
+          ...userData.data, // Store full user data instead of only role
+        }));
       } else {
-        console.error('Failed to fetch user role');
+        console.error('Failed to fetch user data');
       }
     } catch (error) {
-      console.error('Error fetching user role:', error);
+      console.error('Error fetching user data:', error);
     }
   };
+  
 
   const handleLogin = (token, user) => {
     sessionStorage.setItem("authToken", token);
