@@ -19,7 +19,7 @@ const OrderRoutes = require("./order/routes");
 const CartRoutes = require("./cart/routes");
 const { Cart } = require("./common/models/Cart");
 const AddressRoutes = require("./address/routes");
-const traceflowRoutes = require("./traceflowRouters/routes");
+// const traceflowRoutes = require("./traceflowRouters/routes");
 
 app.use(morgan("tiny"));
 app.use(cors());
@@ -45,7 +45,7 @@ sequelize
     app.use("/order", OrderRoutes);
     app.use("/cart", CartRoutes)
     app.use("/address", AddressRoutes)
-    app.use("/traceflow", traceflowRoutes)
+    // app.use("/traceflow", traceflowRoutes)
 
     app.listen(PORT, '127.0.0.1', () => {
       console.log("Server Listening on PORT:", port);
