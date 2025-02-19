@@ -1,4 +1,7 @@
 const UserModel = require("../../common/models/User");
+const jwt = require("jsonwebtoken");
+const jwtSecret = process.env.JWT_SECRET;
+
 
 module.exports = {
     getUser: (req, res) => {
