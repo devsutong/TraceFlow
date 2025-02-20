@@ -7,7 +7,7 @@ const Cart = sequelize.define('Cart', {
         primaryKey: true,
         autoIncrement: true,
     },
-    userId: {
+    userID: {
         type: DataTypes.INTEGER,
         allowNull: false,
     },
@@ -23,7 +23,7 @@ const CartItem = sequelize.define('CartItem', {
         type: DataTypes.INTEGER,
         allowNull: false,
     },
-    productId: {
+    productID: {
         type: DataTypes.INTEGER,
         allowNull: false,
     },

@@ -103,7 +103,7 @@ function App() {
             <Route path="/order" element={<Order />} />
             <Route path="/order-confirmation" element={<OrderConfirmation />} />
             <Route path="/my-orders" element={<MyOrders userID={userInfo?.id} />} />
-            <Route path="/product/:productId" element={<ProductDetails />} />
+            <Route path="/product/:productID" element={<ProductDetails />} />
           </Routes>
         </div>
         <ProfileDrawer
