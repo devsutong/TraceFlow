@@ -42,3 +42,8 @@ SELECT JSON_ARRAYAGG(
     )
 ) AS json_result
 FROM Products;
+
+SHOW tables;
+Drop Table addresses;
+Drop DATABASE traceflow;
+CREATE DATABASE traceflow;
