@@ -24,7 +24,7 @@ const OrderModel = sequelize.define('Order', {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-            model: 'address', // Ensure the table name matches your database schema
+            model: 'addresses', // Ensure the table name matches your database schema
             key: 'id',
         },
     },
