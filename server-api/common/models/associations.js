@@ -41,13 +41,13 @@ Category.belongsToMany(Product, { through: 'ProductCategory' });
 
 //CART
 User.hasOne(Cart, { foreignKey: 'userID' });
-Cart.belongsTo(User, { foreignKey: 'userID' });
+Cart.belongsTo(User, { foreignKey: 'userId' });//sequelize Instance issue
 
 Cart.hasMany(CartItem, { foreignKey: 'cartId' });
 CartItem.belongsTo(Cart, { foreignKey: 'cartId' });
 
 Product.hasMany(CartItem, { foreignKey: 'productID' });
-CartItem.belongsTo(Product, { foreignKey: 'productID' });
+CartItem.belongsTo(Product, { foreignKey: 'productId' });
 
 // Address Relationships
 User.hasMany(Address, { foreignKey: 'userID' }); // A user can have multiple addresses

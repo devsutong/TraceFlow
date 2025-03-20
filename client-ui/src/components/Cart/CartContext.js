@@ -53,7 +53,7 @@ export const CartProvider = ({ children }) => {
 
       const response = await axios.post('/cart/add', {
         userId,
-        productID: product.id,
+        productId: product.id,
         quantity: 1 // default quantity
       }, {
         headers: {
@@ -73,7 +73,7 @@ export const CartProvider = ({ children }) => {
   };
 
   // Remove item from cart both locally and on the backend
-  const removeFromCart = async (productID) => {
+  const removeFromCart = async (productId) => {
     try {
       const token = sessionStorage.getItem("authToken");
       //const decoded = jwtDecode(token);
@@ -81,7 +81,7 @@ export const CartProvider = ({ children }) => {
 
       const response = await axios.delete(`/cart/remove`, {
         data: {
-          cartItemId: productID,
+          cartItemId: productId,
         },
         headers: {
           Authorization: `Bearer ${token}`,
