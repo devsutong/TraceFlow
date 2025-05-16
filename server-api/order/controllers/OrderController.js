@@ -65,10 +65,11 @@ module.exports = {
         
         try {
             const orders = await Order.findAll({
-                userID,
+                where : {userID},
                 include: [
                     {
                         model: OrderItem,
+                        
                         include: [{
                             model: Product,
                             attributes: ['id', 'name', 'image', 'price']
