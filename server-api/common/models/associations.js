@@ -111,11 +111,7 @@ Product.belongsToMany(User, { through: 'UserProduct' });
 
 // CART
 User.hasOne(Cart, { foreignKey: 'userID' });
-<<<<<<< HEAD
 Cart.belongsTo(User, { foreignKey: 'userId' });//sequelize Instance issue
-=======
-Cart.belongsTo(User, { foreignKey: 'userID' });
->>>>>>> 94acc1592828dc7409a77cbc67cd65a7eb4cafd1
 
 Cart.hasMany(CartItem, { foreignKey: 'cartID' });
 CartItem.belongsTo(Cart, { foreignKey: 'cartID' });

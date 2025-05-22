@@ -72,11 +72,7 @@ module.exports = {
         
         try {
             const orders = await Order.findAll({
-<<<<<<< HEAD
                 where : {userID},
-=======
-                where:{userID},
->>>>>>> 94acc1592828dc7409a77cbc67cd65a7eb4cafd1
                 include: [
                     {
                         model: OrderItem,
