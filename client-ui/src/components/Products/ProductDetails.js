@@ -89,7 +89,7 @@ const ProductDetails = () => {
   const imageUrl = product ? (
     // Prefer one or the other:
     product.image ? (
-      `http://localhost:3002/${product.image}` // Or 3001 if that's your image server
+      `http://localhost:3000/${product.image}` // Or 3001 if that's your image server
     ) : ''
   ) : '';
 
