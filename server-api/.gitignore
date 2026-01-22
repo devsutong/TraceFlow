@@ -4,3 +4,4 @@
 /uploads
 /chaincode
 /config
+services/path/config.js
