@@ -65,3 +65,4 @@ uploads/
 storage/
 chaincode/
 config/
+config.js
