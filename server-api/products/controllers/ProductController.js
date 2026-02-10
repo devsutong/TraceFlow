@@ -254,6 +254,9 @@ module.exports = {
 
     syncProductToBlockchain: async (req, res) => {
         try {
+
+            //No jwt verfication required to sync the product to bloackchain as it has already been jwt verified during create product
+            
             const { id } = req.params; // Product ID from URL
             const authHeader = req.headers.authorization;
             const token = authHeader.split(" ")[1];
