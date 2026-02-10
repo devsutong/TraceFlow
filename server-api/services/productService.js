@@ -62,6 +62,8 @@ async function getFullProductDetails(productId, userId) {
         const { gateway: gw, contract } = await getContract(userId);
         gateway = gw;
 
+        //Todo : userId and contract thing
+
         console.log(`\n--> Evaluate Transaction: getProductHistory, ID: ${productId}`);
         const result = await contract.evaluateTransaction('getProductHistory', productId);
         console.log(`*** Result: ${result.toString()}`);
