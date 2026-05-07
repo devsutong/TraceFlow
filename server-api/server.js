@@ -24,11 +24,13 @@ const OrderRoutes = require("./order/routes");
 const CartRoutes = require("./cart/routes");
 //const { Cart } = require("./common/models/Cart");
 const CategoryRoutes  = require("./Categories/routes") //server-api/Categories/routes.js
-const SearchRoutes = require("./common/meilisearch/routes")
+const SearchRoutes = require("./infrastructure/meilisearch/routes")
 const AssetRoutes = require("./asset/routes")
 // const traceflowRoutes = require("./traceflowRouters/routes");
 
 const PincodeRoutes = require("./pincode/routes")
+
+const ReviewRoutes = require("./reviews/routes")
 
 require("./common/models/associations"); // Ensure associations are set up before syncing
 
@@ -49,7 +51,8 @@ app.use(cors());
 // in the database. It creates models as tables that do not exist in the DB.
 // It also creates the tables if they do not exist.
 sequelize
-  .sync({ alter : true })
+  //.sync({ alter : true })
+  .sync()
   .then(() => {
     console.log("Sequelize Initialized!");
 
@@ -64,13 +67,18 @@ sequelize
     app.use("/category", CategoryRoutes);
     app.use("/search", SearchRoutes);
     app.use("/asset", AssetRoutes);
-    app.use("/pincode", PincodeRoutes)
+    app.use("/pincode", PincodeRoutes);
+    app.use("/review", ReviewRoutes)
+    
+
 
     // app.use("/traceflow", traceflowRoutes)
 
     app.listen(PORT, ADDRESS, async () => {
       console.log("Server Listening on PORT:", port);
       
+      //todo:CREATE A NEW MODULE FOR THIS- 
+
       // Auto-seed categories if empty (NEW)
       setTimeout(async () => {
         try {
